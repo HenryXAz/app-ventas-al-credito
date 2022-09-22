@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 
 class Customers extends Component
 {
     public $modal = false;
+    public $id_customer = 0;
     public $dpi = "";
     public $name = "";
     public $lastName = "";
@@ -26,16 +29,43 @@ class Customers extends Component
     public $isMarried;
     public $rent;
 
+    public $customers;
+
 
     public function render()
-    {
+    { 
+        $this->customers = Customer::all();
         return view('livewire.customers.customers');
     }
 
     public function save()
     {
+      Customer::updateOrCreate(["id" => $this->id_customer], 
+      [
+        "id_user" => Auth::user()->id,
+        "dpi" => $this->dpi,
+        "name" => $this->name,
+        "last_name" => $this->lastName,
+        "personal_phone" => $this->personalPhone,
+        "home_phone" => $this->homePhone,
+        "employment_phone" => $this->employmentPhone,
+        "home_address" => $this->homeAddress,
+        "employment_address" => $this->employmentAddress,
+        "email" => $this->email,
+        "facebook" => $this->facebook,
+        "name_reference" => $this->nameReference,
+        "last_name_reference" => $this->lastNameReference,
+        "phone_reference" => $this->phoneReference,
+        "email_reference" => $this->emailReference,
+        "company_name" => $this->companyName,
+        "married" => ($this->isMarried === "1")? 1 : 0,
+        "rent" => ($this->rent === "1")? 1: 0,
+        "photo" => $this->photo
+      ]);
 
 
+     
+      //$this->clearFields();
       $this->modal = false;
     }
 

@@ -10,10 +10,47 @@
 
   @endif
 
-  {{$name}}
+    @if(!$modal)
 
-  {{$isMarried}}
+    <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 text-white ">
+          <tr>
+              <th scope="col" class="py-3 px-6">
+                  nombre
+              </th>
+              <th scope="col" class="py-3 px-6">
+                  apellido
+              </th>
+              <th scope="col" class="py-3 px-6">
+                  telefono
+              </th>
+              <th scope="col" class="py-3 px-6">
+                  email
+              </th>
+          </tr>
+      </thead>
+      <tbody>
+        @foreach($customers as $customer)
+          <tr class="bg-white border-b ">
+              <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                 {{$customer->name}}
+              </td>
+              <td class="py-4 px-6 text-gray-900 ">
+                  {{$customer->last_name}}
+              </td>
+              <td class="py-4 px-6 text-gray-900 ">
+                {{$customer->personal_phone}}
+              </td>
+              <td class="py-4 px-6 text-gray-900 ">
+                  {{$customer->email}}
+              </td>
+          </tr>
+          @endforeach
+          
+      </tbody>
+    </table>
+  
+    @endif
 
-  {{$rent}}
 
-</div>
+  </div>
