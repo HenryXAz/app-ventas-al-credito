@@ -1,202 +1,137 @@
-<div class=" z-10  ease-out duration-400 w-autoh-full">
-  <div class="w-full h-full flex justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div class=" inset-0 transition-opacity w-full  ">
-      {{-- <div class="absolute w-full bg-gray-500 opacity-75 h-full">
+<div class="w-full mx-auto">
+   
 
-      </div> --}}
-
-      <span class="hidden sm:inline-block sm:align-middle sm:h-screen">
-
-      </span> 
-
-      <div class="mx-auto w-1/2 inline-block align-bottom bg-white rounded-lg text-left  shadow-x1 transform transition-all sm:m-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-        <form class="rounded w-full">
-
-          {{-- form inputs --}}
-
-        
-          <div class="flex flex-col w-full">
-
-            <div class="flex">
-
-
-             <div>
-
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="dpi" class="block text-gray-700 text-sm font-bold mb-2">DPI: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="dpi" wire:model="dpi">
-                </div>
-              </div>
-    
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="name" wire:model="name">
-                </div>
-              </div>
-    
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="lastName" class="block text-gray-700 text-sm font-bold mb-2">Apellido: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="lastName" wire:model="lastName">
-                </div>
-              </div>
-    
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="personalPhone" class="block text-gray-700 text-sm font-bold mb-2">Teléfono Personal: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="personalPhone" wire:model="personalPhone">
-                </div>
-              </div>
-    
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="homePhone" class="block text-gray-700 text-sm font-bold mb-2">Teléfono de Domicilio: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="homePhone" wire:model="homePhone">
-                </div>
-              </div>
-    
-
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="phoneReference" class="block text-gray-700 text-sm font-bold mb-2">Teléfono de Referencia: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="phoneReference" wire:model="phoneReference">
-                </div>
-              </div>
-    
-    
-
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="emailReference" class="block text-gray-700 text-sm font-bold mb-2">Email de Referencia: </label>
-                  <input type="email" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="emailReference" wire:model="emailReference">
-                </div>
-              </div>
-
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="nameReference" class="block text-gray-700 text-sm font-bold mb-2">Nombre Referencia: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="nameReference" wire:model="nameReference">
-                </div>
-              </div>
-
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="lastNameReference" class="block text-gray-700 text-sm font-bold mb-2">Apellido Referencia: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="lastNameReference" wire:model="lastNameReference">
-                </div>
-              </div>
-    
-    
-    
-           
-    
-
-             </div>
+  <!-- Main modal -->
+  <div id="defaultModal" tabindex="-1" aria-hidden="true" class="dark:bg-gray-200/20 bg-gray-400/40 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+      <div class="relative p-4 w-full mx-auto h-full md:h-auto">
+          <!-- Modal content -->
+          <div class="flex flex-col p-4 relative mx-auto w-full bg-white rounded-lg shadow dark:bg-dark-eval-1">
               
-             
-             
-             <div>
-
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mb-1">
-                  <label for="employmentPhone" class="block text-gray-700 text-sm font-bold mb-2">Teléfono de Trabajo: </label>
-                  <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="employmentPhone" wire:model="employmentPhone">
-                </div>
+            {{-- form --}}
+  
+            <div class="flex mb-4">
+              <input type="text" id="dpi" class="w-1/3 mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="DPI" wire:model="dpi" required >
+              <input type="text" id="name" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="nombres" wire:model="name" required >
+              <input type="text" id="lastName" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="apellidos" wire:model="lastName" required >
+            
+              
+  
+            </div>
+  
+            <div class="flex mb-4">
+              <input type="text" id="personalPhone" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Número Personal" wire:model="personalPhone" required >
+              <input type="text" id="homePhone" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Teléfono de Domicilio" wire:model="homePhone" required >
+              <input type="text" id="employmentPhone" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Teléfono de trabajo" wire:model="employmentPhone" required >
+            
+              
+              
+            </div>
+  
+            <div class="flex mb-4">
+              <input type="text" id="companyName" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Empresa" wire:model="companyName" required >
+              <input type="text" id="employmentAddress" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Dirección de Empresa" wire:model="employmentAddress" required >
+              <input type="text" id="homeAddress" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Dirección de Domicilio" wire:model="homeAddress" required >
+              
+              
+            </div>
+  
+  
+            <div class="flex mb-4">
+              <input type="text" id="facebook" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Facebook" wire:model="facebook" required >
+              <input type="email" id="email" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Correo Electrónico" wire:model="email" required >
+              <input type="text" id="nameReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Nombre de Referencia" wire:model="nameReference" required >
+              
+              
+            </div>  
+  
+            <div class="flex mb-4">
+              <input type="text" id="lastNameReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Apellido de Referencia" wire:model="lastNameReference" required >
+              <input type="email" id="emailReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Correo Electrónico de Referencia" wire:model="emailReference" required >
+              <input type="text" id="phoneReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+              placeholder="Teléfono de Referencia" wire:model="phoneReference" required >
+              
+              
+            </div>
+  
+  
+  
+            <div class="flex mb-4">
+  
+              <div class="px-6 my-5">es casado: 
+                <input id="default-radio-1" type="checkbox" value="" name="si" wire:model="isMarried" class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    
               </div>
+    
+              <div class="px-6 py-5">alquila:    
+                <input id="default-radio-1" type="checkbox" value="" name="rent" wire:model="rent" class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              </div>
+  
+              <div class="flex flex-col w-full">
 
-
-                <div class="px-6 mt-7">es casado: 
-                  <input id="default-radio-1" type="checkbox" value="" name="si" wire:model="isMarried" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-
-                </div>
-
-                <div class="px-6 py-5">alquila:    
-                  <input id="default-radio-1" type="checkbox" value="" name="rent" wire:model="rent" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                </div>
-
-                
+                <div wire:loading wire:target="photo" class="w-1/3 text-center mx-auto bg-gray-200 dark:bg-dark-eval-1 text-amber-600 mb-3 ">cargando imagen...</div>
 
                
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div class="mb-1">
-                    <label for="companyName" class="block text-gray-700 text-sm font-bold mb-2">Nombre de la Empresa: </label>
-                    <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="companyName" wire:model="companyName">
+
+                @if($photo)
+
+                <img src="{{$photo->temporaryUrl()}}" alt="profile photo" class="w-1/2 mx-auto object-cover">
+              @endif
+
+              @if($photo)
+              <x-button wire:click="removeImage()" variant="secondary" class="w-1/4 mx-auto dark:bg-dark-eval-3">eliminar imagen...</x-button>
+            @endif
+
+              @if(!$photo)
+              <div class="flex justify-center items-center w-2/4 mx-auto mt-4">
+                <label for="dropzone-file" class="flex flex-col justify-center items-center w-full  bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para subir un archivo de imagen </span></p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                   </div>
-                </div>
-
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div class="mb-1">
-                    <label for="employmentAddress" class="block text-gray-700 text-sm font-bold mb-2">Dirección de la Empresa: </label>
-                    <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="employmentAddress" wire:model="employmentAddress">
-                  </div>
-                </div>
-  
-
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div class="mb-1">
-                    <label for="homeAddress" class="block text-gray-700 text-sm font-bold mb-2">Dirección Domiciliar: </label>
-                    <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="homeAddress" wire:model="homeAddress">
-                  </div>
-                </div>
-
-
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div class="mb-1">
-                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo: </label>
-                    <input type="email" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="email" wire:model="email">
-                  </div>
-                </div>
-
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div class="mb-1">
-                    <label for="facebook" class="block text-gray-700 text-sm font-bold mb-2">Facebook: </label>
-                    <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="facebook" wire:model="facebook">
-                  </div>
-                </div>
-
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div class="mb-1">
-                    <label for="photo" class="block text-gray-700 text-sm font-bold mb-2">Foto: </label>
-                    <input type="text" class="border-blue-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="photo" wire:model="photo">
-                  </div>
-                </div>
-
+                  <input id="dropzone-file" type="file" class="hidden" wire:model="photo">
+                </label>
+              </div> 
               
-                
-  
-  
-
-
-              </div>
-
-
-        
-
-            </div>
-
-
             
-
-
-
-          <div>
-            <div class="px-4 py-3 sm:px-6 sm:flex-row-reverse">
-              <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                <button wire:click.prevent="save()" type="button" class="inline-flex justify-center mb-2 w-full rounded-md border border-transparent px-4 py-2 text-white bg-emerald-600 focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">guardar</button>
-              </span>
-
-              <span class=" flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                <button wire:click.prevent="toggleModal()" type="button" class="text-white mt-2 inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-400 focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">cancelar</button>
-              </span>
+  
+              @endif
             </div>
+              
+  
+            </div>
+  
+            
+  
+  
+            
+  
+  
+              <!-- Modal footer -->
+              <div class="flex items-center p-6 space-x-2 rounded-b w-full mx-auto flex-center justify-center">
+                  <x-button variant="success" wire:loading.attr="disabled" wire:target="save,photo" 
+                    wire:click="save()">guardar</x-button>
+                  {{-- <button data-modal-toggle="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> --}}
+                  <button wire:click="toggleModal()" type="button" class=" text-gray-500 bg-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">cancelar</button>
+              </div>
           </div>
-
-        </div>
-
-        </form>
       </div>
-    </div>
   </div>
-</div>
+  
+  
+  
+  </div>

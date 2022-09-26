@@ -5,9 +5,18 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithFileUploads;
+
 
 class Customers extends Component
 {
+    use WithFileUploads;
+
+    protected $rules = [
+      "photo" => "required|image|max:2048"
+    ];
+
+
     public $modal = false;
     public $id_customer = 0;
     public $dpi = "";
@@ -21,7 +30,7 @@ class Customers extends Component
     public $homeAddress = "";
     public $facebook = "";
     public $email = "";
-    public $photo = "";
+    public $photo;
     public $nameReference = "";
     public $lastNameReference = "";
     public $emailReference = "";
@@ -40,6 +49,10 @@ class Customers extends Component
 
     public function save()
     {
+      $this->validate();
+
+      $imagePath = $this->photo->store("customerPhotos", "public");
+
       Customer::updateOrCreate(["id" => $this->id_customer], 
       [
         "id_user" => Auth::user()->id,
@@ -60,12 +73,12 @@ class Customers extends Component
         "company_name" => $this->companyName,
         "married" => ($this->isMarried === "1")? 1 : 0,
         "rent" => ($this->rent === "1")? 1: 0,
-        "photo" => $this->photo
+        "photo" => $imagePath,
       ]);
 
 
      
-      //$this->clearFields();
+      $this->cleanFields();
       $this->modal = false;
     }
 
@@ -73,6 +86,11 @@ class Customers extends Component
     public function toggleModal()
     {
       $this->modal = !$this->modal;
+    }
+
+    public function removeImage()
+    {
+      $this->photo = null;
     }
 
     public function cleanFields()
@@ -94,7 +112,7 @@ class Customers extends Component
       $this->email = "";
       $this->isMarried = "0";
       $this->rent = "0";
-      $this->photo = "";
+      $this->photo = null;
     }
 
 }

@@ -28,5 +28,5 @@ Route::middleware([
     })->name('dashboard');
 
 
-    Route::get("/clientes", Customers::class);
+    Route::get("/clientes", Customers::class)->name("customers");
 });
