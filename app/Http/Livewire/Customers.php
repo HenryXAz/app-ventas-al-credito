@@ -18,6 +18,7 @@ class Customers extends Component
 
 
     public $modal = false;
+    public $alertDelete = false;
     public $id_customer = 0;
     public $dpi = "";
     public $name = "";
@@ -30,7 +31,8 @@ class Customers extends Component
     public $homeAddress = "";
     public $facebook = "";
     public $email = "";
-    public $photo;
+    public $photo = null;
+    public $profileImage;
     public $nameReference = "";
     public $lastNameReference = "";
     public $emailReference = "";
@@ -49,9 +51,17 @@ class Customers extends Component
 
     public function save()
     {
+     
+      
+
       $this->validate();
 
-      $imagePath = $this->photo->store("customerPhotos", "public");
+      
+      $imagePath = $this->photo->store("customerPhotos", "public"); 
+
+      
+
+
 
       Customer::updateOrCreate(["id" => $this->id_customer], 
       [
@@ -71,30 +81,78 @@ class Customers extends Component
         "phone_reference" => $this->phoneReference,
         "email_reference" => $this->emailReference,
         "company_name" => $this->companyName,
-        "married" => ($this->isMarried === "1")? 1 : 0,
-        "rent" => ($this->rent === "1")? 1: 0,
+        "married" => ($this->isMarried)? 1 : 0,
+        "rent" => ($this->rent)? 1: 0,
         "photo" => $imagePath,
       ]);
 
-
+ 
      
+      
+      $this->toggleModal();
       $this->cleanFields();
-      $this->modal = false;
+    }
+
+    public function edit(int $id)
+    {
+      $customer = Customer::findOrFail($id);
+
+      $this->id_customer = $id;
+      $this->dpi = $customer->dpi;
+      $this->name = $customer->name;
+      $this->lastName = $customer->last_name;
+      $this->personalPhone = $customer->personal_phone;
+      $this->employmentAddress = $customer->employment_address;
+      $this->homeAddress = $customer->home_address; 
+      $this->employmentPhone = $customer->employment_phone;
+      $this->homePhone = $customer->home_phone;
+      $this->homeAddress = $customer->home_address;
+      $this->nameReference = $customer->name_reference;
+      $this->lastNameReference = $customer->last_name_reference;
+      $this->phoneReference = $customer->phone_reference;
+      $this->emailReference = $customer->email_reference;
+      $this->facebook = $customer->facebook;
+      $this->email = $customer->email;
+      $this->companyName = $customer->company_name;
+      $this->isMarried = ($customer->married === 1)? 1 : 0;
+      $this->rent = ($customer->rent === 1)? 1 : 0;
+      $this->profileImage = $customer->photo;
+
+      $this->toggleModal();
+
+    }
+
+    public function delete(int $id)
+    {
+      Customer::find($id)->delete();
+      
+      $this->id = 0;
+      $this->toggleAlertDelete();
+      
     }
 
 
     public function toggleModal()
     {
+      ($this->modal)? $this->cleanFields(): true;
       $this->modal = !$this->modal;
+    }
+
+    public function toggleAlertDelete(int $id = 0)
+    {
+      $this->alertDelete = !$this->alertDelete;
+      $this->id_customer = $id;
     }
 
     public function removeImage()
     {
       $this->photo = null;
+      //$this->profileImage = null;
     }
 
     public function cleanFields()
     {
+      $this->id_customer = 0;
       $this->dpi = "";
       $this->name = "";
       $this->lastName = "";
@@ -110,9 +168,11 @@ class Customers extends Component
       $this->emailReference = "";
       $this->facebook = "";
       $this->email = "";
-      $this->isMarried = "0";
-      $this->rent = "0";
+      $this->companyName = "";
+      $this->isMarried = "";
+      $this->rent = "";
       $this->photo = null;
+      $this->profileImage = null;
     }
 
 }

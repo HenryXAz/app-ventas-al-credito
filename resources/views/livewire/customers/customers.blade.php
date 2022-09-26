@@ -7,20 +7,16 @@
   <x-button wire:click="toggleModal()" variant="primary" >nuevo cliente</x-button>
 
   
+  @if($alertDelete)
+  @include("livewire.customers.dialog-delete")
+  @endif
 
   @if($modal)
 
   @include("livewire.customers.add-customers")
 
-  {{-- <x-livewire.add-customer /> --}}
 
   @endif
-
-  {{-- @if($modal)
-
-  @include("livewire.customers.add-customers")
-
-  @endif --}}
 
     @if(!$modal)
 
@@ -40,11 +36,14 @@
               <th scope="col" class="py-3 px-6">
                   email
               </th>
+              <th scope="col" class="py-3 px-6">
+
+              </th>
           </tr>
       </thead>
       <tbody >
         @foreach($customers as $customer)
-          <tr class="bg-white dark:bg-dark-eval-2 ">
+          <tr class="bg-white dark:bg-dark-eval-2 even:bg-purple-100 dark:even:bg-dark-eval-1 ">
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                  {{$customer->name}}
               </td>
@@ -58,6 +57,14 @@
               <td class="py-4 px-6 text-gray-900  dark:text-white">
                   {{$customer->email}}
               </td>
+              <td class="py-4 px-6 text-gray-900  dark:text-white">
+                <x-button variant="warning" wire:click="edit({{$customer->id}})">
+                  editar
+                </x-button>
+                <x-button variant="danger" wire:click="toggleAlertDelete({{$customer->id}})">
+                  eliminar
+                </x-button>
+              </td>
           </tr>
           @endforeach
 
@@ -66,9 +73,6 @@
       </tbody>
     </table>
     @endif
-
-
-    {{$lastName}}
 
 
   </div>

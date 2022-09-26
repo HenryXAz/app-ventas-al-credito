@@ -18,7 +18,7 @@
             $variantClasses = 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500';
         break;
         case 'warning':
-            $variantClasses = 'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-500';
+            $variantClasses = 'bg-orange-500 text-white hover:bg-orange-600 focus:ring-orange-500';
         break;
         case 'info':
             $variantClasses = 'bg-cyan-500 text-white hover:bg-cyan-600 focus:ring-cyan-500';
