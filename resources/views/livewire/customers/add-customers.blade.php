@@ -1,4 +1,4 @@
-<div class="w-full mx-auto">
+<div class="w-full mx-auto" >
    
 
   <!-- Main modal -->
@@ -9,60 +9,120 @@
               
             {{-- form --}}
   
-            <div class="flex mb-4">
-              <input type="text" id="dpi" class="w-1/3 mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="DPI" wire:model="dpi" required >
-              <input type="text" id="name" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="nombres" wire:model="name" required >
-              <input type="text" id="lastName" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="apellidos" wire:model="lastName" required >
+            <div class="flex mb-4 gap-2">
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="dpi" class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                  placeholder="DPI" wire:model="dpi" required >
+                <x-jet-input-error for="dpi"/>
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="name" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="nombres" wire:model="name" required >
+                <x-jet-input-error for="name" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="lastName" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="apellidos" wire:model="lastName" required >
+                <x-jet-input-error for="lastName" />
+              </div>
             
               
   
             </div>
   
-            <div class="flex mb-4">
-              <input type="text" id="personalPhone" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Número Personal" wire:model="personalPhone" required >
-              <input type="text" id="homePhone" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Teléfono de Domicilio" wire:model="homePhone" required >
-              <input type="text" id="employmentPhone" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Teléfono de trabajo" wire:model="employmentPhone" required >
+            <div class="flex mb-4 gap-2">
+              
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="personalPhone" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Número Personal" wire:model="personalPhone" required >
+                <x-jet-input-error for="personalPhone" />
+              </div>
+
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="homePhone" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Teléfono de Domicilio" wire:model="homePhone" required >
+                <x-jet-input-error for="homePhone" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="employmentPhone" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Teléfono de trabajo" wire:model="employmentPhone" required >
+                <x-jet-input-error for="employmentPhone" />
+              </div>
             
               
               
             </div>
   
-            <div class="flex mb-4">
-              <input type="text" id="companyName" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Empresa" wire:model="companyName" required >
-              <input type="text" id="employmentAddress" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Dirección de Empresa" wire:model="employmentAddress" required >
-              <input type="text" id="homeAddress" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Dirección de Domicilio" wire:model="homeAddress" required >
+            <div class="flex mb-4 gap-2">
               
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="companyName" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Empresa" wire:model="companyName" required >
+                <x-jet-input-error for="companyName" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="employmentAddress" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Dirección de Empresa" wire:model="employmentAddress" required>
+                <x-jet-input-error for="employmentAddress" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="homeAddress" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Dirección de Domicilio" wire:model="homeAddress" required >
+                <x-jet-input-error for="homeAddress" />
+              </div>
               
             </div>
   
   
-            <div class="flex mb-4">
-              <input type="text" id="facebook" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Facebook" wire:model="facebook" required >
-              <input type="email" id="email" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Correo Electrónico" wire:model="email" required >
-              <input type="text" id="nameReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Nombre de Referencia" wire:model="nameReference" required >
+            <div class="flex mb-4 gap-2">
+              
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="facebook" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Facebook" wire:model="facebook" required >
+                <x-jet-input-error for="facebook" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="email" id="email" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Correo Electrónico" wire:model="email" required >
+                <x-jet-input-error for="email" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="nameReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Nombre de Referencia" wire:model="nameReference" required >
+                <x-jet-input-error for="nameReference" />
+              </div>
               
               
             </div>  
   
-            <div class="flex mb-4">
-              <input type="text" id="lastNameReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Apellido de Referencia" wire:model="lastNameReference" required >
-              <input type="email" id="emailReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Correo Electrónico de Referencia" wire:model="emailReference" required >
-              <input type="text" id="phoneReference" class="w-1/3 mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-              placeholder="Teléfono de Referencia" wire:model="phoneReference" required >
+            <div class="flex mb-4 gap-2">
+              
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="lastNameReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Apellido de Referencia" wire:model="lastNameReference" required >
+                <x-jet-input-error for="lastNameReference" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="email" id="emailReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Correo Electrónico de Referencia" wire:model="emailReference" required >
+                <x-jet-input-error for="emailReference" />
+              </div>
+
+              <div class="flex flex-col w-1/3 gap-2">
+                <input type="text" id="phoneReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+                placeholder="Teléfono de Referencia" wire:model="phoneReference" required >
+                <x-jet-input-error for="phoneReference" />
+              </div>
               
               
             </div>
@@ -114,6 +174,7 @@
                   <input id="dropzone-file" type="file" class="hidden" wire:model="photo">
                 </label>
               </div> 
+              <x-jet-input-error for="dropzone-file"/>
               
             
   

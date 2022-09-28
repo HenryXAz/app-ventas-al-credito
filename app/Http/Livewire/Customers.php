@@ -12,10 +12,33 @@ class Customers extends Component
 {
     use WithFileUploads;
 
+
     protected $rules = [
-      "photo" => "required|image|max:2048"
+      
+      "dpi" => "required|regex:/^[0-9]{13}$/",
+      "name" => "required",
+      "lastName" => "required|",
+      "personalPhone" => "required|regex:/^[0-9]{8}$/",
+      "homePhone" => "required|regex:/^[0-9]{8}$/",
+      "employmentPhone" => "required|regex:/^[0-9]{8}$/",
+      "companyName" => "required",
+      "employmentAddress" => "required",
+      "homeAddress" => "required",
+      "facebook" => "required",
+      "email" => "required|email",
+      "nameReference" => "required",
+      "lastNameReference" => "required",
+      "emailReference" => "required|email",
+      "phoneReference" => "required|regex:/^[0-9]{8}$/",
     ];
 
+    protected $messages = [
+      "dpi.regex" => "dpi consta de 13 dígitos",
+      "personalPhone.regex" => "No. de teléfono es de 8 dígitos",
+      "homePhone.regex" => "No. de teléfono es de 8 dígitos ", 
+      "employmentPhone.regex" => "No. de teléfono es de 8 dígitos",
+      "phoneReference.regex" => "No. de teléfono es de 8 dígitos ",
+    ];
 
     public $modal = false;
     public $alertDelete = false;
@@ -41,27 +64,41 @@ class Customers extends Component
     public $rent;
 
     public $customers;
+    public $search = "";
 
+    public function updated($propertyName)
+    { 
+      $this->validateOnly($propertyName);
+    }
 
     public function render()
     { 
-        $this->customers = Customer::all();
+        $search = "%" . $this->search . "%";
+        $this->customers = Customer::where("name", "like" , $search)
+          ->orWhere("last_name", "like", $search)
+          ->orWhere("dpi", "like", $search)
+          ->get();
         return view('livewire.customers.customers');
     }
 
     public function save()
     {
-     
       
+      $imagePath = "";
+
+      if($this->photo !== null)
+      {
+        $imagePath = $this->photo->store("customerPhotos", "public"); 
+      }
+      else if(!$this->photo && !$this->profileImage) {
+        $imagePath = "customerPhotos/defaultPhoto.png";
+      } else {
+        $imagePath = $this->profileImage;
+      }
 
       $this->validate();
 
       
-      $imagePath = $this->photo->store("customerPhotos", "public"); 
-
-      
-
-
 
       Customer::updateOrCreate(["id" => $this->id_customer], 
       [
@@ -86,9 +123,7 @@ class Customers extends Component
         "photo" => $imagePath,
       ]);
 
- 
-     
-      
+   
       $this->toggleModal();
       $this->cleanFields();
     }
