@@ -9,16 +9,17 @@
       <x-jet-input-error for="amount"/>
 
       <input type="text" id="share" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-        wire:model="share" placeholder="cuota"  required >
+        wire:model="fee" placeholder="cuota"  required >
         <x-jet-input-error for="share"/>
     </div>
 
   
     <div  class="w-full my-4 flex gap-2">
       Interés
-      <select id="paymentFrequency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option value="1">fijo</option>
-        <option value="2">porcentual</option>
+      <select id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        wire:model="interestType">
+        <option value="1" >fijo</option>
+        <option value="2" >porcentual</option>
       </select>
 
       <div class="flex flex-col gap-2 w-full">
@@ -107,7 +108,7 @@
       </label>
       
     </div> 
-    <x-jet-input-error for="dropzone-file"/>
+    <x-jet-input-error for="dropzone-file" />
 
     @endif
 
@@ -116,11 +117,69 @@
       <x-button variant="success" wire:loading.attr="disabled" wire:target="save,photo | profileImage" 
         wire:click="save()">generar préstamo</x-button>
       {{-- <button data-modal-toggle="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> --}}
-      <x-button variant="primary">calcular cuotas</x-button>
+      <x-button variant="primary" wire:click="shareCalculate()">calcular cuotas</x-button>
       <button class="bg-gray-900 p-2.5 rounded-md text-white"
         wire:click="cleanFields()">limpiar campos</button>
     </div>
 
   </div>
+
+  <div class="w-full my-4">
+    <h2 class="text-lg text-center">Proyección</h2>
+    <p>capital inicial <span class="font-bold">{{$amount}}</span></p>
+  
+    <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white ">
+          <tr class="">
+              
+              <th scope="col" class="py-3 px-6">
+                  fecha pago
+              </th>
+              <th scope="col" class="py-3 px-6">
+                  cuota fija
+              </th>
+              <th scope="col" class="py-3 px-6">
+                  interes
+              </th>
+              <th scope="col" class="py-3 px-6">
+                  capital
+              </th>
+              <th scope="col" class="py-3 px-6">
+                saldo
+              </th>
+          </tr>
+      </thead>
+      <tbody >
+        @for($i=0;$i<count($amounts)  ;$i++)
+          <tr class="bg-white dark:bg-dark-eval-2 even:bg-purple-100 dark:even:bg-dark-eval-1 ">
+              <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                {{$dates[$i]}}
+                
+              </td>
+              <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                {{$fees[$i]}}
+              </td>
+              <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                {{$paymentInterests[$i]}}
+              </td>
+              <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                {{$currentCapital[$i]}}
+              </td>
+              <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                {{$amounts[$i]}}
+              </td>
+              
+
+          </tr>
+          @endfor
+  
+  
+          
+      </tbody>
+    </table>
+  
+
+  </div>
+
 
 </div>
