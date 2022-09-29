@@ -151,17 +151,14 @@
                 @endif
 
 
-                @if($photo)
-
-  
-                  <img src="{{$photo->temporaryUrl() ?? ""}}" alt="profile photo" class="w-1/2 mx-auto object-cover">
-             
-                @endif
+            @if($photo)
+              <img src="{{$photo->temporaryUrl() ?? ""}}" alt="profile photo" class="w-1/2 mx-auto object-cover">
+            @endif
 
                 
               @if($photo)
               <x-button wire:click="removeImage()" variant="secondary" class="w-1/4 mx-auto dark:bg-dark-eval-3">eliminar imagen...</x-button>
-            @endif
+              @endif
 
               @if(!$photo)
               <div class="flex justify-center items-center w-2/4 mx-auto mt-4">

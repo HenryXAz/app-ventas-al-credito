@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Customers;
+use App\Http\Livewire\NewCredits;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,5 @@ Route::middleware([
 
 
     Route::get("/clientes", Customers::class)->name("customers");
+    Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
 });
