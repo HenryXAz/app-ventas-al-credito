@@ -10,7 +10,7 @@
 
       <input type="text" id="share" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
         wire:model="fee" placeholder="cuota"  required >
-        <x-jet-input-error for="share"/>
+        <x-jet-input-error for="fee"/>
     </div>
 
   
@@ -24,7 +24,7 @@
 
       <div class="flex flex-col gap-2 w-full">
         <input type="text" id="interest" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-        wire:model="interest" placeholder="cuota"  required >
+        wire:model="interest" placeholder="cuota interés"  required >
         <x-jet-input-error for="interest"/>
       </div>
     </div>
@@ -41,6 +41,7 @@
         wire:model="paymentFrequency">
         <option value="1">mensual</option>
         <option value="2">semanal</option>
+        <option value="3">quincenal</option>
       </select>
     </label>
 
@@ -56,13 +57,15 @@
        
         <li 
           wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})" 
-          class="bg-dark-eval-3 text-white p-2">
+          class="bg-dark-eval-3 text-white p-2 cursor-pointer">
           {{$customer->dpi}} {{$customer->name}} 
         <li />
         
       @endforeach
-      @endif
+      
     </ul>
+    @endif
+
 
     @if($customerSelected)
 
@@ -78,7 +81,10 @@
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
       </button>
     </div>
-
+    @else
+        <div class="w-1/2 mx-auto rounded-xl p-4 bg-purple-50 text-amber-700 dark:text-amber-400 dark:bg-dark-eval-3">
+          <p class="text-center">es necesario seleccionar un cliente</p>
+        </div>
     @endif
 
 
@@ -104,7 +110,7 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
         </div>
         <input id="dropzone-file" type="file" class="hidden" wire:model="carPhoto" required>
-        Imagen de automóvil
+        Imagen de automóvil(requerido)
       </label>
       
     </div> 
@@ -117,7 +123,7 @@
       <x-button variant="success" wire:loading.attr="disabled" wire:target="save,photo | profileImage" 
         wire:click="save()">generar préstamo</x-button>
       {{-- <button data-modal-toggle="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> --}}
-      <x-button variant="primary" wire:click="shareCalculate()">calcular cuotas</x-button>
+      <x-button variant="primary" wire:click="feeCalculate()">calcular cuotas</x-button>
       <button class="bg-gray-900 p-2.5 rounded-md text-white"
         wire:click="cleanFields()">limpiar campos</button>
     </div>
@@ -126,12 +132,17 @@
 
   <div class="w-full my-4">
     <h2 class="text-lg text-center">Proyección</h2>
-    <p>capital inicial <span class="font-bold">{{$amount}}</span></p>
+    <p>
+      capital inicial <span class="font-bold">{{$amount}}</span>
+      numero de pagos <span class="font-bold">{{count($paymentNumber)}}</span>
+    </p>
   
     <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white ">
+      <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white sticky top-0 ">
           <tr class="">
-              
+              <th scope="col" class="py-3 px-6">
+                Pago No.
+              </th>
               <th scope="col" class="py-3 px-6">
                   fecha pago
               </th>
@@ -150,8 +161,13 @@
           </tr>
       </thead>
       <tbody >
-        @for($i=0;$i<count($amounts)  ;$i++)
+        @for($i=0;$i<count($balances)  ;$i++)
           <tr class="bg-white dark:bg-dark-eval-2 even:bg-purple-100 dark:even:bg-dark-eval-1 ">
+
+            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+              {{$paymentNumber[$i] ?? 1}}
+            </td>
+
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 {{$dates[$i]}}
                 
@@ -160,13 +176,13 @@
                 {{$fees[$i]}}
               </td>
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{$paymentInterests[$i]}}
+                {{$paymentInterests[$i] ?? $interest}}
               </td>
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{$currentCapital[$i]}}
+              Q. {{$currentCapital[$i]}}
               </td>
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{$amounts[$i]}}
+                {{$balances[$i]}}
               </td>
               
 
