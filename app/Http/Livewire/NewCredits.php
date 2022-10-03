@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 use Livewire\WithFileUploads;
 use App\Models\Customer;
+use App\Models\Credit;
+use App\Models\Payment;
 
 use Livewire\Component;
 
@@ -11,6 +13,7 @@ class NewCredits extends Component
   use WithFileUploads;
 
     public $search = "";
+    public $estimate = false;
 
     public $customers;
     public $customerSelected = false;
@@ -71,7 +74,36 @@ class NewCredits extends Component
 
     public function save()
     {
-      $this->validate();
+      $imagePath = $this->carPhoto->store("carPhotos", "public");
+
+
+      $credit = Credit::create([
+        "name_customer" => "{$this->nameCustomer} {$this->lastNameCustomer}",
+        "dpi_customer" => $this->dpiCustomer,
+        "id_customer" => $this->idCustomer,
+        "capital" => $this->amount,
+        "interest_type" => $this->interestType,
+        "interest_rate" => $this->interest,
+        "payment_frequency" => $this->paymentFrequency,
+        "car_image" => $imagePath,
+        "status" => "1"
+
+      ])->id;
+
+      if(count($this->balances)) {
+        for($i=0;$i<count($this->balances); $i++) {
+          Payment::create([
+            "payment_number" => $this->paymentNumber[$i],
+            "payment_date" => $this->dates[$i],
+            "interest" => ($this->interestType === "1")? $this->interest: $this->paymentInterests[$i],
+            "fee" => $this->fees[$i],
+            "capital" => $this->currentCapital[$i],
+            "balance" => $this->balances[$i],
+            "status" => "1",
+            "id_credit" => $credit,            
+          ]);
+        }
+      }
 
     }
 
@@ -95,18 +127,18 @@ class NewCredits extends Component
 
       if($this->interestType === "2") {
         
-        //$paymentFrequency = ($this->paymentFrequency === "1") ? "+ 1 month" : "+ 7 days";
         $interest = $this->interest / 100;
       
         $this->calculateWithPercentageInterest($interest, $paymentFrequency);
       }
 
       if($this->interestType === "1") {
-        //$paymentFrequency = ($this->paymentFrequency === "1")? "+ 1 month" : "+ 7 days";
         $interest = $this->interest;
 
         $this->calculateWithFixedInterest($interest, $paymentFrequency);
       }
+
+      $this->estimate = !$this->estimate;
 
     }
 
@@ -167,7 +199,8 @@ class NewCredits extends Component
         $this->paymentNumber[$i] = $i + 1;
         $this->fees[$i] = round($this->fee,2);
         $this->currentCapital[$i] = round($this->fees[$i] - $interest);      
-        $this->balances[$i] = round($amount - ($this->fees[$i] - $interest),2);   
+        $this->balances[$i] = round($amount - ($this->fees[$i] - $interest),2);  
+        
         
         $amount = $this->balances[$i];
 
@@ -225,6 +258,23 @@ class NewCredits extends Component
       $this->paymentDate = "";
       $this->carPhoto = "";
       $this->search = "";
+
+      $this->idCustomer = "";
+      $this->dpiCustomer = "";
+      $this->nameCustomer = "";
+      $this->lastNameCustomer = "";
+      $this->customerSelected = false;
+
+      $this->interests = [];
+      $this->balances = [];
+      $this->paymentInterests = [];
+      $this->dates =  [];
+      $this->currentCapital =  [];
+      $this->fees = [];
+      $this->paymentNumber =  [];
+      
+
+      $this->estimate = !$this->estimate;
     }
 
 }
