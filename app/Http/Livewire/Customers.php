@@ -6,12 +6,16 @@ use Livewire\Component;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 
 class Customers extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
+
+    protected $paginationTheme = "tailwind";
 
     protected $rules = [
       
@@ -63,23 +67,30 @@ class Customers extends Component
     public $isMarried;
     public $rent;
 
-    public $customers;
+    // public $customers;
     public $search = "";
+
 
     public function updated($propertyName)
     { 
       $this->validateOnly($propertyName);
     }
 
+    public function updatingSearch()
+    {
+      $this->resetPage();
+    }
+
     public function render()
     { 
         $search = "%" . $this->search . "%";
-        $this->customers = Customer::where("name", "like" , $search)
+        $customers = Customer::where("name", "like" , $search)
           ->orWhere("last_name", "like", $search)
           ->orWhere("dpi", "like", $search)
-          ->get();
-        return view('livewire.customers.customers');
+          ->paginate(2);
+        return view('livewire.customers.customers', ["customers" => $customers]);
     }
+
 
     public function save()
     {

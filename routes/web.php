@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Customers;
+use App\Http\Livewire\NewCredits;
 use Illuminate\Support\Facades\Route;
 
 /*
