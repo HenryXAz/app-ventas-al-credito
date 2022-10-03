@@ -11,6 +11,7 @@ class NewCredits extends Component
   use WithFileUploads;
 
     public $search = "";
+    public $estimate = false;
 
     public $customers;
     public $customerSelected = false;
@@ -107,6 +108,8 @@ class NewCredits extends Component
 
         $this->calculateWithFixedInterest($interest, $paymentFrequency);
       }
+
+      $this->estimate = !$this->estimate;
 
     }
 
@@ -225,6 +228,23 @@ class NewCredits extends Component
       $this->paymentDate = "";
       $this->carPhoto = "";
       $this->search = "";
+
+      $this->idCustomer = "";
+      $this->dpiCustomer = "";
+      $this->nameCustomer = "";
+      $this->lastNameCustomer = "";
+      $this->customerSelected = false;
+
+      $this->interests = [];
+      $this->balances = [];
+      $this->paymentInterests = [];
+      $this->dates =  [];
+      $this->currentCapital =  [];
+      $this->fees = [];
+      $this->paymentNumber =  [];
+      
+
+      $this->estimate = !$this->estimate;
     }
 
 }
