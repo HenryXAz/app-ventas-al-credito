@@ -14,6 +14,11 @@ class Customer extends Model
       return $this->belongsTo(User::class, "id_user");
     }
 
+    public function credits()
+    {
+      return $this->hasMany(Credit::class, "id_customer", "id");
+    }
+
     public $timestamps = false;
 
     protected $fillable = [

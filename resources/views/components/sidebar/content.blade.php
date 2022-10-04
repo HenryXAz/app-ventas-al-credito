@@ -14,6 +14,10 @@
      
     </x-sidebar.link>
 
+    <x-sidebar.link title="saldo clientes" href="{{ route('showBalances') }}" :isActive="request()->routeIs('showBalances')">
+     
+    </x-sidebar.link>
+
     {{-- Examples --}}
 
     {{-- <x-sidebar.link title="Dashboard" href="{{ route('dashboard') }}" :isActive="request()->routeIs('dashboard')" /> --}}

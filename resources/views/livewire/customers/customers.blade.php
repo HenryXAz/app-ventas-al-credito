@@ -88,5 +88,5 @@
     <div class="px-6 py-3 w-1/2 mx-auto">
       {{$customers->links()}}
     </div>
-  
+
   </div>

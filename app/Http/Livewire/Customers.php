@@ -7,7 +7,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-
+use File;
 
 class Customers extends Component
 {
@@ -99,6 +99,9 @@ class Customers extends Component
 
       if($this->photo !== null)
       {
+        $currentImagePath = public_path("storage/{$this->profileImage}");
+        shell_exec("rm {$currentImagePath}");        
+
         $imagePath = $this->photo->store("customerPhotos", "public"); 
       }
       else if(!$this->photo && !$this->profileImage) {
@@ -170,10 +173,16 @@ class Customers extends Component
 
     public function delete(int $id)
     {
-      Customer::find($id)->delete();
-      
-      $this->id = 0;
-      $this->toggleAlertDelete();
+      $customer = Customer::find($id);
+
+      if($customer->photo !== "customerPhotos/defaultPhoto.png") {  
+        $imagePath = public_path("storage/{$customer->photo}");
+        shell_exec("rm {$imagePath}");
+      } 
+      // $customer->delete();
+
+      // $this->id = 0;
+      // $this->toggleAlertDelete();
       
     }
 

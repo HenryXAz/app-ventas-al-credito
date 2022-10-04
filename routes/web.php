@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\NewCredits;
+use App\Http\Livewire\ShowBalances;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,5 @@ Route::middleware([
 
     Route::get("/clientes", Customers::class)->name("customers");
     Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
+    Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
 });

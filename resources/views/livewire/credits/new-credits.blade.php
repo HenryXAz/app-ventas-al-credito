@@ -70,7 +70,7 @@
 
     @if($customerSelected)
 
-    <div id="alert-5" class="flex p-4 w-3/4 mx-auto bg-gray-100 rounded-lg dark:bg-gray-700" role="alert">
+    <div  class="flex p-4 w-3/4 mx-auto bg-gray-100 rounded-lg dark:bg-gray-700" role="alert">
       <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
       <span class="sr-only">Info</span>
       <div class="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -202,12 +202,13 @@
     <div class="my-4 flex items-center p-6 space-x-2 rounded-b w-full mx-auto flex-center justify-center">
       <button class="bg-rose-500 hover:bg-rose-600 p-2.5 rounded-md text-white my-4 "
         wire:click="cleanFields()">cancelar</button>
+
       <x-button variant="success">
         generar préstamo
       </x-button>
-      <button class="bg-blue-500 hover:bg-blue-600 text-white p-2.5 rounded-md my-4">
+      {{-- <button class="bg-blue-500 hover:bg-blue-600 text-white p-2.5 rounded-md my-4">
         PDF
-      </button>
+      </button> --}}
     </div>
   </div>
 
