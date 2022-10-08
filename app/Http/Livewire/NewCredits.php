@@ -74,6 +74,7 @@ class NewCredits extends Component
 
     public function save()
     {
+      
       $imagePath = $this->carPhoto->store("carPhotos", "public");
 
 
@@ -106,6 +107,8 @@ class NewCredits extends Component
         }
       }
 
+      session()->flash("message", "crédito generado correctamente");
+      $this->estimate = false;
     }
 
     public function feeCalculate()

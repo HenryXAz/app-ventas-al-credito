@@ -1,8 +1,16 @@
 <div class="w-full">
   <h1 class="text-xl">Nuevo Crédito</h1>
 
+  @if(session()->has("message"))
+    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" 
+    class="w-2/4 mx-auto bg-green-300 dark:bg-teal-700 text-center p-4 rounded-md dark:text-white text-gray-700">
+      <h3 class="text-md">{{ session("message")}}</h3>
+    </div>
+  @endif
+
+
   @if(!$estimate)
-  <div class="w-full mx-auto mt-3 p-2 bg-white dark:bg-dark-eval-1" >
+  <div class="w-full mx-auto mt-3 p-2 bg-white dark:bg-dark-eval-1 shadow-md" >
     
     <div class="flex flex-col my-4">
       <input type="text" id="amount" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
@@ -58,7 +66,7 @@
        
         <li 
           wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})" 
-          class="bg-dark-eval-3 text-white p-2 cursor-pointer">
+          class="dark:bg-dark-eval-3 dark:text-white bg-gray-100 text-gray-700 p-2 cursor-pointer">
           {{$customer->dpi}} {{$customer->name}} 
         <li />
         
@@ -111,7 +119,7 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
         </div>
         <input id="dropzone-file" type="file" class="hidden" wire:model="carPhoto" required>
-        Imagen de automóvil(requerido)
+        <span class="dark:text-rose-300 text-rose-500">Imagen de automóvil(requerido)</span>
       </label>
       
     </div> 
@@ -141,7 +149,7 @@
       capital inicial <span class="font-bold">{{$amount}}</span>
       numero de pagos <span class="font-bold">{{count($paymentNumber)}}</span>
     </p>
-  
+    <div class="overflow-x-auto relative">
     <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white sticky top-0 ">
           <tr class="">
@@ -198,12 +206,13 @@
           
       </tbody>
     </table>
+  </div>
   
     <div class="my-4 flex items-center p-6 space-x-2 rounded-b w-full mx-auto flex-center justify-center">
       <button class="bg-rose-500 hover:bg-rose-600 p-2.5 rounded-md text-white my-4 "
         wire:click="cleanFields()">cancelar</button>
 
-      <x-button variant="success">
+      <x-button variant="success" wire:click="save()"> 
         generar préstamo
       </x-button>
       {{-- <button class="bg-blue-500 hover:bg-blue-600 text-white p-2.5 rounded-md my-4">

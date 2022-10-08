@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>K UI</title>
+        <title>app ventas al crédito</title>
 
         <!-- Fonts -->
         <link
@@ -31,7 +31,7 @@
                 </div>
             @endif
 
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+            {{-- <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
                         <g clip-path="url(#clip0)" fill="#EF3B2D">
@@ -121,7 +121,22 @@
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="w-3/4 text-center mx-auto sm:px-6 lg:px-8  p-4  dark:text-gray-300 text-gray-700">
+              <h1 class="text-3xl"><span class="text-red-500">App </span> Préstamos Vehículos</h1>
+              
             </div>
+
+           
+
         </div>
+        <footer class="w-full mx-auto bg-white p-4 flex flex-col">
+          <p class="text-center">
+            credo por estudiantes de ingeniería en sistemas <span class="text-indigo-500">UMG </span
+          </p>
+          
+          <h6 class="text-gray-700 text-center">Quetzaltenango, Guatemala 2022</h6>              
+        </footer>
     </body>
 </html>

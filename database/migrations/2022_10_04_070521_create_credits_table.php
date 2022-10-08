@@ -20,7 +20,7 @@ return new class extends Migration
           $table->float("interest_rate");
           $table->string("payment_frequency");
           $table->string("car_image");
-          $table->string("fee");
+          $table->float("fee");
           $table->string("name_customer");
           $table->string("dpi_customer");
           $table->string("status");

@@ -30,7 +30,7 @@
   @endif
 
     @if(!$modal)
-
+    <div class="overflow-x-auto relative">
     <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white ">
           <tr class="">
@@ -68,7 +68,7 @@
               <td class="py-4 px-6 text-gray-900  dark:text-white">
                   {{$customer->email}}
               </td>
-              <td class="py-4 px-6 text-gray-900  dark:text-white">
+              <td class="py-4 px-6 text-gray-900 flex gap-2 dark:text-white">
                 <x-button variant="warning" wire:click="edit({{$customer->id}})">
                   editar
                 </x-button>
@@ -83,6 +83,7 @@
           
       </tbody>
     </table>
+  </div>
     @endif
 
     <div class="px-6 py-3 w-1/2 mx-auto">

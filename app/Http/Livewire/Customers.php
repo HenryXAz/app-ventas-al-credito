@@ -179,10 +179,10 @@ class Customers extends Component
         $imagePath = public_path("storage/{$customer->photo}");
         shell_exec("rm {$imagePath}");
       } 
-      // $customer->delete();
+      $customer->delete();
 
-      // $this->id = 0;
-      // $this->toggleAlertDelete();
+      $this->id = 0;
+      $this->toggleAlertDelete();
       
     }
 
