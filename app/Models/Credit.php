@@ -24,6 +24,7 @@ class Credit extends Model
     }
 
     protected $fillable = [
+      "id",
       "payment_frequency",
       "capital",
       "interest_type",
