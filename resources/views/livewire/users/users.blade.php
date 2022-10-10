@@ -1,4 +1,21 @@
 <div class="w-full ">
+ {{-- message for deleting user authenticated error --}}
+
+ @if(session()->has("authenticadedUserDeleted"))
+ <div
+  x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"  
+  class="flex w-3/4 mx-auto  rounded-lg bg-white dark:bg-dark-eval-1 " role="alert">
+
+  <div class="w-10 bg-red-600 flex justify-center py-4 rounded-l-md">
+    <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 bg-red-600 text-white dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  </div>
+
+  <div class="ml-3 text-sm font-medium py-4  text-gray-700 dark:text-gray-300">
+    {{session("authenticadedUserDeleted")}}
+  </div>
+</div>
+ @endif
+
   <div  class="flex p-5 w-3/4 my-4 mx-auto bg-white rounded-lg dark:bg-dark-eval-0" role="alert">
   
     <div class="ml-3 w-full text-xl flex justify-between font-medium text-gray-700 dark:text-gray-300">
@@ -14,6 +31,8 @@
       </span></p>    
     </div>
   </div>
+
+ 
 
   @if($alertDelete)
     @include("livewire.users.confirm-delete")

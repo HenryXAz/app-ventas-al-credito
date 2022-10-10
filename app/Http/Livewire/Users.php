@@ -15,6 +15,7 @@ class Users extends Component
 
     public $modal = false;
     public $alertDelete = false;
+    public $deletingUserAuthenticated = false;
     public $search = "";
     public $edited = false;
 
@@ -118,14 +119,24 @@ class Users extends Component
     {
       $user = User::findOrFail($id);
 
-      $user->delete();
+      if($this->authenticatedUserEmail !== $user->email) {
+        $user->delete();
+        $this->user_id = 0;
+        $this->alertDelete = !$this->alertDelete;
+
+        return;
+      }
+
+      session()->flash("authenticadedUserDeleted", "no puede eliminar usuario con sesión abierta");
       $this->user_id = 0;
       $this->alertDelete = !$this->alertDelete;
+      $this->deletingUserAuthenticated = !$this->deletingUserAuthenticated;
     }
 
     public function confirmDelete(int $id = 0)
     {
       $this->alertDelete = !$this->alertDelete;
+      $this->deletingUserAuthenticated = false;
       $this->user_id = $id;
     }
 

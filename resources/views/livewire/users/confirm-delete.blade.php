@@ -4,7 +4,6 @@
       <!-- Modal content -->
       <div class="relative mx-auto w-1/4 bg-white rounded-lg shadow dark:bg-gray-700 ">
           <!-- Modal header -->
-          
           <!-- Modal body -->
           <div class="p-6  w-full mx-auto">
               <p class="dark:text-white text-md text-gray-700  ">
