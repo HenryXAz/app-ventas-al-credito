@@ -3,6 +3,7 @@
     <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2">
         {{-- <x-application-logo aria-hidden="true" class="w-10 h-auto" /> --}}
         {{-- <span class="sr-only">K UI Logo</span> --}}
+        <img src="{{asset('logo.png')}}" width="80" alt="logo">
     </a>
 
     <!-- Toggle button -->

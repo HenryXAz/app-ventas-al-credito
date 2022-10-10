@@ -28,7 +28,6 @@
 </head>
 
 <body class="font-sans antialiased text-gray-900 dark:text-gray-200">
-    
     <div x-data="mainState" :class="{ dark: isDarkMode }" @resize.window="handleWindowResize" x-cloak>
         <x-banner />
         
@@ -52,6 +51,7 @@
                         <div class="px-4 py-6 mx-auto max-w-7xl w-full sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
+                      
                     </header>
                 @endif
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Users;
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\NewCredits;
 use App\Http\Livewire\ShowBalances;
@@ -30,6 +31,7 @@ Route::middleware([
     })->name('dashboard');
 
 
+    Route::get("/usuarios", Users::class)->name("users");
     Route::get("/clientes", Customers::class)->name("customers");
     Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
     Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");

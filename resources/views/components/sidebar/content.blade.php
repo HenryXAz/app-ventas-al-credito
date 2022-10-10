@@ -6,15 +6,19 @@
         </x-slot>
     </x-sidebar.link> --}}
 
+    <x-sidebar.link title="Usuarios" href="{{ route('users') }}" :isActive="request()->routeIs('users')">
+     
+    </x-sidebar.link>
+
     <x-sidebar.link title="Clientes" href="{{ route('customers') }}" :isActive="request()->routeIs('customers')">
      
     </x-sidebar.link>
 
-    <x-sidebar.link title="nuevo credito" href="{{ route('newCredits') }}" :isActive="request()->routeIs('newCredits')">
+    <x-sidebar.link title="Nuevo Credito" href="{{ route('newCredits') }}" :isActive="request()->routeIs('newCredits')">
      
     </x-sidebar.link>
 
-    <x-sidebar.link title="saldo clientes" href="{{ route('showBalances') }}" :isActive="request()->routeIs('showBalances')">
+    <x-sidebar.link title="Saldo Clientes" href="{{ route('showBalances') }}" :isActive="request()->routeIs('showBalances')">
      
     </x-sidebar.link>
 
