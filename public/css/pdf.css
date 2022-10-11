@@ -1,0 +1,84 @@
+@page {
+  size: 21.59cm 27.94cm;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: lighter;
+}
+
+h2, span {
+  font-size: 1em;
+}
+
+.title {
+  margin: 0 auto;
+  margin-bottom: .8em;
+  text-align: center;
+}
+
+
+.table {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 1em;
+  border-collapse: collapse;
+}
+
+.page_break { page-break-before: always; }
+
+.table__head-row {
+  background-color: #ddd;
+  font-weight: 300;
+}
+
+.table__head-column {
+  text-align: left;
+  font-weight: 300;
+}
+
+.table__column {
+  padding: .8em;
+}
+
+
+.container-data {
+  width: 700px;
+  height: 10px;
+  margin: 0 auto;
+}
+
+.meta-data {
+  font-weight: 700;
+}
+
+.signature__container {
+  width: 330px;
+  margin-right: 20px;
+  border-bottom: 1px solid #444;
+  float: left;
+  margin-top: 8em;
+}
+
+.clear {
+  clear: both;
+}
+
+.message {
+  width: 330px;
+  margin-right: 20px;
+  float: left;
+}
+
+.message--center {
+  text-align: center;
+}

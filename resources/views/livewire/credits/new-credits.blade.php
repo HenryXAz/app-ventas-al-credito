@@ -216,6 +216,15 @@
 
       <form action='{{ route("pdfEstimate") }}' method="POST" target="_blank">
         @csrf
+<<<<<<< Updated upstream
+=======
+        <input type="hidden" name="nameCustomer" value="{{json_encode($nameCustomer)}}"/>
+        <input type="hidden" name="lastNameCustomer" value="{{json_encode($lastNameCustomer)}}"/>
+        <input type="hidden" name="dpiCustomer" value="{{json_encode($dpiCustomer)}}"/>
+        <input type="hidden" name="interestType" value="{{json_encode($interestType)}}"/>
+        <input type="hidden" name="interest" value="{{json_encode($interest)}}"/>
+        <input type="hidden" name="amount" value="{{json_encode($amount)}}"/>
+>>>>>>> Stashed changes
         <input type="hidden" name="balances" value="{{json_encode($balances)}}"/>
         <input type="hidden" name="fees" value="{{ json_encode($fees)}}">
         <input type="hidden" name="paymentInterests" value="{{ json_encode($paymentInterests)}}">
