@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\PDFGenerator;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\NewCredits;
@@ -34,5 +34,6 @@ Route::middleware([
     Route::get("/usuarios", Users::class)->name("users");
     Route::get("/clientes", Customers::class)->name("customers");
     Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
+    Route::post("/estimacion", [PDFGenerator::class, "pdfEstimate"])->name("pdfEstimate");
     Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
 });

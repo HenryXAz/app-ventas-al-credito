@@ -130,13 +130,13 @@
             </td>
             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 @if($pay->status == '1')
-                    <span class="text-red-400">{{ $pay->capital }}</span>
+                    <span class="text-red-400">Q. {{  $pay->capital }}</span>
                 @else
-                    <span class="text-blue-400">{{ $pay->capital }}</span>
+                    <span class="text-blue-400">Q. {{ $pay->capital }}</span>
                 @endif
             </td>
             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{ $pay->balance }}
+                Q. {{ $pay->balance }}
             </td>
         </tr>
 

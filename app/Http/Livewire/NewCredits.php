@@ -66,9 +66,8 @@ class NewCredits extends Component
         ->orWhere("dpi", "like", $search)
         ->get();
       }
-
- 
-        return view('livewire.credits.new-credits');
+      
+      return view('livewire.credits.new-credits');
     }
 
 
@@ -202,9 +201,9 @@ class NewCredits extends Component
       while($amount > 0 ) {
         $this->paymentNumber[$i] = $i + 1;
         $this->fees[$i] = round($this->fee,2);
-        $this->currentCapital[$i] = round($this->fees[$i] - $interest);      
+        $this->currentCapital[$i] = round($this->fees[$i] - $interest,2);      
         $this->balances[$i] = round($amount - ($this->fees[$i] - $interest),2);  
-        
+        $this->paymentInterests[$i] = $interest;
         
         $amount = $this->balances[$i];
 
@@ -218,6 +217,7 @@ class NewCredits extends Component
           $this->dates[$i + 1] = date("Y-m-d", strtotime(date($this->dates[$i ]) . $paymentFrequency));
           $this->currentCapital[$i + 1] = round($amount, 2);
           $this->paymentNumber[$i + 1] = $i + 2;
+          $this->paymentInterests[$i + 1] = $interest;
           $amount = 0;
           break;
         }

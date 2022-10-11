@@ -213,13 +213,22 @@
       <x-button variant="success" wire:click="save()"> 
         generar préstamo
       </x-button>
-      {{-- <button class="bg-blue-500 hover:bg-blue-600 text-white p-2.5 rounded-md my-4">
-        PDF
-      </button> --}}
+
+      <form action='{{ route("pdfEstimate") }}' method="POST" target="_blank">
+        @csrf
+        <input type="hidden" name="balances" value="{{json_encode($balances)}}"/>
+        <input type="hidden" name="fees" value="{{ json_encode($fees)}}">
+        <input type="hidden" name="paymentInterests" value="{{ json_encode($paymentInterests)}}">
+        <input type="hidden" name="currentCapital" value="{{ json_encode($currentCapital)}}">
+        <input type="hidden" name="dates" value="{{ json_encode($dates)}}">
+        <input type="hidden" name="paymentNumber" value="{{ json_encode($paymentNumber)}}">
+        <x-button variant="warning" type="submit" 
+          wire:submit.prevent="submit">
+          pdf
+        </x-button>
+      </form>  
     </div>
   </div>
-
-  @endif
-
-
+  
+  @endif 
 </div>
