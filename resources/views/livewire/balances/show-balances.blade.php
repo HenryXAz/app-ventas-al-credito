@@ -1,6 +1,6 @@
 <div class="w-full">
   <form class="w-3/4  gap-2">
-    <input type="text" id="search" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+    <input type="text" id="search" class="w-full mr-2 mt-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
       wire:model="search" placeholder="cliente" >
   </form>
 
@@ -8,56 +8,17 @@
 
   @if($customers)
 
-  <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white ">
-        <tr class="">
+  <ul>
+    @foreach($customers as $customer)
 
-            <th scope="col" class="py-3 px-6">
-                nombre
-            </th>
-            <th scope="col" class="py-3 px-6">
-                apellido
-            </th>
-            <th scope="col" class="py-3 px-6">
-                foto de perfil
-            </th>
-            <th scope="col" class="py-3 px-6">
-                email
-            </th>
-            <th scope="col" class="py-3 px-6">
-
-            </th>
-        </tr>
-    </thead>
-    <tbody >
-        @foreach($customers as $customer)
-            <tr class="bg-white dark:bg-dark-eval-2 even:bg-purple-100 dark:even:bg-dark-eval-1 ">
-            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{$customer->name}}
-            </td>
-            <td class="py-4 px-6 text-gray-900 dark:text-white ">
-                {{$customer->last_name}}
-            </td>
-            <td class="py-4 px-6 text-gray-900 dark:text-white ">
-            <img src="{{ asset("storage/" .$customer->photo )}}" alt="perfil image"
-            width="100" >
-            </td>
-            <td class="py-4 px-6 text-gray-900  dark:text-white">
-                {{$customer->email}}
-            </td>
-            <td class="py-4 px-6 text-gray-900  dark:text-white">
-                {{-- <x-button class=" bg-blue-400 " variant="info" wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})"> --}}
-                <x-button variant="info" wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})">
-                  Ver Créditos
-                </x-button>
-            </td>
-
-            </tr>
-        @endforeach
-
-    </tbody>
-  </table>
-
+     
+      <li 
+        wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})" 
+        class="dark:bg-dark-eval-3 flex gap-2 justify-around items-center rounded-md dark:text-white bg-gray-100 text-gray-700 p-2 cursor-pointer">
+        {{$customer->dpi}} {{$customer->name}} {{$customer->last_name}} <img src="{{asset("storage/" . $customer->photo)}}" alt="customer photo" width="100">
+      <li />
+      
+    @endforeach
 
   @endif
 
@@ -94,8 +55,12 @@
                     <div class="flex p-2 gap-2 my-2 justify-between w-full mx-auto bg-white rounded-lg dark:bg-dark-eval-3">
                         <p>frecuencia de pago <span class="text-blue-400">{{$credit->payment_frequency}}</span></p>
                         <img src="{{asset("storage/" . $credit->car_image)}}" alt="foto vehículo" width="100">
-                      
-                      </div>
+                        
+                    </div>
+
+                    <div class="flex p-2 gap-2 my-2 justify-between w-full mx-auto bg-white rounded-lg dark:bg-dark-eval-3">
+                      <p>saldo pendiente <span class="text-indigo-700 dark:text-indigo-300"> Q. {{ $subBalance[$credit->id]}}</span></p>
+                    </div>
                 </button>
             </div>
         @endforeach
@@ -104,13 +69,12 @@
 
   @if($creditSelected)
 
-  <div  class="flex p-4 w-3/4 mx-auto bg-white text-gray-700 rounded-lg dark:bg-gray-700" role="alert">
-
-      <div class="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">
-        Pendiente por pagar: Q. {{$pendientePagar}}
-      </div>
-
-  </div>
+  <select name="" class="bg-dark-eval-2 border-none" id="paymentType"
+    wire:model="paymentStatus" wire:click="creditClicked({{$idCredit}})">
+    <option value="3">todos</option>
+    <option value="1">pendiente</option>
+    <option value="2">cancelado</option>
+  </select>
 
   <div class="overflow-x-auto relative">
   <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
@@ -119,6 +83,7 @@
         <th class="py-3 px-6">Fecha</th>
         <th class="py-3 px-6">Capital</th>
         <th class="py-3 px-6">Saldo</th>
+        <th class="py-3 px-6"></th>
       </tr>
     </thead>
     <tbody>
@@ -137,6 +102,13 @@
             </td>
             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 Q. {{ $pay->balance }}
+            </td>
+            <td>
+              @if($pay->status === "1") 
+                <x-button variant="success" wire:click="paid({{$pay->id}})">pagar</x-button>
+              @else 
+                <x-button variant="info" href="{{route('pdfInvoice')}}" target="_blank">recibo</x-button>
+              @endif
             </td>
         </tr>
 

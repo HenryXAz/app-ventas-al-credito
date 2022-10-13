@@ -33,6 +33,8 @@ class ShowBalances extends Component
     // Listar pagos del credito
     public $payments = [];
     public $pendientePagar = 0;
+    public $subBalance = [];
+    public $paymentStatus = "3";
 
     public function render()
     {
@@ -51,7 +53,6 @@ class ShowBalances extends Component
         return view('livewire.balances.show-balances');
     }
 
-
     public function customerClicked($name, $lastName, $dpi, $id)
     {
       $this->customerSelected = true;
@@ -62,11 +63,34 @@ class ShowBalances extends Component
       $this->idCustomer = $id;
       $this->search = "";
 
+      $customer = Customer::findOrFail($id);
+
+
       // Filter credits of customer
-      $this->credits = Credit::where("id_customer", "=", $id)->get();
+      // $this->credits = Credit::where("id_customer", "=", $id)->get();
+      //$this->credits = ;
+
+      $this->credits = $customer->credits;
+      $this->outstandingBalance();
       $this->transformCredits();
 
-      return view('livewire.balances.show-balances');
+      // return view('livewire.balances.show-balances');
+    }
+
+    // calcular saldo pendiente
+
+    public function outstandingBalance()
+    { 
+
+      foreach($this->credits as $credit) {
+
+        $payments = $credit->payments->where("status", "=", "1")->pluck("capital")->toArray();
+
+        $this->subBalance[$credit->id] = array_reduce($payments, function($previus, $current){
+          return $previus + $current;
+        }, 0);
+
+      }
     }
 
     public function unSelectedCustomer()
@@ -113,8 +137,21 @@ class ShowBalances extends Component
 
         // Filter payments of credit
         $this->credits = Credit::where("id", "=", $id)->get();
-        $this->payments = Payment::where("id_credit", "=", $id)->get();
+
+        $paymentStatus = $this->paymentStatus;
+
+        if($paymentStatus === "3") {
+          $this->payments = Payment::where("id_credit", "=", $id)
+          ->get();
+        } else {
+          $this->payments = Payment::where("id_credit", "=", $id)
+            ->where("status", "=", $paymentStatus)
+            ->get();
+        }
+
+        // dd($paymentStatus);
         $this->transformCredits();
+        $this->outstandingBalance();
 
         // Sumar totos los pagos que aun estan pendientes por pagar
         // payment status: 1: Pendiente Pago  2: Pagado
@@ -127,4 +164,15 @@ class ShowBalances extends Component
         }
     }
 
+    public function paid($id)
+    {
+      $payment = Payment::findOrFail($id);
+
+      $payment->status = "2";
+      $payment->save();
+      $this->creditClicked($payment->credits->id);
+      //$this->transformCredits();
+      //$this->outstandingBalance();
+      
+    }
 }

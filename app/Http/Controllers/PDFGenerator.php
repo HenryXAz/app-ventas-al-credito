@@ -28,4 +28,12 @@ class PDFGenerator extends Controller
 
     return $pdf->stream();
   }
+
+  public function pdfInvoice(Request $req)
+  {
+    $pdf = PDF::loadView("livewire.balances.invoice");
+    $pdf->set_paper("21.59 27.94", "landscape");
+    return $pdf->stream();
+  }
+
 }
