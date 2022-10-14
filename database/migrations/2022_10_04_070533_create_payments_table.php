@@ -23,6 +23,9 @@ return new class extends Migration
           $table->float("balance");
           $table->string("status");
           $table->float("financial_default")->nullable()->default(0);
+          $table->date("payment_day")->nullable();
+          $table->string("certification_payment")->nullable();
+          $table->string("method_payment")->nullable();
           $table->foreignId("id_credit")
             ->nullable()
             ->constrained("credits")

@@ -7,11 +7,13 @@ use Livewire\WithPagination;
 use App\Models\Customer;
 use App\Models\Credit;
 use App\Models\Payment;
+use Livewire\WithFileUploads;
 
 class ShowBalances extends Component
 {
 
     use WithPagination;
+    use WithFileUploads;
 
     protected $paginationTheme = "tailwind";
     public $search = "";
@@ -35,6 +37,14 @@ class ShowBalances extends Component
     public $pendientePagar = 0;
     public $subBalance = [];
     public $paymentStatus = "3";
+    public $feesNumber;
+    public $methodPayment = "1";
+    public $certificationPayment;
+    public $payment;
+    public $certificationPaymentSelected = false;
+
+    //modal para confirmar pago
+    public $confirmPayment = false;
 
     public function render()
     {
@@ -149,6 +159,8 @@ class ShowBalances extends Component
             ->get();
         }
 
+        $this->feesNumber = $this->payments;
+
         // dd($paymentStatus);
         $this->transformCredits();
         $this->outstandingBalance();
@@ -164,15 +176,47 @@ class ShowBalances extends Component
         }
     }
 
-    public function paid($id)
-    {
-      $payment = Payment::findOrFail($id);
 
-      $payment->status = "2";
-      $payment->save();
-      $this->creditClicked($payment->credits->id);
-      //$this->transformCredits();
-      //$this->outstandingBalance();
-      
+
+    public function toPay()
+    {
+      // $payment = Payment::findOrFail($id);
+
+      // $payment->status = "2";
+      // $payment->save();
+      // $this->creditClicked($payment->credits->id);
+      //dd($this->methodPayment, $this->certificationPayment);
+      $imagePath = "";
+
+      if($this->certificationPayment)
+      {
+        $imagePath = $this->certificationPayment->store("payments", "public");
+      }
+
+      $this->payment->status = "2";
+      $this->payment->certification_payment = $imagePath;
+      $this->payment->method_payment = ($this->methodPayment === "1")? "1" : "2";
+      $this->payment->payment_day = date("Y-m-d") ;
+
+      $this->payment->save();
+
+      session()->flash("message", "cuota cancelada correctamente");
+    }
+
+    public function confirmPayment($id)
+    {
+      $this->customerSelected = false;
+      $this->creditSelected = false;
+      $this->confirmPayment = true;
+
+      $this->payment = Payment::findOrFail($id);
+    }
+
+    public function cancelPayment()
+    {
+      $this->confirmPayment = !$this->confirmPayment;
+      $this->customerSelected = true;
+      $this->creditSelected = true;
+    
     }
 }

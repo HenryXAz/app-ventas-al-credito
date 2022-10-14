@@ -26,6 +26,9 @@ class Payment extends Model
       "payment_date",
       "status",
       "financial_default",
+      "payment_date",
+      "certification_payment",
+      "method_payment",
       "id_credit"
     ];
  

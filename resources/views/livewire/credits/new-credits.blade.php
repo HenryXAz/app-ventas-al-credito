@@ -67,7 +67,7 @@
         <li 
           wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})" 
           class="dark:bg-dark-eval-3 dark:text-white bg-gray-100 text-gray-700 p-2 cursor-pointer">
-          {{$customer->dpi}} {{$customer->name}} 
+          {{$customer->dpi}} {{$customer->name}} {{$customer->last_name}}
         <li />
         
       @endforeach

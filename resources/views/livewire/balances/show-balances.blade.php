@@ -14,7 +14,7 @@
      
       <li 
         wire:click="customerClicked('{{$customer->name}}', '{{$customer->last_name}}', '{{$customer->dpi}}', {{$customer->id}})" 
-        class="dark:bg-dark-eval-3 flex gap-2 justify-around items-center rounded-md dark:text-white bg-gray-100 text-gray-700 p-2 cursor-pointer">
+        class="dark:bg-dark-eval-3 flex gap-2 justify-around items-center rounded-md dark:text-white bg-white text-gray-700 p-2 cursor-pointer">
         {{$customer->dpi}} {{$customer->name}} {{$customer->last_name}} <img src="{{asset("storage/" . $customer->photo)}}" alt="customer photo" width="100">
       <li />
       
@@ -23,7 +23,7 @@
   @endif
 
   @if($customerSelected)
-    <div  class="flex p-4 w-3/4 mx-auto bg-gray-100 rounded-lg dark:bg-gray-700" role="alert">
+    <div  class="flex p-4 w-3/4 mx-auto bg-white rounded-lg dark:bg-gray-700" role="alert">
       <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
 
       @if($creditSelected)
@@ -49,11 +49,30 @@
                 wire:click="creditClicked({{$credit->id}})">
                     <div class="p-2 text-sm w-full font-medium text-gray-700 dark:text-gray-300 flex justify-between  mx-auto gap-4">
                         <h2 class="text-xl">monto de crédito <span class="text-emerald-500">Q. {{$credit->capital}}</span></h2>
-                        <p>tipo de interés <span class="text-purple-400">{{$credit->interest_type}}</span></p>
+                        <p>tipo de interés <span class="text-purple-400">
+                          @if($credit->interest_type === "1")
+                            Fijo
+                          @elseif($credit->interest_type === "2")
+                            Porcentual
+                          @else 
+                            {{$credit->interest_type}}
+                          @endif
+                        </span></p>
                     </div>
 
                     <div class="flex p-2 gap-2 my-2 justify-between w-full mx-auto bg-white rounded-lg dark:bg-dark-eval-3">
-                        <p>frecuencia de pago <span class="text-blue-400">{{$credit->payment_frequency}}</span></p>
+                        <p>frecuencia de pago <span class="text-blue-400">
+                          {{-- {{$credit->payment_frequency}} --}}
+                          @if($credit->payment_frequency === "1")
+                            Mensual
+                          @elseif($credit->payment_frequency === "2")
+                            Semanal
+                          @elseif($credit->payment_frequency === "3")
+                            Quincenal
+                          @else 
+                            {{$credit->payment_frequency}}
+                          @endif
+                        </span></p>
                         <img src="{{asset("storage/" . $credit->car_image)}}" alt="foto vehículo" width="100">
                         
                     </div>
@@ -67,20 +86,31 @@
 
   @endif
 
+  @if($confirmPayment)
+    @include("livewire.balances.confirm-payment-dialog")
+  @endif
+
+
+
   @if($creditSelected)
 
-  <select name="" class="bg-dark-eval-2 border-none" id="paymentType"
+  <select name="" class="dark:bg-dark-eval-2 border-none bg-white" id="paymentType"
     wire:model="paymentStatus" wire:click="creditClicked({{$idCredit}})">
     <option value="3">todos</option>
     <option value="1">pendiente</option>
     <option value="2">cancelado</option>
   </select>
 
+  <div class="flex justify-end w-full ">
+    <p>No. de Cuotas {{count($feesNumber)}}</p>
+  </div>
+
   <div class="overflow-x-auto relative">
   <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
     <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white sticky top-0 ">
       <tr>
         <th class="py-3 px-6">Fecha</th>
+        <th class="py-3 px-6">Cuota</th>
         <th class="py-3 px-6">Capital</th>
         <th class="py-3 px-6">Saldo</th>
         <th class="py-3 px-6"></th>
@@ -94,6 +124,9 @@
             {{ $pay->payment_date }}
             </td>
             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+              {{ $pay->fee }}
+              </td>
+            <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 @if($pay->status == '1')
                     <span class="text-red-400">Q. {{  $pay->capital }}</span>
                 @else
@@ -105,7 +138,7 @@
             </td>
             <td>
               @if($pay->status === "1") 
-                <x-button variant="success" wire:click="paid({{$pay->id}})">pagar</x-button>
+                <x-button variant="success" wire:click="confirmPayment({{$pay->id}})">pagar</x-button>
               @else 
                 <x-button variant="info" href="{{route('pdfInvoice')}}" target="_blank">recibo</x-button>
               @endif
@@ -118,4 +151,6 @@
 </div>
 
   @endif
+
+
 </div>
