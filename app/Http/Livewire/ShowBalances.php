@@ -50,6 +50,7 @@ class ShowBalances extends Component
     {
         if($this->search === "") {
             $this->customers = null;
+            
         } else {
             $search = "%" . $this->search . "%";
             $this->customers = Customer::where("name", "like", $search)

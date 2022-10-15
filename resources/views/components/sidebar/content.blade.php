@@ -6,6 +6,10 @@
         </x-slot>
     </x-sidebar.link> --}}
 
+    <x-sidebar.link title="Ingresos" href="{{ route('profits') }}" :isActive="request()->routeIs('profits')">
+     
+    </x-sidebar.link>
+
     <x-sidebar.link title="Usuarios" href="{{ route('users') }}" :isActive="request()->routeIs('users')">
      
     </x-sidebar.link>

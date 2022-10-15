@@ -4,7 +4,10 @@ use App\Http\Livewire\Users;
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\NewCredits;
 use App\Http\Livewire\ShowBalances;
+use App\Http\Livewire\Profits;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +40,6 @@ Route::middleware([
     Route::post("/estimacion", [PDFGenerator::class, "pdfEstimate"])->name("pdfEstimate");
     Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
     Route::post("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
+    Route::get("/ganancias", Profits::class)->name("profits");
+
 });
