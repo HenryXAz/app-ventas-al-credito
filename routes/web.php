@@ -36,5 +36,5 @@ Route::middleware([
     Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
     Route::post("/estimacion", [PDFGenerator::class, "pdfEstimate"])->name("pdfEstimate");
     Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
-    Route::get("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
+    Route::post("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
 });

@@ -1,5 +1,62 @@
 @page {
-  size: 21.59 27.94;
+  size: 27.94cm 12cm;
 }
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
 
+h1,h2,h3,h4,h5,h6 {
+  font-weight: lighter;
+}
+
+h2, span {
+  font-size: 1em;
+}
+
+.title {
+  margin: 0 auto;
+  margin-bottom: .8em;
+  text-align: center;
+}
+
+.container-data {
+  width: 900px;
+  height: 10px;
+  margin: 0 auto;
+}
+
+.meta-data {
+  font-weight: 700;
+}
+
+.signature__container {
+  width: 330px;
+  margin-right: 20px;
+  border-bottom: 1px solid #444;
+  float: left;
+  margin-top: 8em;
+}
+
+.clear {
+  clear: both;
+}
+
+.separator {
+  margin-top: 50px;
+}
+
+.message {
+  width: 450;
+  margin-right: 20px;
+  float: left;
+}
+
+.message--center {
+  text-align: center;
+}

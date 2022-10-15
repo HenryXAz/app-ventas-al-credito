@@ -31,7 +31,16 @@ class PDFGenerator extends Controller
 
   public function pdfInvoice(Request $req)
   {
-    $pdf = PDF::loadView("livewire.balances.invoice");
+    $pdf = PDF::loadView("livewire.balances.invoice",[
+      "nameCustomer" => json_decode($req->nameCustomer),
+      "lastNameCustomer" => json_decode($req->lastNameCustomer),
+      "dpiCustomer" => json_decode($req->dpiCustomer),
+      "paymentNumber" => json_decode($req->paymentNumber),
+      "fee" => json_decode($req->fee),
+      "paymentDate" => json_decode($req->paymentDate),
+      "paymentDay" => json_decode($req->paymentDay),
+      "methodPayment" => json_decode($req->method_payment),
+    ]);
     $pdf->set_paper("21.59 27.94", "landscape");
     return $pdf->stream();
   }

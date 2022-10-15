@@ -218,5 +218,6 @@ class ShowBalances extends Component
       $this->customerSelected = true;
       $this->creditSelected = true;
     
+      $this->creditClicked($this->payment->credits->id);
     }
 }
