@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\PDFGenerator;
+use App\Http\Livewire\CustomerReports;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\NewCredits;
@@ -29,7 +30,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/inicio', function () {
         return view('dashboard');
     })->name('dashboard');
 
@@ -41,5 +42,6 @@ Route::middleware([
     Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
     Route::post("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
     Route::get("/ganancias", Profits::class)->name("profits");
+    Route::get("/reporte-clientes", CustomerReports::class)->name("customerReports");
 
 });

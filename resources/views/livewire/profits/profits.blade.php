@@ -2,7 +2,7 @@
     <h1 class="w-full text-3xl text-center my-4">Reporte de Ingresos</h1>
 
     <div class="flex gap-4">
-        <div class="flex flex-col">
+        <div class="flex flex-col min:h-96">
             Mes:
             <select name="" id="month" class="dark:bg-dark-eval-2 dark:text-white text-gray-700 bg=white" wire:model="month">
                 <option value="0">---</option>
@@ -63,18 +63,18 @@
     @if(count($payments) > 0)
     <h2 class="w-full text-2xl my-3 font-light"> ganancias de {{$this->getMonth($month)}} {{$year}}</h2>
 
-    <div class="flex gap-2 justify-between my-4 h-auto">
-        <div class="flex flex-col w-1/3 justify-between bg-orange-600 text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
+    <div class="flex gap-2 justify-center  md:flex-row flex-col items-center sm:flex-row sm:justify-center my-4 h-auto flex-nowrap">
+        <div class="flex flex-col sm:w-1/3 md:w-1/3 w-full justify-between bg-orange-600 text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
             <p class="text-3xl text-gray-100">Q. {{$capital}}</p>
             <h2 class="text-md text-gray-100">Capital Recuperado</h2>
         </div>
 
-        <div class="flex flex-col w-1/3  justify-between  bg-blue-600 dark:text-white text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
+        <div class="flex flex-col sm:w-1/3 md:w-1/3 w-full  justify-between  bg-blue-600 dark:text-white text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
             <p class="text-3xl text-gray-100">Q. {{$interests}}</p>
             <h2 class="text-md text-gray-100">Intereses Percibidos</h2>
         </div>
 
-        <div class="flex flex-col w-1/3 bg-emerald-600 justify-between dark:text-white text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
+        <div class="flex flex-col sm:w-1/3 md:w-1/3 w-full bg-emerald-600 justify-between dark:text-white text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
             <p class="text-3xl text-gray-100">Q. {{$interests * .1}}</p>
             <h2 class="text-md text-gray-100">10% porciento</h2>
         </div>

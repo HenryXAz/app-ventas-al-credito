@@ -10,6 +10,10 @@
      
     </x-sidebar.link>
 
+    <x-sidebar.link title="reporte clientes" href="{{ route('customerReports') }}" :isActive="request()->routeIs('customerReports')">
+     
+    </x-sidebar.link>
+
     <x-sidebar.link title="Usuarios" href="{{ route('users') }}" :isActive="request()->routeIs('users')">
      
     </x-sidebar.link>
