@@ -87,7 +87,7 @@ class Customers extends Component
         $customers = Customer::where("name", "like" , $search)
           ->orWhere("last_name", "like", $search)
           ->orWhere("dpi", "like", $search)
-          ->paginate(2);
+          ->paginate(10);
         return view('livewire.customers.customers', ["customers" => $customers]);
     }
 

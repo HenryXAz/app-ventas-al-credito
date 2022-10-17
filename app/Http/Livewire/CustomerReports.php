@@ -6,50 +6,54 @@ use Livewire\Component;
 use App\Models\Payment;
 use App\Models\Credit;
 use App\Models\Customer;
+use Livewire\WithPagination;
 use Carbon\Carbon;
 
 class CustomerReports extends Component
 {
-    public $report = "1";
-    public $customers;
+    use WithPagination;
 
+    public $report = "1";
     public function render()
     {   
-        $date = Carbon::parse(date("Y-m-d"));
-
-        $weekNumber = $date->weekNumberInMonth;
-        $start = $date->startOfWeek()->toDateString();
-        $end = $date->endOfWeek()->toDateString();
+        $date = Carbon::today("America/Guatemala");
         
-        $customers = [];
+        $startWeek = $date->startOfWeek()->toDateString();
+        $endWeek = $date->endOfWeek()->toDateString();
+        
 
-        if($this->report === "2") {
-            $payments = Payment::whereNotBetween("payment_date", [$start, $end])
-                ->get()->unique("id_credit")->unique("id_customer");
+        $credits = [];
 
-            $this->getCustomers($payments);    
-        } 
-        else if($this->report === "1") {
-            $payments = Payment::whereBetween("payment_date", [$start,$end])
-                ->get();
-            $this->getCustomers($payments);
+        if($this->report === "1") {
+          $credits = Credit::whereIn("id", function($query) use($startWeek, $endWeek)
+          {
+            $query->select("id_credit")
+              ->from("payments")
+              ->where("status", "=", "1")
+              ->whereBetween("payment_date", [$startWeek, $endWeek]);
+          })->paginate(10);
+        } else if($this->report === "2") {
+          $credits = Credit::whereNotIn("id", function($query) use($startWeek, $endWeek)
+          {
+            $query->select("id_credit")
+              ->from("payments")
+              ->where("status", "=", "1")
+              ->whereBetween("payment_date", [$startWeek, $endWeek]);
+          })->paginate(10);
+        } else if($this->report === "3") {
+          $credits = Credit::whereIn("id", function($query) use($startWeek, $endWeek)
+          {
+            $query->select("id_credit")
+              ->from("payments")
+              ->where("status", "=", "1")
+              ->where("payment_date", "<", date("Y-m-d"));
+          })->paginate(10);
         }
-        else if($this->report === "3") {
-            $payments = Payment::where("payment_date", "<", date("Y-m-d"))->get();
-            $this->getCustomers($payments);
-        }   
+
 
         return view('livewire.customer-reports.customer-reports', [
-            "payments" => $payments, 
-            "customers" => $customers,
-        ]);
+          "credits" => $credits,
+        ]);        
     }
 
-    public function getCustomers($payments)
-    {
-        $this->customers = [];
-        foreach($payments as $payment) {
-            array_push($this->customers, $payment->credits->first()->customer->first());
-        }
-    }
 }

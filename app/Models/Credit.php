@@ -18,6 +18,13 @@ class Credit extends Model
       return $this->hasMany(Payment::class, "id_credit", "id");
     }
 
+    public function nextPayment($id)
+    {
+      return Payment::where("status", "=", "1")
+        ->where("id_credit", "=", $id)
+        ->first();
+    }
+
     public function customer()
     {
       return $this->belongsTo(Customer::class, "id_customer");
