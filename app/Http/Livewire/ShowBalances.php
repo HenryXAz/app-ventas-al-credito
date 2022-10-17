@@ -197,7 +197,7 @@ class ShowBalances extends Component
       $this->payment->status = "2";
       $this->payment->certification_payment = $imagePath;
       $this->payment->method_payment = ($this->methodPayment === "1")? "1" : "2";
-      $this->payment->payment_day = date("Y-m-d") ;
+      $this->payment->payment_day = \Carbon\Carbon::today("America/Guatemala")->format("Y-m-d");
 
       $this->payment->save();
 

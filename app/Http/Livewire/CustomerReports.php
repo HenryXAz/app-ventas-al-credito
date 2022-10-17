@@ -14,6 +14,14 @@ class CustomerReports extends Component
     use WithPagination;
 
     public $report = "1";
+
+
+    public function updatingReport()
+    {
+      $this->resetPage();
+    }
+
+
     public function render()
     {   
         $date = Carbon::today("America/Guatemala");

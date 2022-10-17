@@ -37,11 +37,13 @@ Route::middleware([
 
     Route::get("/usuarios", Users::class)->name("users");
     Route::get("/clientes", Customers::class)->name("customers");
+    Route::post("/clientes", [PDFGenerator::class, "customers"])->name("customersReport");
     Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
     Route::post("/estimacion", [PDFGenerator::class, "pdfEstimate"])->name("pdfEstimate");
     Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
     Route::post("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
     Route::get("/ganancias", Profits::class)->name("profits");
     Route::get("/reporte-clientes", CustomerReports::class)->name("customerReports");
+    Route::post("/reporte-clientes", [PDFGenerator::class, "pdfCustomers"])->name("pdfCustomers");
 
 });

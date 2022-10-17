@@ -46,6 +46,8 @@ class Profits extends Component
         $this->capital = array_reduce($payments, function($previus, $current){
             return $previus += $current;
         },0);
+
+        round($this->capital,2);
     }
 
     public function getInterests()
@@ -55,6 +57,8 @@ class Profits extends Component
         $this->interests = array_reduce($payments, function($previus, $current){
             return $previus += $current;
         },0);
+
+        round($this->interests,2);
     }
 
     public function getMonth($month)

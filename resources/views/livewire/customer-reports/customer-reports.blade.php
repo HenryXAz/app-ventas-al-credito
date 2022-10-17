@@ -9,14 +9,18 @@
             <select name="" id="report" class="dark:bg-dark-eval-2 dark:text-white text-gray-700 bg=white" wire:model="report">
                 <option value="1">pagan esta semana</option>
                 <option value="2">no pagan esta semana</option>
-                <option value="3">morosos</option>
+                <option value="3">pagos atrasados</option>
             </select>
         </div>
     </div>
 
    
     @if(count($credits) > 0)
-    <button href="#" class="px-2 py-4 rounded-md text-white bg-indigo-600 hover:bg-indigo-700 ">generar reporte</button>
+    <form action="{{route('pdfCustomers')}}" method="POST" target="_blank">
+      @csrf
+      <input type="hidden" name="report" id="" value="{{json_encode($report)}}" >
+      <button type="submit" wire:submit.prevent="submit" class="px-2 py-4 rounded-md text-white bg-indigo-600 hover:bg-indigo-700 ">generar reporte</button>
+    </form>
 
     <div class="overflow-x-auto relative ">
       <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">

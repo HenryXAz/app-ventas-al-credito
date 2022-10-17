@@ -25,6 +25,9 @@ h2, span {
   text-align: center;
 }
 
+.center {
+  text-align: center;
+}
 
 .table {
   max-width: 800px;
