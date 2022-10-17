@@ -35,15 +35,33 @@ Route::middleware([
     })->name('dashboard');
 
 
-    Route::get("/usuarios", Users::class)->name("users");
-    Route::get("/clientes", Customers::class)->name("customers");
+    Route::get("/usuarios", Users::class)
+      ->name("users")
+      ->middleware("admin");
+
+    Route::get("/clientes", Customers::class)
+      ->name("customers")
+      ->middleware("seller");
     Route::post("/clientes", [PDFGenerator::class, "customers"])->name("customersReport");
-    Route::get("/nuevo-credito", NewCredits::class)->name("newCredits");
+
+    Route::get("/nuevo-credito", NewCredits::class)
+      ->name("newCredits")
+      ->middleware("seller");
     Route::post("/estimacion", [PDFGenerator::class, "pdfEstimate"])->name("pdfEstimate");
-    Route::get("/saldo-clientes", ShowBalances::class)->name("showBalances");
+    
+    Route::get("/saldo-clientes", ShowBalances::class)
+      ->name("showBalances")
+      ->middleware("secretary");
     Route::post("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
-    Route::get("/ganancias", Profits::class)->name("profits");
-    Route::get("/reporte-clientes", CustomerReports::class)->name("customerReports");
+   
+    Route::get("/ganancias", Profits::class)
+      ->name("profits")
+      ->middleware("admin");
+
+    Route::get("/reporte-clientes", CustomerReports::class)
+      ->name("customerReports")
+      ->middleware("secretary");
+
     Route::post("/reporte-clientes", [PDFGenerator::class, "pdfCustomers"])->name("pdfCustomers");
 
 });
