@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-auth-card>
+    {{-- <x-auth-card>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -87,5 +87,5 @@
                 </p>
             </div>
         </form>
-    </x-auth-card>
+    </x-auth-card> --}}
 </x-guest-layout>

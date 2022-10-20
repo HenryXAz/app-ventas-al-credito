@@ -24,10 +24,10 @@
                     @else
                         <a href="{{ route('login') }}" 
                           class="text-sm  dark:text-gray-400 text-white bg-blue-700 p-4 rounded-md hover:bg-blue-600">Iniciar Sesión</a>
-
+{{-- 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-400 underline">Registrarse</a>
-                        @endif
+                        @endif --}}
                     @endauth
                 </div>
             @endif
