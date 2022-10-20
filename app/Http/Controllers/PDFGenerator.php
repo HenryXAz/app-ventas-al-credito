@@ -44,6 +44,8 @@ class PDFGenerator extends Controller
       "paymentDate" => json_decode($req->paymentDate),
       "paymentDay" => json_decode($req->paymentDay),
       "methodPayment" => json_decode($req->method_payment),
+      "financialDefault" => json_decode($req->financialDefault),
+      "receivedBy" => json_decode($req->receivedBy),
     ]);
     $pdf->set_paper("21.59 27.94", "landscape");
     return $pdf->stream();

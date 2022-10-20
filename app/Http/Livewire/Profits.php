@@ -12,6 +12,7 @@ class Profits extends Component
     public $month = "0";
     public $capital = 0;
     public $interests = 0;
+    public $financialDefault = 0;
 
     public function render()
     {
@@ -35,6 +36,7 @@ class Profits extends Component
 
         $this->getCapital();
         $this->getInterests();
+        $this->getFinancialDefault();
 
         return view('livewire.profits.profits', ["payments" => $payments]);
     }
@@ -59,6 +61,18 @@ class Profits extends Component
         },0);
 
         round($this->interests,2);
+    }
+
+    public function getFinancialDefault()
+    {
+      $payments = $this->payments->pluck("financial_default")->toArray();
+
+      $this->financialDefault = array_reduce($payments, function($previus, $current) 
+      {
+        return $previus += $current;
+      }, 0);
+
+      round($this->financialDefault, 2);
     }
 
     public function getMonth($month)

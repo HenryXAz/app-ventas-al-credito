@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Credit;
 use App\Models\Payment;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 
 class ShowBalances extends Component
 {
@@ -42,6 +43,9 @@ class ShowBalances extends Component
     public $certificationPayment;
     public $payment;
     public $certificationPaymentSelected = false;
+    public $financialDefault = 0;
+    public $certificationFinancialDefault;
+    public $financialDefaultMethod = "1";
 
     //modal para confirmar pago
     public $confirmPayment = false;
@@ -181,23 +185,26 @@ class ShowBalances extends Component
 
     public function toPay()
     {
-      // $payment = Payment::findOrFail($id);
-
-      // $payment->status = "2";
-      // $payment->save();
-      // $this->creditClicked($payment->credits->id);
-      //dd($this->methodPayment, $this->certificationPayment);
       $imagePath = "";
+      $financialDefaultImagePath = "";
 
-      if($this->certificationPayment)
-      {
+      if($this->certificationPayment) {
         $imagePath = $this->certificationPayment->store("payments", "public");
       }
+
+      if($this->certificationFinancialDefault) {
+        $financialDefaultImagePath = $this->certificationFinancialDefault->store("financialDefault", "public");
+      }
+
 
       $this->payment->status = "2";
       $this->payment->certification_payment = $imagePath;
       $this->payment->method_payment = ($this->methodPayment === "1")? "1" : "2";
+      $this->payment->certification_financial_default = $financialDefaultImagePath;
+      $this->payment->financial_default = $this->financialDefault;
+      $this->payment->financial_default_method = ($this->financialDefaultMethod === "1")? "1" : "2";
       $this->payment->payment_day = \Carbon\Carbon::today("America/Guatemala")->format("Y-m-d");
+      $this->payment->received_by = Auth::user()->name;
 
       $this->payment->save();
 

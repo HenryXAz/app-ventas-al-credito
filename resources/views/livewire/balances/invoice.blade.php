@@ -65,11 +65,19 @@
 
   <div class="clear"></div>
 
+  <div class="container-data">
+    <h2 class="message"><span class="meta-data">mora </span> 
+      Q. {{$financialDefault}} 
+    </h2>
+  </div>
+
+  <div class="clear"></div>
+
   <div class="separator"></div>
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Fue atendido por </span> 
-      {{Auth::user()->name}} 
+      {{$receivedBy}}
     </h2>
   </div>
 
