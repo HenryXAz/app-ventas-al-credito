@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Customer;
+use App\Models\Conyuge;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -18,7 +19,7 @@ class Customers extends Component
     protected $paginationTheme = "tailwind";
 
     protected $rules = [
-      
+
       "dpi" => "required|regex:/^[0-9]{13}$/",
       "name" => "required",
       "lastName" => "required|",
@@ -39,7 +40,7 @@ class Customers extends Component
     protected $messages = [
       "dpi.regex" => "dpi consta de 13 dígitos",
       "personalPhone.regex" => "No. de teléfono es de 8 dígitos",
-      "homePhone.regex" => "No. de teléfono es de 8 dígitos ", 
+      "homePhone.regex" => "No. de teléfono es de 8 dígitos ",
       "employmentPhone.regex" => "No. de teléfono es de 8 dígitos",
       "phoneReference.regex" => "No. de teléfono es de 8 dígitos ",
     ];
@@ -70,9 +71,16 @@ class Customers extends Component
     // public $customers;
     public $search = "";
 
+    // Conyuge
+    public $id_conyuge = 0;
+    public $dpi_conyuge = "";
+    public $name_conyuge = "";
+    public $lastName_conyuge = "";
+    public $photo2 = null;
+    public $profileImage2;
 
     public function updated($propertyName)
-    { 
+    {
       $this->validateOnly($propertyName);
     }
 
@@ -82,7 +90,7 @@ class Customers extends Component
     }
 
     public function render()
-    { 
+    {
         $search = "%" . $this->search . "%";
         $customers = Customer::where("name", "like" , $search)
           ->orWhere("last_name", "like", $search)
@@ -94,15 +102,16 @@ class Customers extends Component
 
     public function save()
     {
-      
+
       $imagePath = "";
+      $imagePath2 = "";
 
       if($this->photo !== null)
       {
         $currentImagePath = public_path("storage/{$this->profileImage}");
-        shell_exec("rm {$currentImagePath}");        
+        shell_exec("rm {$currentImagePath}");
 
-        $imagePath = $this->photo->store("customerPhotos", "public"); 
+        $imagePath = $this->photo->store("customerPhotos", "public");
       }
       else if(!$this->photo && !$this->profileImage) {
         $imagePath = "customerPhotos/defaultPhoto.png";
@@ -110,11 +119,24 @@ class Customers extends Component
         $imagePath = $this->profileImage;
       }
 
+      if($this->photo2 !== null)
+      {
+        $currentImagePath2 = public_path("storage/{$this->profileImage2}");
+        shell_exec("rm {$currentImagePath2}");
+
+        $imagePath2 = $this->photo2->store("customerPhotos", "public");
+      }
+      else if(!$this->photo2 && !$this->profileImage2) {
+        $imagePath2 = "customerPhotos/defaultPhoto.png";
+      } else {
+        $imagePath2 = $this->profileImage;
+      }
+
       $this->validate();
 
-      
 
-      Customer::updateOrCreate(["id" => $this->id_customer], 
+
+      Customer::updateOrCreate(["id" => $this->id_customer],
       [
         "id_user" => Auth::user()->id,
         "dpi" => $this->dpi,
@@ -137,7 +159,21 @@ class Customers extends Component
         "photo" => $imagePath,
       ]);
 
-   
+      if ($this->isMarried) {
+        $imagePath2 = "";
+
+        $auxCustomer = Customer::orderBy('id', 'DESC')->get()->first();
+
+        Conyuge::updateOrCreate(["id" => $this->id_conyuge],
+        [
+          "id_customer" => $auxCustomer->id,
+          "dpi" => $this->dpi,
+          "name" => $this->name_conyuge,
+          "last_name" => $this->lastName_conyuge,
+          "photo_house" => $imagePath2,
+        ]);
+      }
+
       $this->toggleModal();
       $this->cleanFields();
     }
@@ -152,7 +188,7 @@ class Customers extends Component
       $this->lastName = $customer->last_name;
       $this->personalPhone = $customer->personal_phone;
       $this->employmentAddress = $customer->employment_address;
-      $this->homeAddress = $customer->home_address; 
+      $this->homeAddress = $customer->home_address;
       $this->employmentPhone = $customer->employment_phone;
       $this->homePhone = $customer->home_phone;
       $this->homeAddress = $customer->home_address;
@@ -167,6 +203,13 @@ class Customers extends Component
       $this->rent = ($customer->rent === 1)? 1 : 0;
       $this->profileImage = $customer->photo;
 
+      $conyuge = Conyuge::where("id_customer", "=" , $id)->get()->first();
+      $this->id_conyuge = $conyuge->id;
+      $this->dpi_conyuge = $conyuge->dpi;
+      $this->name_conyuge = $conyuge->name;
+      $this->lastName_conyuge = $conyuge->last_name;
+      $this->profileImage2 = $conyuge->photo_house;
+
       $this->toggleModal();
 
     }
@@ -175,15 +218,21 @@ class Customers extends Component
     {
       $customer = Customer::find($id);
 
-      if($customer->photo !== "customerPhotos/defaultPhoto.png") {  
+      if($customer->photo !== "customerPhotos/defaultPhoto.png") {
         $imagePath = public_path("storage/{$customer->photo}");
         shell_exec("rm {$imagePath}");
-      } 
+      }
+
+      if($customer->photo2 !== "customerPhotos/defaultPhoto.png") {
+        $imagePath2 = public_path("storage/{$customer->photo2}");
+        shell_exec("rm {$imagePath2}");
+      }
+
       $customer->delete();
 
       $this->id = 0;
       $this->toggleAlertDelete();
-      
+
     }
 
 
@@ -205,6 +254,12 @@ class Customers extends Component
       //$this->profileImage = null;
     }
 
+    public function removeImage2()
+    {
+      $this->photo2 = null;
+      //$this->profileImage = null;
+    }
+
     public function cleanFields()
     {
       $this->id_customer = 0;
@@ -213,7 +268,7 @@ class Customers extends Component
       $this->lastName = "";
       $this->personalPhone = "";
       $this->employmentAddress = "";
-      $this->homeAddress = ""; 
+      $this->homeAddress = "";
       $this->employmentPhone = "";
       $this->homePhone = "";
       $this->homeAddress = "";
@@ -228,6 +283,9 @@ class Customers extends Component
       $this->rent = "";
       $this->photo = null;
       $this->profileImage = null;
+      $this->dpi_conyuge = "";
+      $this->name_conyuge = "";
+      $this->lastName_conyuge = "";
     }
 
 }
