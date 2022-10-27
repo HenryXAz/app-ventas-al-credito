@@ -9,7 +9,7 @@
   <title>estimacion</title>
 </head>
 <body>
-  
+  <img src="{{public_path('images/logoBussiness.jpg')}}" alt="bussiness logo" width="200">
   <div class="container" style="page-break-after: auto">
   <h1 class="title">Proyección</h1>
 
@@ -34,19 +34,6 @@
 
   <div class="clear"></div>
 
-  <div class="container-data">
-    <div class="signature__container"></div>
-    <div class="signature__container"></div>
-  </div>
-
-  <div class="clear"></div>
-
-  <div class="container-data">
-    <div class="message message--center">firma acreedor</div>
-    <div class="message message--center">firma deudor</div>
-  </div>
-
-  <div class="clear"></div>
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">No. de Cuotas: </span>{{count($paymentNumber)}}</h2>
@@ -87,6 +74,20 @@
       
     </tbody>
   </table>
+
+  <div class="container-data">
+    <div class="signature__container"></div>
+    <div class="signature__container"></div>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="container-data">
+    <div class="message message--center">firma acreedor</div>
+    <div class="message message--center">firma deudor</div>
+  </div>
+
+  <div class="clear"></div>
 
 </div>
 

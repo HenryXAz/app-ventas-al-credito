@@ -8,7 +8,7 @@
       <div class="flex flex-col p-4 relative mx-auto w-full bg-white rounded-lg shadow dark:bg-dark-eval-1">
       
       @if(session()->has("emailExists"))
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" 
+        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"
         class="w-2/4 mx-auto  bg-red-500 text-center p-4 rounded-md text-white">
           <h3 class="text-md">{{ session("emailExists")}}</h3>
         </div>

@@ -25,6 +25,20 @@ class Credit extends Model
         ->first();
     }
 
+    public function currentBalance($id)
+    {
+      $lastPayment = Payment::where("status", "=", "2")
+        ->where("id_credit", "=", $id)
+        ->get()
+        ->last();
+
+      if(!$lastPayment) {
+        return $this->capital;
+      } else {
+        return $lastPayment->balance;
+      }
+    }
+
     public function customer()
     {
       return $this->belongsTo(Customer::class, "id_customer");

@@ -117,7 +117,8 @@
       <input type="hidden" name="fee" value="{{json_encode($payment->fee)}}" />
       <input type="hidden" name="method_payment" value="{{json_encode($payment->method_payment)}}" />
       <input type="hidden" name="paymentDay" value="{{json_encode($payment->payment_day)}}" />
-      <input type="hidden" name="financialDefault" value="{{json_encode($pay->financial_default)}}">
+      <input type="hidden" name="financialDefault" value="{{json_encode($payment->financial_default)}}">
+      <input type="hidden" name="balance" value="{{json_encode($payment->balance)}}">
       <input type="hidden" name="receivedBy" value="{{json_encode(Auth::user()->name)}}">
       <x-button variant="danger" type="submit" wire:submit.prevent="submit">
         recibo

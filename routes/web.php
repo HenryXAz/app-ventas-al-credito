@@ -53,6 +53,7 @@ Route::middleware([
       ->name("showBalances")
       ->middleware("secretary");
     Route::post("/factura-pago", [PDFGenerator::class, "pdfInvoice"])->name("pdfInvoice");
+    Route::get("/creditos-activos",[PDFGenerator::class, "pdfActiveCredits"])->name("activeCredits");
    
     Route::get("/ganancias", Profits::class)
       ->name("profits")

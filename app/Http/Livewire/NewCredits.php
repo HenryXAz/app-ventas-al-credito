@@ -23,10 +23,11 @@ class NewCredits extends Component
     public $idCustomer;
 
     public $amount;
-    public $fee;
+    public $fee ;
     public $lastShare;
     public $interestType = "1";
-    public $interest;
+    public $interest = 0;
+    public $initialInterest = 0;
     public $paymentFrequency = "1";
     public $paymentDate;
     public $carPhoto;
@@ -42,12 +43,16 @@ class NewCredits extends Component
     protected $rules = [
       "nameCustomer" => "required",
       "amount" => "required|regex:/^(\d*\.)?\d+$/",
-      "fee" => "required|regex:/^(\d*\.)?\d+$/",
+      "fee" => "required|regex:/^(\d*\.)?\d+$/|lt:amount",
       "interestType" => "required",
       "interest" => "required|regex:/^(\d*\.)?\d+$/",
       "paymentFrequency" => "required",
       "paymentDate" => "required",
       "carPhoto" => "required",
+    ];
+
+    protected $messages = [
+      "fee.lt" => "la cuota no puede ser superior o igual al monto del crédito",
     ];
 
     public function updated($propertyName) 
@@ -114,36 +119,80 @@ class NewCredits extends Component
     {
       $this->validate();
 
-      $paymentFrequency = "";
+      $paymentFrequency = $this->getPaymentFrequency($this->paymentFrequency);
 
-      if($this->paymentFrequency === "1") {
-        $paymentFrequency = "+ 1 month";
-      }
-
-      if($this->paymentFrequency === "2") {
-        $paymentFrequency = "+ 7 days";
-      }
-
-      if($this->paymentFrequency === "3") {
-        $paymentFrequency = "+ 15 days";
+      if($this->interestType === "1") {
+        $this->initialInterest = $this->interest;
       }
 
       if($this->interestType === "2") {
-        
-        $interest = $this->interest / 100;
-      
-        $this->calculateWithPercentageInterest($interest, $paymentFrequency);
+        $this->initialInterest = round($this->amount, 2) * (round($this->interest, 2) / 10);
       }
 
-      if($this->interestType === "1") {
-        $interest = $this->interest;
+      
+      if($this->isValidCredit($this->amount, $this->fee, $this->initialInterest) === 1)
+      {
+        session()->flash("error-credit","la cuota no puede ser superior o igual al crédito");
+        return;
+      }
 
-        $this->calculateWithFixedInterest($interest, $paymentFrequency);
+      if($this->isValidCredit($this->amount, $this->fee, $this->initialInterest) === 2) {
+        session()->flash("error-credit","el interés no debe ser superior o igual a la cuota");
+        return;
+      }
+
+      if($this->isValidCredit($this->amount, $this->fee, $this->initialInterest) === 3) {
+        session()->flash("error-credit","la suma de interés y cuota no debe ser superior o igual al crédito");
+        return;
+      }
+
+      try {
+        if($this->interestType === "2") {
+        
+          $interest = $this->interest / 100;
+        
+          $this->calculateWithPercentageInterest($interest, $paymentFrequency);
+        }
+  
+        if($this->interestType === "1") {
+          $interest = $this->interest;
+  
+          $this->calculateWithFixedInterest($interest, $paymentFrequency);
+        }
+      } catch (\Throwable $th) {
+        echo $th->getMessage();
       }
 
       $this->estimate = !$this->estimate;
 
     }
+
+    public function getPaymentFrequency($paymentFrequency)
+    {
+      switch ($paymentFrequency) {
+        case "1": return "+ 1 month"; break;
+        case "2": return "+ 7 days"; break;
+        case "3": return "+ 15 days"; break;
+      } 
+    }
+
+    public function isValidCredit($amount, $fee, $interest)
+    {
+      if(round($amount,2) <= round($fee,2)) {
+        return 1;
+      }
+
+      if(round($fee,2) <= round($interest,2)) {
+        return 2;
+      }
+
+      if(round($amount,2) <= (round($interest,2) + round($fee,2))) {
+        return 3;
+      }
+
+      return 0;
+    }
+
 
     public function calculateWithPercentageInterest($interestPercentage, $paymentFrequency)
     {
@@ -212,7 +261,10 @@ class NewCredits extends Component
         }  
 
         if($amount <= $this->fees[$i]) {
-          $this->fees[$i + 1] = round($interest + $amount, 2);
+          if($amount == 0) {
+            break;
+          } else {
+            $this->fees[$i + 1] = round($interest + $amount, 2);
           $this->balances[$i + 1] = 0; 
           $this->dates[$i + 1] = date("Y-m-d", strtotime(date($this->dates[$i ]) . $paymentFrequency));
           $this->currentCapital[$i + 1] = round($amount, 2);
@@ -220,6 +272,7 @@ class NewCredits extends Component
           $this->paymentInterests[$i + 1] = $interest;
           $amount = 0;
           break;
+          }
         }
         
         $i++;

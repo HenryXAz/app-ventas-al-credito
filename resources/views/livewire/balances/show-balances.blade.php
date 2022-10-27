@@ -1,5 +1,9 @@
 <div class="w-full">
-  <form class="w-3/4  gap-2">
+  <a href="{{route("activeCredits")}}" target="_blank" class="inline-block bg-indigo-500 hover:bg-indigo-600 p-3 text-white rounded-md mt-6 mb-5">
+    informe créditos activos
+  </a>
+
+  <form class="w-3/4  gap-2 my-2">
     <input type="text" id="search" class="w-full mr-2 mt-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" wire:model="search" placeholder="cliente">
   </form>
 
@@ -150,6 +154,7 @@
                   <input type="hidden" name="method_payment" value="{{json_encode($pay->method_payment)}}" />
                   <input type="hidden" name="paymentDay" value="{{json_encode($pay->payment_day)}}" />
                   <input type="hidden" name="financialDefault" value="{{json_encode($pay->financial_default)}}">
+                  <input type="hidden" name="balance" value="{{json_encode($pay->balance)}}">
                   <input type="hidden" name="receivedBy" value="{{json_encode(Auth::user()->name)}}">
                   <x-button variant="info" type="submit" wire:submit.prevent="submit">
                     recibo

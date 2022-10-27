@@ -45,6 +45,7 @@ class PDFGenerator extends Controller
       "paymentDay" => json_decode($req->paymentDay),
       "methodPayment" => json_decode($req->method_payment),
       "financialDefault" => json_decode($req->financialDefault),
+      "balance" => json_decode($req->balance),
       "receivedBy" => json_decode($req->receivedBy),
     ]);
     $pdf->set_paper("21.59 27.94", "landscape");
@@ -104,6 +105,21 @@ class PDFGenerator extends Controller
     ]);
 
     return $pdf->stream();
+  }
+
+  public function pdfActiveCredits(Request $req)
+  {
+    $credits = Credit::whereIn("id", function($query)
+    {
+      $query->select("id_credit")
+        ->from("payments")
+        ->where("status", "=", "1");
+    })->get();
+
+    $pdf = PDF::loadView("livewire.balances.active-credits", ["credits" => $credits]);
+
+    return $pdf->stream();
+    
   }
 
 }

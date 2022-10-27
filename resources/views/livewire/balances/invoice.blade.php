@@ -69,6 +69,9 @@
     <h2 class="message"><span class="meta-data">mora </span> 
       Q. {{$financialDefault}} 
     </h2>
+    <h2 class="message"><span class="meta-data">saldo </span> 
+      Q. {{$balance}} 
+    </h2>
   </div>
 
   <div class="clear"></div>
