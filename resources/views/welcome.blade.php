@@ -13,8 +13,7 @@
         />
 
         <!-- Scripts -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        @vite(['resources/css/app.css'])
     </head>
     <body class="antialiased font-sans bg-gray-100 text-gray-900 dark:bg-dark-eval-0 dark:text-gray-200">
         <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
