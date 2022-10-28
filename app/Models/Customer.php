@@ -19,6 +19,11 @@ class Customer extends Model
       return $this->hasMany(Credit::class, "id_customer", "id");
     }
 
+    public function conyuge()
+    {
+      return $this->hasMany(Conyuge::class, "id_customer", "id");
+    }
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -41,6 +46,15 @@ class Customer extends Model
       "name_reference",
       "last_name_reference",
       "phone_reference",
-      "email_reference"
+      "email_reference",
+      "name_second_reference",
+      "lastname_second_reference",
+      "email_second_reference",
+      "phone_second_reference",
+      "name_third_reference",
+      "last_name_third_reference",
+      "email_third_reference",
+      "phone_third_reference",
+      "house_photo",
     ];
 }

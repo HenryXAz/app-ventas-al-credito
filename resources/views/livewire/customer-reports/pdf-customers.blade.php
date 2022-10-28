@@ -47,10 +47,10 @@
           {{$credit->customer->personal_phone}}
         </td>
         <td class="table__body-column table__column">
-          Q.{{$credit->nextPayment($credit->id)->fee}}
+          Q.{{$credit->nextPayment($credit->id)->fee ?? 0}}
         </td>
         <td class="table__body-column table__column">
-          {{$credit->nextPayment($credit->id)->payment_date}}
+          {{$credit->nextPayment($credit->id)->payment_date ?? 0}}
         </td>
         <td>
           {{$credit->id}}

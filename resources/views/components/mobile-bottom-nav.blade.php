@@ -9,7 +9,7 @@
 
     <a href="{{ route('dashboard') }}">
         {{-- <x-application-logo aria-hidden="true" class="w-10 h-10" /> --}}
-        <img src="{{asset('logo.png')}}" width="80" alt="logo">
+        <img src="{{asset('images/logoBussiness.jpg')}}" width="150" alt="logo">
         <span class="sr-only">Dashboard</span>
     </a>
 

@@ -34,7 +34,7 @@
 
             <div class="w-3/4 text-center mx-auto sm:px-6 lg:px-8  p-4  dark:text-gray-300 text-gray-700">
               <h1 class="text-3xl"><span class="text-red-500">App </span> Préstamos Vehículos</h1>
-              
+
             </div>
 
            

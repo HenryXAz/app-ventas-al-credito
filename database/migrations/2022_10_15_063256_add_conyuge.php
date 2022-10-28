@@ -15,15 +15,14 @@ return new class extends Migration
     {
         Schema::create('conyuges', function (Blueprint $table) {
             $table->id();
-            $table->string('dpi');
-            $table->string('name');
-            $table->string('last_name');
-            $table->string('photo_house');
+            $table->string('dpi')->nullable();
+            $table->string('name')->nullable();
+            $table->string('last_name')->nullable();
             $table->foreignId('id_customer')
                   ->nullable()
                   ->constrained('customers')
                   ->cascadeOnUpdate()
-                  ->onDelete("cascade");
+                  ->nullOnDelete();
         });
     }
 
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+      Schema::dropIfExists('conyuges');
     }
 };

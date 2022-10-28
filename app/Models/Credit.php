@@ -20,8 +20,11 @@ class Credit extends Model
 
     public function nextPayment($id)
     {
-      return Payment::where("status", "=", "1")
-        ->where("id_credit", "=", $id)
+      return Payment::where([
+        ["status", "=", "1"],
+        ["id_credit", "=", "$id"]
+      ])
+        // ->where("id_credit", "=", $id)
         ->first();
     }
 

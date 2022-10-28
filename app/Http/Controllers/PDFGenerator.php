@@ -70,11 +70,11 @@ class PDFGenerator extends Controller
       })->get();
       
     } else if (json_decode($req->report ) === "2") {
-      $credits = Credit::whereNotIn("id", function ($query) use ($startWeek, $endWeek) {
+      $credits = Credit::whereIn("id", function ($query) use ($startWeek, $endWeek) {
         $query->select("id_credit")
           ->from("payments")
           ->where("status", "=", "1")
-          ->whereBetween("payment_date", [$startWeek, $endWeek]);
+          ->whereNotBetween("payment_date", [$startWeek, $endWeek]);
       })->get();
     } else if (json_decode($req->report)  === "3") {
       $credits = Credit::whereIn("id", function ($query) use ($startWeek, $endWeek) {

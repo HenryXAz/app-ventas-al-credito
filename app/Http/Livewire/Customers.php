@@ -65,6 +65,14 @@ class Customers extends Component
     public $lastNameReference = "";
     public $emailReference = "";
     public $phoneReference = "";
+    public $nameSecondReference = "";
+    public $lastNameSecondReference = "";
+    public $emailSecondReference = "";
+    public $phoneSecondReference = "";
+    public $nameThirdReference = "";
+    public $lastNameThirdReference = "";
+    public $emailThirdReference = "";
+    public $phoneThirdReference = "";
     public $isMarried;
     public $rent;
 
@@ -124,19 +132,18 @@ class Customers extends Component
         $currentImagePath2 = public_path("storage/{$this->profileImage2}");
         shell_exec("rm {$currentImagePath2}");
 
-        $imagePath2 = $this->photo2->store("customerPhotos", "public");
+        $imagePath2 = $this->photo2->store("customerHousePhoto", "public");
       }
       else if(!$this->photo2 && !$this->profileImage2) {
         $imagePath2 = "customerPhotos/defaultPhoto.png";
       } else {
-        $imagePath2 = $this->profileImage;
+        $imagePath2 = $this->profileImage2;
       }
 
       $this->validate();
 
 
-
-      Customer::updateOrCreate(["id" => $this->id_customer],
+      $customer_id = Customer::updateOrCreate(["id" => $this->id_customer],
       [
         "id_user" => Auth::user()->id,
         "dpi" => $this->dpi,
@@ -154,23 +161,28 @@ class Customers extends Component
         "phone_reference" => $this->phoneReference,
         "email_reference" => $this->emailReference,
         "company_name" => $this->companyName,
+        "name_second_reference" => $this->nameSecondReference,
+        "lastname_second_reference" => $this->lastNameSecondReference,
+        "email_second_reference" => $this->emailSecondReference,
+        "phone_second_reference" => $this->phoneSecondReference,
+        "name_third_reference" => $this->nameThirdReference,
+        "last_name_third_reference" => $this->lastNameThirdReference,
+        "email_third_reference" => $this->emailThirdReference,
+        "phone_third_reference" => $this->phoneThirdReference,
         "married" => ($this->isMarried)? 1 : 0,
         "rent" => ($this->rent)? 1: 0,
         "photo" => $imagePath,
-      ]);
+        "house_photo" => $imagePath2,
+      ])->id;
 
       if ($this->isMarried) {
-        $imagePath2 = "";
-
-        $auxCustomer = Customer::orderBy('id', 'DESC')->get()->first();
-
+        
         Conyuge::updateOrCreate(["id" => $this->id_conyuge],
         [
-          "id_customer" => $auxCustomer->id,
+          "id_customer" => $customer_id,
           "dpi" => $this->dpi,
           "name" => $this->name_conyuge,
           "last_name" => $this->lastName_conyuge,
-          "photo_house" => $imagePath2,
         ]);
       }
 
@@ -202,13 +214,15 @@ class Customers extends Component
       $this->isMarried = ($customer->married === 1)? 1 : 0;
       $this->rent = ($customer->rent === 1)? 1 : 0;
       $this->profileImage = $customer->photo;
+      $this->profileImage2 = $customer->house_photo;
 
-      $conyuge = Conyuge::where("id_customer", "=" , $id)->get()->first();
-      $this->id_conyuge = $conyuge->id;
-      $this->dpi_conyuge = $conyuge->dpi;
-      $this->name_conyuge = $conyuge->name;
-      $this->lastName_conyuge = $conyuge->last_name;
-      $this->profileImage2 = $conyuge->photo_house;
+      if($this->isMarried === 1) {
+        $conyuge = $customer->conyuge()->first();
+        $this->id_conyuge = $conyuge->id;
+        $this->dpi_conyuge = $conyuge->dpi;
+        $this->name_conyuge = $conyuge->name;
+        $this->lastName_conyuge = $conyuge->last_name;
+      }
 
       $this->toggleModal();
 
@@ -283,9 +297,19 @@ class Customers extends Component
       $this->rent = "";
       $this->photo = null;
       $this->profileImage = null;
+      $this->photo2 = null;
       $this->dpi_conyuge = "";
       $this->name_conyuge = "";
       $this->lastName_conyuge = "";
+      $this->nameSecondReference = "";
+      $this->lastNameSecondReference = "";
+      $this->emailSecondReference = "";
+      $this->phoneSecondReference = "";
+      $this->nameThirdReference = "";
+      $this->lastNameThirdReference = "";
+      $this->emailThirdReference = "";
+      $this->phoneThirdReference = "";
+      
     }
 
 }

@@ -31,6 +31,15 @@ return new class extends Migration
             $table->string('last_name_reference');
             $table->string('phone_reference');
             $table->string('email_reference');
+            $table->string('name_second_reference')->nullable();
+            $table->string('lastname_second_reference')->nullable();
+            $table->string('email_second_reference')->nullable();
+            $table->string('phone_second_reference')->nullable();
+            $table->string('name_third_reference')->nullable();
+            $table->string('last_name_third_reference')->nullable();
+            $table->string('email_third_reference')->nullable();
+            $table->string('phone_third_reference')->nullable();
+            $table->string("house_photo")->nullable();
             $table->tinyInteger('married');
             $table->tinyInteger('rent');
             $table->foreignId('id_user')
@@ -48,6 +57,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        // Schema::dropIfExists('customers');
     }
 };

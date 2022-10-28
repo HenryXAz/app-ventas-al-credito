@@ -22,6 +22,5 @@ class Conyuge extends Model
       "name",
       "last_name",
       "id_customer",
-      "photo_house"
     ];
 }
