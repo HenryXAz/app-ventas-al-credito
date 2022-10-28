@@ -9,7 +9,9 @@ export default defineConfig({
                 'resources/js/app.js',
             ],
         },
-         server: {
+ 
+       ),
+      server: {
     proxy: {
     '/api': {
       target: 'https://app-ventas-al-credito-production.up.railway.app/',
@@ -17,7 +19,7 @@ export default defineConfig({
       secure: false,
     },
     cors:false
-    }, 
-       ),
+    }   
+        ,
     ],
 });
