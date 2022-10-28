@@ -16,7 +16,7 @@
         "livewire/livewire": "2.*"
     },
     "require-dev": {
-        "fakerphp/faker": "1.9.*",
+        "fakerphp/faker": "^1.9.*",
         "kamona/kui-laravel-jetstream": "0.2.*",
         "laravel/pint": "1.*",
         "laravel/sail": "1.0.*",
