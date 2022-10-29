@@ -189,11 +189,11 @@ class ShowBalances extends Component
       $financialDefaultImagePath = "";
 
       if($this->certificationPayment) {
-        $imagePath = $this->certificationPayment->store("payments", "public");
+        // $imagePath = $this->certificationPayment->store("payments", "public");
       }
 
       if($this->certificationFinancialDefault) {
-        $financialDefaultImagePath = $this->certificationFinancialDefault->store("financialDefault", "public");
+        // $financialDefaultImagePath = $this->certificationFinancialDefault->store("financialDefault", "public");
       }
 
 

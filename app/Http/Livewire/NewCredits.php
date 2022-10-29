@@ -79,7 +79,7 @@ class NewCredits extends Component
     public function save()
     {
       
-      $imagePath = $this->carPhoto->store("carPhotos", "public");
+      // $imagePath = $this->carPhoto->store("carPhotos", "public");
 
 
       $credit = Credit::create([
