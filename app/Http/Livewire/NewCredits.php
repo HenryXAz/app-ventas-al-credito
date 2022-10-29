@@ -48,7 +48,7 @@ class NewCredits extends Component
       "interest" => "required|regex:/^(\d*\.)?\d+$/",
       "paymentFrequency" => "required",
       "paymentDate" => "required",
-      "carPhoto" => "required",
+      // "carPhoto" => "required",
     ];
 
     protected $messages = [
