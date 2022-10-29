@@ -217,7 +217,8 @@
 
 
             @if($photo)
-              <img src="{{$photo->temporaryUrl() ?? ""}}" alt="profile photo" class="w-1/2 mx-auto object-cover">
+              <!-- <img src="{{$photo->temporaryUrl() ?? ""}}" alt="profile photo" class="w-1/2 mx-auto object-cover"> -->
+              <p>imagen cargada correctamente</p>  
             @endif
 
 
