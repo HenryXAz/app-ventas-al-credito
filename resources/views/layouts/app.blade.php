@@ -24,7 +24,7 @@
     @livewireStyles
 
     <link rel="stylesheet" href="{{ asset('build/assets/app.7f022113.css ') }}">
-    <script src="{{ asset('build/assets/app.5b2bdc69.js ') }}" defer></script>
+    <script src="{{ asset('build/assets/app.35fedb17.js ') }}" defer></script>
 </head>
 
 <body class="font-sans antialiased text-gray-900 dark:text-gray-200">

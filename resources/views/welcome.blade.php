@@ -14,7 +14,7 @@
 
         <!-- Scripts -->
         <link rel="stylesheet" href="{{ asset('build/assets/app.7f022113.css ') }}">
-        <script src="{{ asset('build/assets/app.5b2bdc69.js ') }}" defer></script>
+        <script src="{{ asset('build/assets/app.35fedb17.js') }}" defer></script>
     </head>
     <body class="antialiased font-sans bg-gray-100 text-gray-900 dark:bg-dark-eval-0 dark:text-gray-200">
         <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
