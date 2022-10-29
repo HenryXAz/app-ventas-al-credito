@@ -80,7 +80,7 @@ class NewCredits extends Component
     {
       
       // $imagePath = $this->carPhoto->store("carPhotos", "public");
-
+      $imagePath = "";
 
       $credit = Credit::create([
         "name_customer" => "{$this->nameCustomer} {$this->lastNameCustomer}",
