@@ -24,7 +24,8 @@
     @livewireStyles
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+      <link rel="stylesheet" href="{{ asset('build/assets/app.42a22d61.css') }}">
+      <script src="{{ asset('build/assets/app.ab93cf8a.js') }}" defer></script>
 </head>
 
 <body class="font-sans antialiased text-gray-900 dark:text-gray-200">
