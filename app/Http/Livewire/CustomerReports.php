@@ -41,12 +41,12 @@ class CustomerReports extends Component
               ->whereBetween("payment_date", [$startWeek, $endWeek]);
           })->paginate(10);
         } else if($this->report === "2") {
-          $credits = Credit::whereIn("id", function($query) use($startWeek, $endWeek)
+          $credits = Credit::whereNotIn("id", function($query) use($startWeek, $endWeek)
           {
             $query->select("id_credit")
               ->from("payments")
-              ->where("status", "=", "1")
-              ->whereNotBetween("payment_date", [$startWeek, $endWeek]);
+              ->where("payments.status", "=", "1")
+              ->whereBetween("payment_date", [$startWeek, $endWeek]);
           })->paginate(10);
 
         

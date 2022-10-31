@@ -232,16 +232,6 @@ class Customers extends Component
     {
       $customer = Customer::find($id);
 
-      if($customer->photo !== "customerPhotos/defaultPhoto.png") {
-        $imagePath = public_path("storage/{$customer->photo}");
-        shell_exec("rm {$imagePath}");
-      }
-
-      if($customer->photo2 !== "customerPhotos/defaultPhoto.png") {
-        $imagePath2 = public_path("storage/{$customer->photo2}");
-        shell_exec("rm {$imagePath2}");
-      }
-
       $customer->delete();
 
       $this->id = 0;

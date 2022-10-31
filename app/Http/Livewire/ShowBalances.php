@@ -50,6 +50,9 @@ class ShowBalances extends Component
     //modal para confirmar pago
     public $confirmPayment = false;
 
+    //modal ver detalles de pagos 
+    public $paymentDetails = false;
+
     public function render()
     {
         if($this->search === "") {
@@ -220,12 +223,36 @@ class ShowBalances extends Component
       $this->payment = Payment::findOrFail($id);
     }
 
+    public function viewPaymentDetails($id)
+    {
+      $this->customerSelected = false;
+      $this->creditSelected = false;
+      $this->paymentDetails = true;
+
+      $this->payment = Payment::findOrFail($id);
+    }
+
     public function cancelPayment()
     {
-      $this->confirmPayment = !$this->confirmPayment;
+      $this->confirmPayment = false;
       $this->customerSelected = true;
       $this->creditSelected = true;
-    
+      $this->paymentDetails = false;
+      $this->certificationFinancialDefault = null;
+      $this->certificationPayment = null;
+
       $this->creditClicked($this->payment->credits->id);
+    }
+
+    public function removeImage($removePhoto)
+    {
+      if($removePhoto === "1") {
+        $this->certificationPayment = null;
+        
+      }
+
+      if($removePhoto === "2") {
+        $this->certificationFinancialDefault = null;
+      }
     }
 }

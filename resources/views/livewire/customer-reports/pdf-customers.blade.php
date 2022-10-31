@@ -8,7 +8,7 @@
   <title>reporte clientes</title>
 </head>
 <body>
-
+  <img src="{{public_path('images/logoBussiness.jpg')}}" alt="logo bussiness" width="200">
   @if($report === "1")
     <h1 class="title">Clientes que pagan esta semana</h1>
 
