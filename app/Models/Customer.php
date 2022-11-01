@@ -24,6 +24,14 @@ class Customer extends Model
       return $this->hasMany(Conyuge::class, "id_customer", "id");
     }
 
+    public function haveCredits($id)
+    {
+        return(Customer::where("id", "=", $id))
+          ->whereIn("id", function ($query){
+            $query->select("id_customer")->from("credits");
+          })->exists();
+    }
+
     public $timestamps = false;
 
     protected $fillable = [

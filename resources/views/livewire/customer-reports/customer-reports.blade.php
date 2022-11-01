@@ -68,10 +68,10 @@
                   </td>
         
                   <td class="py-4 px-6 text-gray-900  dark:text-white">
-                      Q. {{$credit->nextPayment($credit->id)->fee}}
+                      Q. {{$credit->nextPayment($credit->id)->fee ?? 0}}
                   </td>
                   <td class="py-4 px-6 text-gray-900  dark:text-white">
-                      {{$credit->nextPayment($credit->id)->payment_date}}
+                      {{$credit->nextPayment($credit->id)->payment_date ?? 0}}
                   </td>
 
               </tr>

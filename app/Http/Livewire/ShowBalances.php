@@ -83,16 +83,10 @@ class ShowBalances extends Component
 
       $customer = Customer::findOrFail($id);
 
-
-      // Filter credits of customer
-      // $this->credits = Credit::where("id_customer", "=", $id)->get();
-      //$this->credits = ;
-
       $this->credits = $customer->credits;
       $this->outstandingBalance();
       $this->transformCredits();
 
-      // return view('livewire.balances.show-balances');
     }
 
     // calcular saldo pendiente
@@ -210,6 +204,12 @@ class ShowBalances extends Component
       $this->payment->received_by = Auth::user()->name;
 
       $this->payment->save();
+
+      if($this->payment->balance === 0.0) {
+        $credit = Credit::findOrFail($this->payment->id_credit);
+        $credit->status = '2';
+        $credit->save();
+      }
 
       session()->flash("message", "cuota cancelada correctamente");
     }

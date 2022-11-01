@@ -115,8 +115,11 @@
 
 
   <div class="w-full flex gap-2 justify-end my-6">
-    <x-button variant="info" wire:click="cancelPayment">ver todos los pagos</x-button>
+    <x-button variant="info" wire:click="cancelPayment">regresar a la tabla de pagos</x-button>
+    
+    @if(!session()->has("message"))
     <x-button variant="success" wire:click="toPay()">realizar pago</x-button>
+    @endif
 
     @if(session()->has("message"))
     <form action='{{ route("pdfInvoice") }}' method="POST" target="_blank">

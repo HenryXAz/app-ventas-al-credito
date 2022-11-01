@@ -134,7 +134,7 @@
                 {{ $pay->payment_date }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{ $pay->fee }}
+                Q. {{ $pay->fee }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 @if($pay->status == '1')

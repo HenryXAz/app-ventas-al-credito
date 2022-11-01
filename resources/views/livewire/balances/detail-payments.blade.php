@@ -68,6 +68,6 @@
 
   
   <div class="w-full flex gap-2 justify-center my-4">
-    <x-button variant="primary" wire:click="cancelPayment">ver todos los pagos</x-button>
+    <x-button variant="primary" wire:click="cancelPayment">regresar a la tabla de pagos</x-button>
   </div>
 </div>

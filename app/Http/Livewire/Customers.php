@@ -8,7 +8,6 @@ use App\Models\Conyuge;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use File;
 
 class Customers extends Component
 {
@@ -230,9 +229,14 @@ class Customers extends Component
 
     public function delete(int $id)
     {
-      $customer = Customer::find($id);
 
-      $customer->delete();
+      $customer = Customer::findOrFail($id);
+
+      if($customer->haveCredits($customer->id)) {
+        session()->flash("customer-have-credits", "no se pueden eliminar clientes con créditos creados");
+      } else {
+        $customer->delete();
+      }
 
       $this->id = 0;
       $this->toggleAlertDelete();
@@ -288,6 +292,7 @@ class Customers extends Component
       $this->photo = null;
       $this->profileImage = null;
       $this->photo2 = null;
+      $this->profileImage2 = null;
       $this->dpi_conyuge = "";
       $this->name_conyuge = "";
       $this->lastName_conyuge = "";

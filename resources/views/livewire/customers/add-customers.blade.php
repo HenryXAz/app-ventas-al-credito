@@ -332,17 +332,4 @@
       </div>
   </div>
 
-  {{-- <script>
-    const checkbox = document.getElementById('radio_casado')
-    var container = document.getElementById('datosConyuge')
-    checkbox.addEventListener('change', (event) => {
-        if (event.currentTarget.checked) {
-            container.style.display = 'block';
-        } else {
-            container.style.display = 'none';
-        }
-    })
-  </script> --}}
-
-
   </div>
