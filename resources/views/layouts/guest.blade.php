@@ -20,10 +20,9 @@
         }
     </style>
 
-@livewireStyles
-
-<!-- Scripts -->
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+  <!-- scripts -->
+  <link rel="stylesheet" href="{{asset('build/assets/app.4eb8d3a2.css ')}}">
+  <script src="{{asset('build/assets/app.2e2e2c49.js ')}}" defer></script>
 
 </head>
 
