@@ -21,8 +21,8 @@
     </style>
 
     <!-- Scripts -->
-    <link rel="stylesheet" href="{{ asset('public/build/assets/app.4eb8d3a2.css') }}">
-    <script src="{{ asset('public/build/assets/app.2e2e2c49.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('build/assets/app.4eb8d3a2.css') }}">
+    <script src="{{ asset('build/assets/app.2e2e2c49.js') }}" defer></script>
 </head>
 
 <body class="font-sans antialiased text-gray-900 dark:text-gray-200">
