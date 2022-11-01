@@ -112,7 +112,8 @@ class NewCredits extends Component
       }
 
       session()->flash("message", "crédito generado correctamente");
-      $this->estimate = false;
+      // $this->estimate = false;
+      $this->cleanFields();
     }
 
     public function feeCalculate()
