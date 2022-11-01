@@ -50,6 +50,9 @@ class ShowBalances extends Component
     //modal para confirmar pago
     public $confirmPayment = false;
 
+    //modal ver detalles de pagos 
+    public $paymentDetails = false;
+
     public function render()
     {
         if($this->search === "") {
@@ -80,16 +83,10 @@ class ShowBalances extends Component
 
       $customer = Customer::findOrFail($id);
 
-
-      // Filter credits of customer
-      // $this->credits = Credit::where("id_customer", "=", $id)->get();
-      //$this->credits = ;
-
       $this->credits = $customer->credits;
       $this->outstandingBalance();
       $this->transformCredits();
 
-      // return view('livewire.balances.show-balances');
     }
 
     // calcular saldo pendiente
@@ -208,6 +205,12 @@ class ShowBalances extends Component
 
       $this->payment->save();
 
+      if($this->payment->balance === 0.0) {
+        $credit = Credit::findOrFail($this->payment->id_credit);
+        $credit->status = '2';
+        $credit->save();
+      }
+
       session()->flash("message", "cuota cancelada correctamente");
     }
 
@@ -220,12 +223,36 @@ class ShowBalances extends Component
       $this->payment = Payment::findOrFail($id);
     }
 
+    public function viewPaymentDetails($id)
+    {
+      $this->customerSelected = false;
+      $this->creditSelected = false;
+      $this->paymentDetails = true;
+
+      $this->payment = Payment::findOrFail($id);
+    }
+
     public function cancelPayment()
     {
-      $this->confirmPayment = !$this->confirmPayment;
+      $this->confirmPayment = false;
       $this->customerSelected = true;
       $this->creditSelected = true;
-    
+      $this->paymentDetails = false;
+      $this->certificationFinancialDefault = null;
+      $this->certificationPayment = null;
+
       $this->creditClicked($this->payment->credits->id);
+    }
+
+    public function removeImage($removePhoto)
+    {
+      if($removePhoto === "1") {
+        $this->certificationPayment = null;
+        
+      }
+
+      if($removePhoto === "2") {
+        $this->certificationFinancialDefault = null;
+      }
     }
 }

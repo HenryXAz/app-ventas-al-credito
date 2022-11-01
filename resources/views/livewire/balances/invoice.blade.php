@@ -10,13 +10,14 @@
 <body>
   
   <div class="container-data">
+    <h2 class="message"><img src="{{public_path('images/logoBussiness.jpg')}}" alt="logo bussiness" width="200"></h2>
     <h2 class="message"><span class="meta-data">No de Boleta</span> {{$paymentNumber}} </h2>
     <!-- <h2 class="message"><span class="meta-data">Comprobante de Pago</span></h2> -->
   </div>
 
   <div class="clear"></div>
 
-  <h1 class="title">comprobante de Pago</h1>
+  {{-- <h1 class="title">comprobante de Pago</h1> --}}
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Fecha límite de pago</span> 

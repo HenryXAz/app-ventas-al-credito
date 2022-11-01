@@ -93,6 +93,9 @@
       @include("livewire.balances.confirm-payment-dialog")
       @endif
 
+      @if($paymentDetails)
+      @include("livewire.balances.detail-payments")
+      @endif
 
 
       @if($creditSelected)
@@ -111,10 +114,12 @@
         <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white sticky top-0 ">
             <tr>
+              <th class="py-3 px-6">No de cuota</th>
               <th class="py-3 px-6">Fecha</th>
               <th class="py-3 px-6">Cuota</th>
               <th class="py-3 px-6">Capital</th>
               <th class="py-3 px-6">Saldo</th>
+              <th class="py-3 px-6"></th>
               <th class="py-3 px-6"></th>
             </tr>
           </thead>
@@ -123,10 +128,13 @@
 
             <tr class="bg-white dark:bg-dark-eval-2 even:bg-purple-100 dark:even:bg-dark-eval-1">
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                {{ $pay->payment_number }}
+              </td>
+              <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 {{ $pay->payment_date }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{ $pay->fee }}
+                Q. {{ $pay->fee }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 @if($pay->status == '1')
@@ -138,7 +146,7 @@
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 Q. {{ $pay->balance }}
               </td>
-              <td>
+              <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 @if($pay->status === "1")
                 <x-button variant="success" wire:click="confirmPayment({{$pay->id}})">pagar</x-button>
                 @else
@@ -164,8 +172,19 @@
 
 
 
+                
+              </td>
+              @endif
+              <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                @if($pay->status !== "1")
+                <x-button class="" wire:click="viewPaymentDetails({{$pay->id}})">
+                  ver detalles
+                </x-button>
+                
                 @endif
               </td>
+
+              
             </tr>
 
             @endforeach

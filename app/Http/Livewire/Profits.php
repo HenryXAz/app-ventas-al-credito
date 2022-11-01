@@ -17,8 +17,8 @@ class Profits extends Component
     public function render()
     {
         if($this->year === "0" || $this->month === "0") {
-            $this->year = date("Y");
-            $this->month = date("m");
+            $this->year = \Carbon\Carbon::today("America/Guatemala")->format('Y');
+            $this->month = \Carbon\Carbon::today("America/Guatemala")->format("m");
 
             $this->payments = Payment::where("status", "=", "2")
             ->whereMonth("payment_day", "=", date("m"))

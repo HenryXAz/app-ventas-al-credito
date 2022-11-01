@@ -8,6 +8,8 @@
   <title>créditos activos</title>
 </head>
 <body>
+  <img src="{{public_path('images/logoBussiness.jpg')}}" alt="logo bussiness" width="200">
+
   <h1 class="title">créditos activos</h1>
   
   <table class="table page-break">

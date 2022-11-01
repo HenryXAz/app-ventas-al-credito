@@ -39,6 +39,12 @@
   <img src="{{$certificationPayment->temporaryUrl()}}" alt="comprobante de pago" width="200" class="w-1/2 mx-auto object-cover">
   @endif
 
+  @if($certificationPayment)
+      {{-- <x-button wire:click="removeImage('1')" variant="secondary" class="w-1/4 mx-auto dark:bg-dark-eval-1">eliminar imagen...</x-button> --}}
+    <div class="w-full flex justify-center">
+      <button wire:click="removeImage('1')" class="w-1/4 p-2.5 text-center  dark:bg-dark-eval-1 bg-gray-100 text-gray-800 dark:text-white rounded-md " >eliminar imagen...</button>
+    </div>
+  @endif
 
   @if($methodPayment === "2" && !$certificationPayment)
   <div class=" my-4 flex justify-center items-center w-2/4 mx-auto ">
@@ -68,9 +74,9 @@
     id="financialDefault"  wire:model="financialDefault" >
   </label>
 
-  <div class="w-full my-4 flex justify-center gap-2">
+  <div class="w-1/2 my-6 flex justify-start gap-2">
     Tipo de pago
-    <select name="" id="methodFinancialDefault" class="bg-white dark:bg-dark-eval-3" 
+    <select name="" id="methodFinancialDefault" class=" bg-white dark:bg-dark-eval-3" 
       wire:model="financialDefaultMethod">
       <option value="1">efectivo</option>
       <option value="2">banco</option>
@@ -79,6 +85,13 @@
 
     @if($certificationFinancialDefault)
       <img src="{{$certificationFinancialDefault->temporaryUrl()}}" alt="comprobante de mora" width="200" class="w-1/2 mx-auto object-cover">
+    @endif
+
+    @if($certificationFinancialDefault)
+      {{-- <x-button wire:click="removeImage('2')" variant="secondary" class="w-1/4 mx-auto dark:bg-dark-eval-1">eliminar imagen...</x-button> --}}
+      <div class="w-full flex justify-center">
+        <button wire:click="removeImage('2')" class="w-1/4 p-2.5 text-center  dark:bg-dark-eval-1 bg-gray-100 text-gray-800 dark:text-white rounded-md " >eliminar imagen...</button>
+      </div>
     @endif
 
     @if($financialDefaultMethod === "2" && !$certificationFinancialDefault)
@@ -101,9 +114,12 @@
 
 
 
-  <div class="w-full flex gap-2 justify-center my-4">
-    <x-button variant="info" wire:click="cancelPayment">listo</x-button>
+  <div class="w-full flex gap-2 justify-end my-6">
+    <x-button variant="info" wire:click="cancelPayment">regresar a la tabla de pagos</x-button>
+    
+    @if(!session()->has("message"))
     <x-button variant="success" wire:click="toPay()">realizar pago</x-button>
+    @endif
 
     @if(session()->has("message"))
     <form action='{{ route("pdfInvoice") }}' method="POST" target="_blank">

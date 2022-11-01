@@ -126,7 +126,7 @@ class NewCredits extends Component
       }
 
       if($this->interestType === "2") {
-        $this->initialInterest = round($this->amount, 2) * (round($this->interest, 2) / 10);
+        $this->initialInterest = round($this->amount, 2) * (round($this->interest, 2) / 100);
       }
 
       

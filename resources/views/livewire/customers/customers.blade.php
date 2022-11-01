@@ -1,5 +1,13 @@
 <div class="p-4 h-auto">
   
+  @if(session()->has("customer-have-credits"))
+    <div x-data="{show: true}" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+      class="w-1/2 mx-auto rounded-md my-4 p-4 text-center bg-red-400 text-white dark:bg-red-600">
+      {{session("customer-have-credits")}}
+    </div>
+  @endif
+
+
   <div class="w-full mx-auto flex gap-2">
     <x-button wire:click="toggleModal()" variant="primary" >nuevo cliente</x-button>
 
