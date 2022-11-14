@@ -8,6 +8,8 @@ use App\Models\Customer;
 use Carbon\Carbon;
 use PDF;
 
+use Illuminate\Support\Facades\DB;
+
 
 class PDFGenerator extends Controller
 {
@@ -109,12 +111,10 @@ class PDFGenerator extends Controller
 
   public function pdfActiveCredits(Request $req)
   {
-    $credits = Credit::whereIn("id", function($query)
-    {
-      $query->select("id_credit")
-        ->from("payments")
-        ->where("status", "=", "1");
-    })->get();
+    $credits = DB::table("credits")
+      ->join("customers", "customers.id", "=", "credits.id_customer")
+      ->select("credits.capital", "credits.balance", "customers.name" , "customers.last_name" , "customers.personal_phone", "customers.email")
+      ->get();
 
     $pdf = PDF::loadView("livewire.balances.active-credits", ["credits" => $credits]);
 

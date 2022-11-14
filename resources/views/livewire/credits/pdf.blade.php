@@ -64,7 +64,7 @@
       @for($i=0;$i<count($balances); $i++)
         <tr class="table__body-row table__row">
           <td class="table__body-column table__column">{{$paymentNumber[$i]}}</td>
-          <td class="table__body-column table__column">{{$dates[$i]}}</td>
+          <td class="table__body-column table__column">{{\Carbon\Carbon::parse($dates[$i])->format('d-m-Y')}}</td>
           <td class="table__body-column table__column">Q.{{$fees[$i]}}</td>
           <td class="table__body-column table__column">Q.{{$paymentInterests[$i]}}</td>
           <td class="table__body-column table__column">Q.{{$currentCapital[$i]}}</td>
