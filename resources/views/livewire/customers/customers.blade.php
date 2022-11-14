@@ -88,6 +88,42 @@
                 <x-button variant="danger" wire:click="toggleAlertDelete({{$customer->id}})">
                   eliminar
                 </x-button>
+                <form action="{{route('customersInfo')}}" method="POST" target="_blank">
+                  @csrf
+
+                  <input type="hidden" name="id" value="{{$customer->id}}">
+                  <input type="hidden" name="name" value="{{json_encode($customer->name)}}">
+                  <input type="hidden" name="last_name" value="{{json_encode($customer->last_name)}}">
+                  <input type="hidden" name="dpi" value="{{json_encode($customer->dpi)}}">
+                  <input type="hidden" name="nit" value="{{json_encode($customer->nit)}}">
+                  <input type="hidden" name="personalPhone" value="{{json_encode($customer->personal_phone)}}">
+                  <input type="hidden" name="homePhone" value="{{json_encode($customer->home_phone)}}">
+                  <input type="hidden" name="employmentPhone" value="{{json_encode($customer->employment_phone)}}">
+                  <input type="hidden" name="companyName" value="{{json_encode($customer->company_name)}}">
+                  <input type="hidden" name="employmentAddress" value="{{json_encode($customer->employment_address)}}">
+                  <input type="hidden" name="homeAddress" value="{{json_encode($customer->home_address)}}">
+                  <input type="hidden" name="facebook" value="{{json_encode($customer->facebook)}}">
+                  <input type="hidden" name="email" value="{{json_encode($customer->email)}}">
+                  <input type="hidden" name="nameReference" value="{{json_encode($customer->name_reference)}}">
+                  <input type="hidden" name="lastNameReference" value="{{json_encode($customer->last_name_reference)}}">
+                  <input type="hidden" name="phoneReference" value="{{json_encode($customer->phone_reference)}}">
+                  <input type="hidden" name="emailReference" value="{{json_encode($customer->email_reference)}}">
+                  <input type="hidden" name="nameSecondReference" value="{{json_encode($customer->name_second_reference)}}">
+                  <input type="hidden" name="lastNameSecondReference" value="{{json_encode($customer->lastname_second_reference)}}">
+                  <input type="hidden" name="emailSecondReference" value="{{json_encode($customer->email_second_reference)}}">
+                  <input type="hidden" name="phoneSecondReference" value="{{json_encode($customer->phone_second_reference)}}">
+                  <input type="hidden" name="nameThirdReference" value="{{json_encode($customer->name_third_reference)}}">
+                  <input type="hidden" name="lastNameThirdReference" value="{{json_encode($customer->last_name_third_reference)}}">
+                  <input type="hidden" name="emailThirdReference" value="{{json_encode($customer->email_third_reference)}}">
+                  <input type="hidden" name="phoneThirdReference" value="{{json_encode($customer->phone_third_reference)}}">
+                  <input type="hidden" name="married" value="{{json_encode($customer->married)}}">
+                  <input type="hidden" name="rent" value="{{json_encode($customer->rent)}}">
+
+                  <x-button type="submit"
+                    wire:submit.prevent="submit">
+                    info cliente
+                  </x-button>
+                </form>
               </td>
           </tr>
           @endforeach

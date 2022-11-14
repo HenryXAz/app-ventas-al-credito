@@ -20,6 +20,7 @@ class Customers extends Component
     protected $rules = [
 
       "dpi" => "required|regex:/^[0-9]{13}$/",
+      "nit" => "required",
       "name" => "required",
       "lastName" => "required|",
       "personalPhone" => "required|regex:/^[0-9]{8}$/",
@@ -48,6 +49,7 @@ class Customers extends Component
     public $alertDelete = false;
     public $id_customer = 0;
     public $dpi = "";
+    public $nit = "";
     public $name = "";
     public $lastName = "";
     public $personalPhone = "";
@@ -146,6 +148,7 @@ class Customers extends Component
       [
         "id_user" => Auth::user()->id,
         "dpi" => $this->dpi,
+        "nit" => $this->nit,
         "name" => $this->name,
         "last_name" => $this->lastName,
         "personal_phone" => $this->personalPhone,
@@ -195,6 +198,7 @@ class Customers extends Component
 
       $this->id_customer = $id;
       $this->dpi = $customer->dpi;
+      $this->nit = $customer->nit;
       $this->name = $customer->name;
       $this->lastName = $customer->last_name;
       $this->personalPhone = $customer->personal_phone;
@@ -272,6 +276,7 @@ class Customers extends Component
     {
       $this->id_customer = 0;
       $this->dpi = "";
+      $this->nit;
       $this->name = "";
       $this->lastName = "";
       $this->personalPhone = "";

@@ -122,4 +122,45 @@ class PDFGenerator extends Controller
     
   }
 
+  public function customersInfo(Request $req)
+  { 
+    $conyuge = null;
+    $married = json_decode($req->married);
+    
+    if($married) {
+      $conyuge = DB::table("conyuges")->where("id_customer", "=", json_decode($req->id))->get()->first();
+    }
+    $pdf = PDF::loadView("livewire.customers.customers-info", [
+      "name" => json_decode($req->name),
+      "last_name" => json_decode($req->last_name),
+      "dpi" => json_decode($req->dpi),
+      "nit" => json_decode($req->nit),
+      "personalPhone" => json_decode($req->personalPhone),
+      "homePhone" => json_decode($req->homePhone),
+      "employmentPhone" => json_decode($req->employmentPhone),
+      "companyName" => json_decode($req->companyName),
+      "employmentAddress" => json_decode($req->employmentAddress),
+      "homeAddress" => json_decode($req->homeAddress),
+      "facebook" => json_decode($req->facebook),
+      "email" => json_decode($req->email),
+      "nameReference" => json_decode($req->nameReference),
+      "lastNameReference" => json_decode($req->lastNameReference),
+      "phoneReference" => json_decode($req->phoneReference),
+      "emailReference" => json_decode($req->emailReference),
+      "nameSecondReference" => json_decode($req->nameSecondReference),
+      "lastNameSecondReference" => json_decode($req->lastNameSecondReference),
+      "phoneSecondReference" => json_decode($req->phoneSecondReference),
+      "emailSecondReference" => json_decode($req->emailSecondReference),
+      "nameThirdReference" => json_decode($req->nameThirdReference),
+      "lastNameThirdReference" => json_decode($req->lastNameThirdReference),
+      "phoneThirdReference" => json_decode($req->phoneThirdReference),
+      "emailThirdReference" => json_decode($req->emailThirdReference),
+      "married" => json_decode($req->married),
+      "rent" => json_decode($req->rent),
+      "conyuge" => $conyuge,
+    ]);
+
+    return $pdf->stream();
+  }
+
 }

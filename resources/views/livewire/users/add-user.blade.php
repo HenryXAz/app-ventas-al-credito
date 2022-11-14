@@ -3,7 +3,7 @@
 
   <!-- Main modal -->
   <div id="defaultModal" tabindex="-1" aria-hidden="true" class="dark:bg-gray-200/20 bg-gray-400/40 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
-    <div class="relative p-4 w-1/2 mx-auto h-full md:h-auto">
+    <div class="relative p-4 w-full md:w-1/2 mx-auto h-full md:h-auto">
           <!-- Modal content -->
       <div class="flex flex-col p-4 relative mx-auto w-full bg-white rounded-lg shadow dark:bg-dark-eval-1">
       
