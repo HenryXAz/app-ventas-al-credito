@@ -1,4 +1,4 @@
-<div class="fixed inset-x-0 bottom-0 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white md:hidden dark:bg-dark-eval-1"
+<div class="fixed z-10 inset-x-0 bottom-0 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white md:hidden dark:bg-dark-eval-1"
     :class="{
         'translate-y-full': scrollingDown,
         'translate-y-0': scrollingUp,

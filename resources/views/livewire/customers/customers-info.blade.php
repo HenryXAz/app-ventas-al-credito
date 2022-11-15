@@ -50,6 +50,7 @@
 
   <div class="container-data">
     <p class="message-customer-info"><span class="meta-data">Número trabajo:</span> {{$employmentPhone}}</p>
+    <p class="message-customer-info"><span class="meta-data">Empresa:</span> {{$companyName}}</p>
   </div>
 
   <div class="clear"></div>

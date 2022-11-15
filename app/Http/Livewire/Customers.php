@@ -47,6 +47,8 @@ class Customers extends Component
 
     public $modal = false;
     public $alertDelete = false;
+    public $alertCustomerInfo = false;
+    public $editCustomer = false;
     public $id_customer = 0;
     public $dpi = "";
     public $nit = "";
@@ -188,12 +190,17 @@ class Customers extends Component
         ]);
       }
 
+      $this->editCustomer = true;
       $this->toggleModal();
-      $this->cleanFields();
+      $this->alertCustomerInfo = true;
+      $this->id_customer = $customer_id;
     }
 
     public function edit(int $id)
     {
+      $this->cleanFields();
+      $this->editCustomer = true;
+
       $customer = Customer::findOrFail($id);
 
       $this->id_customer = $id;
@@ -228,7 +235,6 @@ class Customers extends Component
       }
 
       $this->toggleModal();
-
     }
 
     public function delete(int $id)
@@ -250,14 +256,25 @@ class Customers extends Component
 
     public function toggleModal()
     {
-      ($this->modal)? $this->cleanFields(): true;
+      if(!$this->editCustomer) {
+        $this->cleanFields();
+      }
+      // ($this->modal)? $this->cleanFields(): true;
       $this->modal = !$this->modal;
+      $this->editCustomer = false;
     }
 
     public function toggleAlertDelete(int $id = 0)
     {
       $this->alertDelete = !$this->alertDelete;
       $this->id_customer = $id;
+    }
+
+    public function toggleAlertCustomerInfo(){
+      $this->alertCustomerInfo = !$this->alertCustomerInfo;
+      // $this->toggleModal();
+      $this->cleanFields();
+      $this->id_customer = 0;
     }
 
     public function removeImage()
@@ -276,7 +293,7 @@ class Customers extends Component
     {
       $this->id_customer = 0;
       $this->dpi = "";
-      $this->nit;
+      $this->nit = "";
       $this->name = "";
       $this->lastName = "";
       $this->personalPhone = "";

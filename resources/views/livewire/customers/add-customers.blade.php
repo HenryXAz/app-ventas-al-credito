@@ -2,10 +2,10 @@
 
 
   <!-- Main modal -->
-  <div id="defaultModal" tabindex="-1" aria-hidden="true" class="dark:bg-gray-200/20 bg-gray-400/40 overflow-y-auto overflow-x-hidden md:fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+  <div id="defaultModal" tabindex="-1" aria-hidden="true" class="mx-auto bg-gray-300/60 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal h-full justify-center items-center">
       <div class="relative p-4 w-full mx-auto h-full md:h-auto">
           <!-- Modal content -->
-          <div class="flex flex-col p-4 relative mx-auto w-full bg-white rounded-lg shadow dark:bg-dark-eval-1">
+          <div class="flex flex-col p-4 relative mx-auto w-full  bg-white rounded-lg shadow dark:bg-dark-eval-1">
 
             {{-- form --}}
 
@@ -141,19 +141,19 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="nameSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Nombre Segunda Referencia" wire:model="nameSecondReference" required >
+                placeholder="Nombre Segunda Referencia" wire:model="nameSecondReference" >
                 <x-jet-input-error for="nameSecondReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="lastNameSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Apellido Segunda Referencia" wire:model="lastNameSecondReference" required >
+                placeholder="Apellido Segunda Referencia" wire:model="lastNameSecondReference"  >
                 <x-jet-input-error for="lastNameSecondReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="emailSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Email Segunda Referencia" wire:model="emailSecondReference" required >
+                placeholder="Email Segunda Referencia" wire:model="emailSecondReference"  >
                 <x-jet-input-error for="emailSecondReference" />
               </div>
 
@@ -163,19 +163,19 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="phoneSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono Segunda Referencia" wire:model="phoneSecondReference" required >
+                placeholder="Teléfono Segunda Referencia" wire:model="phoneSecondReference"  >
                 <x-jet-input-error for="phoneSecondReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="nameThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Nombre Tercera Referencia" wire:model="nameThirdReference" required >
+                placeholder="Nombre Tercera Referencia" wire:model="nameThirdReference"  >
                 <x-jet-input-error for="nameThirdReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="lastNameThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Apellido Tercera Referencia" wire:model="lastNameThirdReference" required >
+                placeholder="Apellido Tercera Referencia" wire:model="lastNameThirdReference"  >
                 <x-jet-input-error for="lastNameThirdReference" />
               </div>
 
@@ -185,13 +185,13 @@
 
               <div class="flex flex-col w-full md:w-1/2 gap-2">
                 <input type="text" id="emailThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Email Tercera Referencia" wire:model="emailThirdReference" required >
+                placeholder="Email Tercera Referencia" wire:model="emailThirdReference"  >
                 <x-jet-input-error for="emailThirdReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/2 gap-2">
                 <input type="text" id="phoneThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono Tercera Referencia" wire:model="phoneThirdReference" required >
+                placeholder="Teléfono Tercera Referencia" wire:model="phoneThirdReference"  >
                 <x-jet-input-error for="phoneThirdReference" />
               </div>
               
@@ -264,19 +264,19 @@
                 <div class="flex flex-col w-full md:w-1/3 gap-2">
                         <input type="text" id="dpi_conyuge"
                         class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                            placeholder="DPI" wire:model="dpi_conyuge" required >
+                            placeholder="DPI" wire:model="dpi_conyuge" >
                         <x-jet-input-error for="dpi"/>
                     </div>
 
                     <div class="flex flex-col w-full md:w-1/3 gap-2">
                         <input type="text" id="name_conyuge" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                        placeholder="nombres" wire:model="name_conyuge" required >
+                        placeholder="nombres" wire:model="name_conyuge" >
                         <x-jet-input-error for="name" />
                     </div>
 
                     <div class="flex flex-col w-full md:w-1/3 gap-2">
                         <input type="text" id="lastName_conyuge" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                        placeholder="apellidos" wire:model="lastName_conyuge" required >
+                        placeholder="apellidos" wire:model="lastName_conyuge" >
                         <x-jet-input-error for="lastName" />
                     </div>
                 </div>
@@ -326,13 +326,14 @@
 
 
               <!-- Modal footer -->
-              <div class="flex items-center p-6 space-x-2 rounded-b w-full mx-auto flex-center justify-center">
+              <div class="flex flex-col md:flex-row gap-2 items-center p-6 space-x-2 rounded-b w-full mx-auto flex-center justify-center">
 
-                <x-button variant="success" wire:loading.attr="disabled" wire:target="save, photo | profileImage" wire:click="save()" type="submit"
-                   wire:submit.prevent="submit">guardar</x-button>
+                <x-button variant="success"  wire:click="save()" wire:attr="disabled" wire:target="save, photo | profileImage"  
+                >
+                Guardar
+                </x-button>
 
-                  {{-- <button data-modal-toggle="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> --}}
-                  <button wire:click="toggleModal()" @keyup.escape="toggleModal()"  type="button" class=" text-gray-500 bg-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">cancelar</button>
+                  <button wire:click="toggleModal()"  type="button" class=" text-gray-500 bg-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">cancelar</button>
               </div>
           </div>
       </div>
