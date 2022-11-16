@@ -12,13 +12,13 @@
   @if($report === "1")
     <h1 class="title">Clientes que pagan esta semana</h1>
 
-    <p class="center">(Correspondiente a la semana {{date("d-m-Y", strtotime($startWeek))}} al {{date("d-m-Y", strtotime($endWeek))}}) </p>
+    <p class="center">(Correspondiente a la semana {{\Carbon\Carbon::parse($startWeek)->format('d-m-Y')}} al {{\Carbon\Carbon::parse($endWeek)->format('d-m-Y')}}) </p>
   @elseif($report === "2")
     <h1 class="title">Clientes que no pagan esta semana</h1>
-    <p class="center">(Correspondiente a la semana {{date("d-m-Y", strtotime($startWeek))}} al {{date("d-m-Y", strtotime($endWeek))}}) </p>
+    <p class="center">(Correspondiente a la semana {{\Carbon\Carbon::parse($startWeek)->format('d-m-Y')}} al {{\Carbon\Carbon::parse($endWeek)->format('d-m-Y')}}) </p>
   @elseif($report === "3")
     <h1 class="title">Clientes con pagos atrasados</h1>
-    <p class="center">Registro de pagos atrasados emitido el {{date("d-m-Y")}}</p>
+    <p class="center">Registro de pagos atrasados emitido el {{\Carbon\Carbon::today('America/Guatemala')->format('d-m-Y')}}</p>
   @endif
 
   
@@ -28,9 +28,9 @@
         <th class="table__head-column table__column">nombre</th>
         <th class="table__head-column table__column">email</th>
         <th class="table__head-column table__column">teléfono</th>
-        <th class="table__head-column table__column">monto</th>
-        <th class="table__head-column table__column">fecha pago</th>
-        <th class="table__head-column table__column">No. crédito</th>
+        {{-- <th class="table__head-column table__column">monto</th> --}}
+        {{-- <th class="table__head-column table__column">fecha pago</th>
+        <th class="table__head-column table__column">No. crédito</th> --}}
       </tr>
     </thead>
     <tbody>
@@ -46,15 +46,15 @@
         <td class="table__body-column table__column">
           {{$credit->customer->personal_phone}}
         </td>
-        <td class="table__body-column table__column">
+        {{-- <td class="table__body-column table__column">
           Q.{{$credit->nextPayment($credit->id)->fee ?? 0}}
         </td>
         <td class="table__body-column table__column">
-          {{$credit->nextPayment($credit->id)->payment_date ?? 0}}
-        </td>
-        <td>
+          {{\Carbon\Carbon::parse($credit->nextPayment($credit->id)->payment_date)->format('d-m-Y') ?? 0}}
+        </td> --}}
+        {{-- <td>
           {{$credit->id}}
-        </td class="table__body-column table__column">
+        </td class="table__body-column table__column"> --}}
       </tr>
       @endforeach
     </tbody>

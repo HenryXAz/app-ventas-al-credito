@@ -43,6 +43,7 @@ Route::middleware([
       ->name("customers")
       ->middleware("seller");
     Route::post("/clientes", [PDFGenerator::class, "customers"])->name("customersReport");
+    Route::post("/info-cliente", [PDFGenerator::class, "customersInfo"])->name("customersInfo");
 
     Route::get("/nuevo-credito", NewCredits::class)
       ->name("newCredits")

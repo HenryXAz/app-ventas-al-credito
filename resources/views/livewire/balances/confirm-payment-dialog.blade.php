@@ -13,8 +13,8 @@
     </div>
 
     <div class="w-full my-4 flex justify-between">
-      <p><span class="dark:text-gray-400 text-gray-900">Fecha de Pago</span> {{$payment->payment_date}}</p>
-      <p><span class="dark:text-gray-400 text-gray-900">Fecha de cancelación</span> {{  \Carbon\Carbon::today("America/Guatemala")->format("Y-m-d")}} </p>
+      <p><span class="dark:text-gray-400 text-gray-900">Fecha de Pago</span> {{\Carbon\Carbon::parse($payment->payment_date)->format('d-m-Y')}}</p>
+      <p><span class="dark:text-gray-400 text-gray-900">Fecha de cancelación</span> {{  \Carbon\Carbon::today("America/Guatemala")->format("d-m-Y")}} </p>
     </div>
 
     <div class="w-full  my-4 flex justify-between  ">

@@ -12,6 +12,8 @@
 
   <h1 class="title">créditos activos</h1>
   
+  <p>Reporte emitido el día {{\Carbon\Carbon::today('America/Guatemala')->format('d-m-Y')}}</p>
+
   <table class="table page-break">
     <thead class="table_thead">
       <tr class="table__head-row table__row">
@@ -26,19 +28,19 @@
       @foreach($credits as $credit)
       <tr class="table__body-row table__row">
         <td class="table__body-column table__column">
-          {{$credit->name_customer}}
+          {{$credit->name}}
         </td>
         <td class="table__body-column table__column">
-          {{$credit->customer->email}}
+          {{$credit->email}}
         </td>
         <td class="table__body-column table__column">
-          {{$credit->customer->personal_phone}}
+          {{$credit->personal_phone}}
         </td>
         <td class="table__body-column table__column">
           Q.{{$credit->capital}}
         </td>
         <td class="table__body-column table__column">
-          Q. {{$credit->currentBalance($credit->id)}}
+          Q. {{$credit->balance}}
         </td>
       </tr>
       @endforeach

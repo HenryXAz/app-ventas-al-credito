@@ -131,7 +131,7 @@
                 {{ $pay->payment_number }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{ $pay->payment_date }}
+                {{ \Carbon\Carbon::parse($pay->payment_date)->format('d-m-Y') }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                 Q. {{ $pay->fee }}

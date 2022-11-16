@@ -36,6 +36,7 @@ class CustomerReports extends Component
           {
             $query->select("id_credit")
               ->from("payments")
+              ->where("payments.status", "=", "1")
               ->whereBetween("payment_date", [$startWeek, $endWeek]);
           })->paginate(10);
         } else if($this->report === "2") {
@@ -44,6 +45,7 @@ class CustomerReports extends Component
           {
             $query->select("id_credit")
               ->from("payments")
+              ->where("payments.status", "=", "1")
               ->whereBetween("payment_date", [$startWeek, $endWeek]);
           })->paginate(10);
 

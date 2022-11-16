@@ -136,11 +136,6 @@
     <div class=" my-4 flex items-center p-6 space-x-2 rounded-b w-full mx-auto flex-center justify-center">
 
       <x-button variant="primary" wire:click="feeCalculate()">calcular cuotas</x-button>
-      @if($estimate)
-      <button class="bg-gray-900 p-2.5 rounded-md text-white"
-        wire:click="cleanFields()">limpiar campos
-      </button>
-      @endif
     </div>
 
   </div>
@@ -152,7 +147,7 @@
   <div class="w-full my-4">
     <h2 class="text-lg text-center">Proyección</h2>
     <p>
-      capital inicial <span class="font-bold">{{$amount}}</span>
+      capital inicial <span class="font-bold">Q. {{$amount}}</span>
       numero de pagos <span class="font-bold">{{count($paymentNumber)}}</span>
     </p>
     <div class="overflow-x-auto relative">
@@ -188,7 +183,7 @@
             </td>
 
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-                {{$dates[$i]}}
+                {{\Carbon\Carbon::parse($dates[$i])->format('d-m-Y')}}
                 
               </td>
               <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
@@ -218,25 +213,26 @@
       <button class="bg-rose-500 hover:bg-rose-600 p-2.5 rounded-md text-white my-4 "
         wire:click="cleanFields()">cancelar</button>
 
-       <form action='{{ route("pdfEstimate") }}' method="POST" target="_blank">
+      <form action="{{route('pdfEstimate')}}" method="POST" target="_blank">
         @csrf
-
-        <input type="hidden" name="nameCustomer" value="{{json_encode($nameCustomer)}}"/>
-        <input type="hidden" name="lastNameCustomer" value="{{json_encode($lastNameCustomer)}}"/>
-        <input type="hidden" name="dpiCustomer" value="{{json_encode($dpiCustomer)}}"/>
-        <input type="hidden" name="interestType" value="{{json_encode($interestType)}}"/>
-        <input type="hidden" name="interest" value="{{json_encode($interest)}}"/>
-        <input type="hidden" name="amount" value="{{json_encode($amount)}}"/>
-        <input type="hidden" name="balances" value="{{json_encode($balances)}}"/>
-        <input type="hidden" name="fees" value="{{ json_encode($fees)}}">
+        
+        <input type="hidden" name="nameCustomer" value="{{json_encode($nameCustomer)}}">
+        <input type="hidden" name="lastNameCustomer" value="{{json_encode($lastNameCustomer)}}">
+        <input type="hidden" name="dpiCustomer" value="{{json_encode($dpiCustomer)}}">
+        <input type="hidden" name="interestType" value="{{json_encode($interestType)}}">
+        <input type="hidden" name="interest" value="{{json_encode($interest)}}">
+        <input type="hidden" name="amount" value="{{json_encode($amount)}}">
+        <input type="hidden" name="balances" value="{{json_encode($balances)}}">
+        <input type="hidden" name="fees" value="{{json_encode($fees)}}">
         <input type="hidden" name="paymentInterests" value="{{ json_encode($paymentInterests)}}">
         <input type="hidden" name="currentCapital" value="{{ json_encode($currentCapital)}}">
         <input type="hidden" name="dates" value="{{ json_encode($dates)}}">
         <input type="hidden" name="paymentNumber" value="{{ json_encode($paymentNumber)}}">
-        <x-button variant="success" wire:click="save()" type="submit" 
+        <x-button variant="success" wire:click="save()" type="submit"
           wire:submit.prevent="submit"> 
           generar préstamo
         </x-button>
+      </form>
 
       <form action='{{ route("pdfEstimate") }}' method="POST" target="_blank">
         @csrf

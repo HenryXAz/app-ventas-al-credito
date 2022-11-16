@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('dpi');
+            $table->string('nit');
             $table->string('name');
             $table->string('last_name');
             $table->string('personal_phone');

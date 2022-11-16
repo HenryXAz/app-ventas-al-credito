@@ -52,10 +52,18 @@ h2, span {
 }
 
 .message {
-  width: 450;
+  width: 450px;
   margin-right: 20px;
   float: left;
 }
+
+.message-customer-info {
+  width: 380px;
+  margin-right: 5px;
+  float: left;
+  font-size: .8em;
+}
+
 
 .message--center {
   text-align: center;

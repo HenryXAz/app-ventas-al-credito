@@ -87,6 +87,7 @@ class NewCredits extends Component
         "dpi_customer" => $this->dpiCustomer,
         "id_customer" => $this->idCustomer,
         "capital" => $this->amount,
+        "balance" => $this->amount,
         "fee" => $this->fee,
         "interest_type" => $this->interestType,
         "interest_rate" => $this->interest,

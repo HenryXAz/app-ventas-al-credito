@@ -21,13 +21,13 @@
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Fecha límite de pago</span> 
-      {{$paymentDate}} 
+      {{\Carbon\Carbon::parse($paymentDate)->format('d-m-Y')}} 
     </h2>
     <h2 class="message">
       <span class="meta-data">
         Fecha de pago
       </span>
-        {{$paymentDay}}
+        {{\Carbon\Carbon::parse($paymentDay)->format('d-m-Y')}}
     </h2>
   </div>
 

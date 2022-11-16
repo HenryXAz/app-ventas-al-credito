@@ -71,7 +71,7 @@
                       Q. {{$credit->nextPayment($credit->id)->fee ?? 0}}
                   </td>
                   <td class="py-4 px-6 text-gray-900  dark:text-white">
-                      {{$credit->nextPayment($credit->id)->payment_date ?? 0}}
+                      {{\Carbon\Carbon::parse($credit->nextPayment($credit->id)->payment_date)->format('d-m-Y') ?? 0}}
                   </td>
 
               </tr>

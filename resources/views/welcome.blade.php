@@ -18,9 +18,9 @@
     
     </head>
     <body class="antialiased font-sans bg-gray-100 text-gray-900 dark:bg-dark-eval-0 dark:text-gray-200">
-        <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
+        <div class="relative flex-col flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <div class=" fixed  top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ route('dashboard') }}" class="text-sm dark:text-gray-400 p-4 bg-blue-700 text-white rounded-md">Dashboard</a>
                     @else
@@ -43,11 +43,7 @@
 
         </div>
         <footer class="w-full mx-auto bg-white p-4 flex flex-col">
-          <p class="text-center">
-            credo por estudiantes de ingeniería en sistemas <span class="text-indigo-500">UMG </span
-          </p>
-          
-          <h6 class="text-gray-700 text-center">Quetzaltenango, Guatemala 2022</h6>              
+          <h6 class="text-gray-700 text-center">&copy; Guatemala {{\Carbon\Carbon::now('America/Guatemala')->format('Y')}}</h6>              
         </footer>
     </body>
 </html>

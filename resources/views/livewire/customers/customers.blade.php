@@ -30,6 +30,10 @@
   @include("livewire.customers.dialog-delete")
   @endif
 
+  @if($alertCustomerInfo)
+  @include("livewire.customers.customers-info-alert")
+  @endif
+
   @if($modal)
 
   @include("livewire.customers.add-customers")
@@ -43,7 +47,7 @@
       @csrf
       <button type="submit" wire:submit.prevent="submit" class="bg-indigo-500 hover:bg-indigo-600 p-3 text-white rounded-md mt-6">generar reporte</button>
     </form>
-    <div class="overflow-x-auto relative">
+    <div class="overflow-x-auto relative ">
     <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white ">
           <tr class="">
@@ -99,7 +103,7 @@
   </div>
     @endif
 
-    <div class="px-6 py-3 w-1/2 mx-auto">
+    <div class="px-6 py-3  w-1/2 mx-auto">
       {{$customers->links()}}
     </div>
 

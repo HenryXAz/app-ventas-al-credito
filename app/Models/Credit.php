@@ -51,6 +51,7 @@ class Credit extends Model
       "id",
       "payment_frequency",
       "capital",
+      "balance",
       "interest_type",
       "interest_rate",
       "car_image",

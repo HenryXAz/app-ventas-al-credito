@@ -205,11 +205,14 @@ class ShowBalances extends Component
 
       $this->payment->save();
 
+      $credit = Credit::findOrFail($this->payment->id_credit);
+
       if($this->payment->balance === 0.0) {
-        $credit = Credit::findOrFail($this->payment->id_credit);
         $credit->status = '2';
-        $credit->save();
       }
+
+      $credit->balance = $this->payment->balance;
+      $credit->save();
 
       session()->flash("message", "cuota cancelada correctamente");
     }
