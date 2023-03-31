@@ -127,9 +127,9 @@ class PDFGenerator extends Controller
     $conyuge = null;
     $married = json_decode($req->married);
     
-    if($married) {
-      $conyuge = DB::table("conyuges")->where("id_customer", "=", json_decode($req->id))->get()->first();
-    }
+    // if($married) {
+    //   $conyuge = DB::table("conyuges")->where("id_customer", "=", json_decode($req->id))->get()->first();
+    // }
     $pdf = PDF::loadView("livewire.customers.customers-info", [
       "name" => json_decode($req->name),
       "last_name" => json_decode($req->last_name),
@@ -157,7 +157,7 @@ class PDFGenerator extends Controller
       "emailThirdReference" => json_decode($req->emailThirdReference),
       "married" => json_decode($req->married),
       "rent" => json_decode($req->rent),
-      "conyuge" => $conyuge,
+      // "conyuge" => $conyuge,
     ]);
 
     return $pdf->stream();

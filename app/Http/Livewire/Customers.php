@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Customer;
-use App\Models\Conyuge;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -82,13 +81,6 @@ class Customers extends Component
     // public $customers;
     public $search = "";
 
-    // Conyuge
-    public $id_conyuge = 0;
-    public $dpi_conyuge = "";
-    public $name_conyuge = "";
-    public $lastName_conyuge = "";
-    public $photo2 = null;
-    public $profileImage2;
 
     public function updated($propertyName)
     {
@@ -130,18 +122,6 @@ class Customers extends Component
         $imagePath = $this->profileImage;
       }
 
-      if($this->photo2 !== null)
-      {
-        $currentImagePath2 = public_path("storage/{$this->profileImage2}");
-        shell_exec("rm {$currentImagePath2}");
-
-        $imagePath2 = $this->photo2->store("customerHousePhoto", "public");
-      }
-      else if(!$this->photo2 && !$this->profileImage2) {
-        $imagePath2 = "customerPhotos/defaultPhoto.png";
-      } else {
-        $imagePath2 = $this->profileImage2;
-      }
 
       $this->validate();
 
@@ -179,16 +159,7 @@ class Customers extends Component
         "house_photo" => $imagePath2,
       ])->id;
 
-      if ($this->isMarried) {
-        
-        Conyuge::updateOrCreate(["id" => $this->id_conyuge],
-        [
-          "id_customer" => $customer_id,
-          "dpi" => $this->dpi,
-          "name" => $this->name_conyuge,
-          "last_name" => $this->lastName_conyuge,
-        ]);
-      }
+
 
       $this->editCustomer = true;
       $this->toggleModal();
@@ -224,15 +195,7 @@ class Customers extends Component
       $this->isMarried = ($customer->married === 1)? 1 : 0;
       $this->rent = ($customer->rent === 1)? 1 : 0;
       $this->profileImage = $customer->photo;
-      $this->profileImage2 = $customer->house_photo;
 
-      if($this->isMarried === 1) {
-        $conyuge = $customer->conyuge()->first();
-        $this->id_conyuge = $conyuge->id;
-        $this->dpi_conyuge = $conyuge->dpi;
-        $this->name_conyuge = $conyuge->name;
-        $this->lastName_conyuge = $conyuge->last_name;
-      }
 
       $this->toggleModal();
     }
@@ -285,7 +248,7 @@ class Customers extends Component
 
     public function removeImage2()
     {
-      $this->photo2 = null;
+      // $this->photo2 = null;
       //$this->profileImage = null;
     }
 
@@ -313,11 +276,6 @@ class Customers extends Component
       $this->rent = "";
       $this->photo = null;
       $this->profileImage = null;
-      $this->photo2 = null;
-      $this->profileImage2 = null;
-      $this->dpi_conyuge = "";
-      $this->name_conyuge = "";
-      $this->lastName_conyuge = "";
       $this->nameSecondReference = "";
       $this->lastNameSecondReference = "";
       $this->emailSecondReference = "";

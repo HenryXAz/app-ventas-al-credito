@@ -74,10 +74,10 @@
             <h2 class="text-md text-gray-100">Intereses Percibidos</h2>
         </div>
 
-        <div class="flex flex-col sm:w-1/3 md:w-1/3 w-full bg-emerald-600 justify-between dark:text-white text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
+        {{-- <div class="flex flex-col sm:w-1/3 md:w-1/3 w-full bg-emerald-600 justify-between dark:text-white text-gray-700 text-center h-48 p-2 rounded-md shadow-md">
             <p class="text-3xl text-gray-100">Q. {{($interests + $financialDefault) * .1}}</p>
             <h2 class="text-md text-gray-100">10% porciento</h2>
-        </div>
+        </div> --}}
     </div>
 
     @else 

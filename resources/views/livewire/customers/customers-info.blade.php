@@ -15,7 +15,7 @@
   </style>
 
   <div class="container-data">
-    <h2 class="message"><img src="{{public_path('images/logoBussiness.jpg')}}" alt="logo bussiness" width="200"></h2>
+    <h2 class="message"><img src="{{public_path('images/logo-business.png')}}" alt="logo bussiness" width="50"></h2>
     <h1 class="messge">Información Cliente</h1>
   </div>
 
@@ -120,12 +120,12 @@
 
   <div class="clear"></div>
 
-  @if($married )
+  {{-- @if($married )
   <div class="container-data">
     <p class="message-customer-info"><span class="meta-data">Nombre conyuge:</span> {{$conyuge->name}}</p>
     <p class="message-customer-info"><span class="meta-data">Apellido conyuge:</span> {{$conyuge->last_name}}</p>
   </div>
-  @endif
+  @endif --}}
 
 </body>
 </html>
