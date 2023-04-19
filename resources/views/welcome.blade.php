@@ -13,8 +13,8 @@
         />
 
         <!-- Scripts -->
-        <link rel="stylesheet" href="{{asset('build/assets/app.4eb8d3a2.css ')}}">
-        <script src="{{asset('build/assets/app.2e2e2c49.js ')}}" defer></script>
+        <link rel="stylesheet" href="{{secure_asset('build/assets/app.4eb8d3a2.css ')}}">
+        <script src="{{secure_asset('build/assets/app.2e2e2c49.js ')}}" defer></script>
     
     </head>
     <body class="antialiased font-sans bg-gray-100 text-gray-900 dark:bg-dark-eval-0 dark:text-gray-200">
