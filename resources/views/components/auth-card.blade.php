@@ -7,7 +7,7 @@
         {{-- <h2 class="text-3xl text-purple-600 dark:text-purple-500">Iniciar Sesión</h2> --}}
 
         <a href="/">
-          <img src="{{asset('images/logoBussiness.jpg')}}" alt="logo" width="200">
+          <img src="{{asset('images/logo-business.png')}}" alt="logo" width="100">
         </a>
 
     </div>
