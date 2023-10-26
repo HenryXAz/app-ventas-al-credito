@@ -38,15 +38,16 @@
 
   @include("livewire.customers.add-customers")
 
-
   @endif
 
     @if(!$modal)
 
+    @if(Auth::user()->role === "1") 
     <form action="{{route("customersReport")}}" method="POST" target="_blank">
       @csrf
       <button type="submit" wire:submit.prevent="submit" class="bg-indigo-500 hover:bg-indigo-600 p-3 text-white rounded-md mt-6">generar reporte</button>
     </form>
+    @endif
     <div class="overflow-x-auto relative ">
     <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white ">
@@ -64,9 +65,9 @@
               <th scope="col" class="py-3 px-6">
                   email
               </th>
-              <th scope="col" class="py-3 px-6">
-
-              </th>
+              @if(Auth::user()->role === "1")
+              <th scope="col" class="py-3 px-6"></th>
+              @endif
           </tr>
       </thead>
       <tbody >
@@ -85,6 +86,7 @@
               <td class="py-4 px-6 text-gray-900  dark:text-white">
                   {{$customer->email}}
               </td>
+              @if(Auth::user()->role === "1")
               <td class="py-4 px-6 text-gray-900 flex gap-2 dark:text-white">
                 <x-button variant="warning" wire:click="edit({{$customer->id}})">
                   editar
@@ -93,10 +95,9 @@
                   eliminar
                 </x-button>
               </td>
+              @endif
           </tr>
           @endforeach
-
-
           
       </tbody>
     </table>
