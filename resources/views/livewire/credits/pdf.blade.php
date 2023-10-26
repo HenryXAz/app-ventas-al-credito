@@ -49,6 +49,13 @@
 
   <div class="clear"></div>
 
+  <div class="container-data">
+    <h2 class="message"><span class="meta-data">Total Interés a pagar: </span> {{$total_interest}}</h2>
+  </div>
+
+
+  <div class="clear"></div>
+
   <table class="table page-break">
     <thead class="table__head">
       <tr class="table__head-row table__row">

@@ -27,6 +27,7 @@ class NewCredits extends Component
     public $lastShare;
     public $interestType = "1";
     public $interest = 0;
+    public $totalInterest = 0;
     public $initialInterest = 0;
     public $paymentFrequency = "1";
     public $paymentDate;
@@ -161,6 +162,10 @@ class NewCredits extends Component
   
           $this->calculateWithFixedInterest($interest, $paymentFrequency);
         }
+
+        $this->totalInterest = array_reduce($this->paymentInterests, function($previous, $current) {
+          return $previous += $current;
+        }, 0);
       } catch (\Throwable $th) {
         echo $th->getMessage();
       }
@@ -237,7 +242,6 @@ class NewCredits extends Component
         $i++;
       }
       
-
     }
 
     public function calculateWithFixedInterest($interestMount,$paymentFrequency)
@@ -280,9 +284,7 @@ class NewCredits extends Component
         $i++;
       }
     }
-
-
-
+    
     public function customerClicked($name, $lastName, $dpi, $id)
     {
       $this->customerSelected = true;

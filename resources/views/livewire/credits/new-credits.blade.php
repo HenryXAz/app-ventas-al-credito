@@ -152,6 +152,9 @@
       capital inicial <span class="font-bold">Q. {{$amount}}</span>
       numero de pagos <span class="font-bold">{{count($paymentNumber)}}</span>
     </p>
+    <p>
+      intereses a pagar <span class="font-bold">Q. {{$totalInterest}}</span>
+    </p>
     <div class="overflow-x-auto relative">
     <table class="w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="bg-dark-eval-3 text-xs uppercase  dark:bg-dark-eval-1 text-white sticky top-0 ">
@@ -244,6 +247,7 @@
         <input type="hidden" name="dpiCustomer" value="{{json_encode($dpiCustomer)}}"/>
         <input type="hidden" name="interestType" value="{{json_encode($interestType)}}"/>
         <input type="hidden" name="interest" value="{{json_encode($interest)}}"/>
+        <input type="hidden" name="total_interest" value="{{json_encode($totalInterest)}}" />
         <input type="hidden" name="amount" value="{{json_encode($amount)}}"/>
         <input type="hidden" name="balances" value="{{json_encode($balances)}}"/>
         <input type="hidden" name="fees" value="{{ json_encode($fees)}}">

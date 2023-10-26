@@ -23,6 +23,7 @@ class PDFGenerator extends Controller
       "amount" => json_decode($req->amount),
       "interest" => json_decode($req->interest),
       "interestType" => json_decode($req->interestType),
+      "total_interest" => json_decode($req->total_interest),
 
       "balances" => json_decode($req->balances),
       "currentCapital" => json_decode($req->currentCapital),
