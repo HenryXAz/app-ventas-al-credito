@@ -8,6 +8,8 @@ use App\Models\Payment;
 class Profits extends Component
 {
     public $payments;
+    public $year_start = "0";
+    public $month_start = "0";
     public $year = "0";
     public $month = "0";
     public $capital = 0;
@@ -16,9 +18,11 @@ class Profits extends Component
 
     public function render()
     {
-        if($this->year === "0" || $this->month === "0") {
+        if($this->year === "0" || $this->month === "0"||$this->year_start === "0"||$this->month_start === "0") {
             $this->year = \Carbon\Carbon::today("America/Guatemala")->format('Y');
             $this->month = \Carbon\Carbon::today("America/Guatemala")->format("m");
+            $this->year_start = \Carbon\Carbon::today("America/Guatemala")->format('Y');
+            $this->month_start = \Carbon\Carbon::today("America/Guatemala")->format("m");
 
             $this->payments = Payment::where("status", "=", "2")
             ->whereMonth("payment_day", "=", date("m"))
@@ -26,9 +30,11 @@ class Profits extends Component
             ->get();    
         } else {
             $this->payments = Payment::where("status", "=", "2")
-            ->whereMonth("payment_day", "=", $this->month)
-            ->whereYear("payment_day", "=", $this->year)
-            ->get();
+             ->whereMonth("payment_day", ">=", $this->month_start)
+             ->whereMonth("payment_day", "<=", $this->month)
+             ->whereYear("payment_day", ">=", $this->year_start)
+             ->whereYear("payment_day", "<=", $this->year)
+             ->get();
         }
         
 
@@ -78,6 +84,24 @@ class Profits extends Component
     public function getMonth($month)
     {
         switch($month) {
+            case "1": return "enero"; break;
+            case "2": return "febrero"; break;
+            case "3": return "marzo"; break;
+            case "4": return "abril"; break;
+            case "5": return "mayo"; break;
+            case "6": return "junio"; break;
+            case "7": return "julio"; break;
+            case "8": return "agosto"; break;
+            case "9": return "septiembre"; break;
+            case "10": return "octubre"; break;
+            case "11": return "noviembre"; break;
+            case "12": return "diciembre"; break;
+        }
+    }
+
+    public function getMonthStart($month_start)
+    {
+        switch($month_start) {
             case "1": return "enero"; break;
             case "2": return "febrero"; break;
             case "3": return "marzo"; break;
