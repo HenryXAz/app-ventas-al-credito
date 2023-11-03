@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Credit;
 use App\Models\Customer;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Carbon\Carbon;
 use PDF;
 
@@ -13,27 +14,37 @@ use Illuminate\Support\Facades\DB;
 
 class PDFGenerator extends Controller
 {
-  public function pdfEstimate(Request $req)
+  public function pdfEstimate(Request $request)
   {
-
     $pdf = PDF::loadView("livewire.credits.pdf", [
-      "nameCustomer" => json_decode($req->nameCustomer),
-      "lastNameCustomer" => json_decode($req->lastNameCustomer),
-      "dpiCustomer" => json_decode($req->dpiCustomer),
-      "amount" => json_decode($req->amount),
-      "interest" => json_decode($req->interest),
-      "interestType" => json_decode($req->interestType),
-      "total_interest" => json_decode($req->total_interest),
-
-      "balances" => json_decode($req->balances),
-      "currentCapital" => json_decode($req->currentCapital),
-      "paymentInterests" => json_decode($req->paymentInterests),
-      "fees" => json_decode($req->fees),
-      "dates" => json_decode($req->dates),
-      "paymentNumber" => json_decode($req->paymentNumber),
+      "customer" => json_decode($request->customer),
+      "amount" => json_decode($request->amount),
+      "interest" => json_decode($request->interest),
+      "payments" => json_decode($request->payments),
+      "total_interest" => json_decode($request->total_interest),
+      "interest_type" => json_decode($request->interest_type),
     ]);
 
     return $pdf->stream();
+
+    // $pdf = PDF::loadView("livewire.credits.pdf", [
+    //   "nameCustomer" => json_decode($req->nameCustomer),
+    //   "lastNameCustomer" => json_decode($req->lastNameCustomer),
+    //   "dpiCustomer" => json_decode($req->dpiCustomer),
+    //   "amount" => json_decode($req->amount),
+    //   "interest" => json_decode($req->interest),
+    //   "interestType" => json_decode($req->interestType),
+    //   "total_interest" => json_decode($req->total_interest),
+
+    //   "balances" => json_decode($req->balances),
+    //   "currentCapital" => json_decode($req->currentCapital),
+    //   "paymentInterests" => json_decode($req->paymentInterests),
+    //   "fees" => json_decode($req->fees),
+    //   "dates" => json_decode($req->dates),
+    //   "paymentNumber" => json_decode($req->paymentNumber),
+    // ]);
+
+    // return $pdf->stream();
   }
 
   public function pdfInvoice(Request $req)
