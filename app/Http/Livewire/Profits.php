@@ -13,8 +13,8 @@ class Profits extends Component
 
     public function mount()
     {
-        $this->start_date = date('Y-m-d');
-        $this->end_date = date('Y-m-d');
+        $this->start_date = \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d');
+        $this->end_date = \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d');
     }
 
     public function render()
