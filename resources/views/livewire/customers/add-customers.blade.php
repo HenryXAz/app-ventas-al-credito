@@ -13,26 +13,26 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                   <input type="text" id="dpi" class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                  placeholder="DPI" wire:model="dpi" required >
-                <x-jet-input-error for="dpi"/>
+                  placeholder="DPI" wire:model.live="dpi" required >
+                <x-input-error for="dpi"/>
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="nit" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="NIT"  wire:model="nit" required >
-                <x-jet-input-error for="nit" />
+                placeholder="NIT"  wire:model.live="nit" required >
+                <x-input-error for="nit" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="name" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="nombres" wire:model="name" required >
-                <x-jet-input-error for="name" />
+                placeholder="nombres" wire:model.live="name" required >
+                <x-input-error for="name" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="lastName" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="apellidos" wire:model="lastName" required >
-                <x-jet-input-error for="lastName" />
+                placeholder="apellidos" wire:model.live="lastName" required >
+                <x-input-error for="lastName" />
               </div>
 
             </div>
@@ -41,21 +41,21 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="personalPhone" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Número Personal" wire:model="personalPhone" required >
-                <x-jet-input-error for="personalPhone" />
+                placeholder="Número Personal" wire:model.live="personalPhone" required >
+                <x-input-error for="personalPhone" />
               </div>
 
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="homePhone" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono de Domicilio" wire:model="homePhone" required >
-                <x-jet-input-error for="homePhone" />
+                placeholder="Teléfono de Domicilio" wire:model.live="homePhone" required >
+                <x-input-error for="homePhone" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="employmentPhone" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono de trabajo" wire:model="employmentPhone" required >
-                <x-jet-input-error for="employmentPhone" />
+                placeholder="Teléfono de trabajo" wire:model.live="employmentPhone" required >
+                <x-input-error for="employmentPhone" />
               </div>
 
 
@@ -66,20 +66,20 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="companyName" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Empresa" wire:model="companyName" required >
-                <x-jet-input-error for="companyName" />
+                placeholder="Empresa" wire:model.live="companyName" required >
+                <x-input-error for="companyName" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="employmentAddress" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Dirección de Empresa" wire:model="employmentAddress" required>
-                <x-jet-input-error for="employmentAddress" />
+                placeholder="Dirección de Empresa" wire:model.live="employmentAddress" required>
+                <x-input-error for="employmentAddress" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="homeAddress" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Dirección de Domicilio" wire:model="homeAddress" required >
-                <x-jet-input-error for="homeAddress" />
+                placeholder="Dirección de Domicilio" wire:model.live="homeAddress" required >
+                <x-input-error for="homeAddress" />
               </div>
 
             </div>
@@ -89,14 +89,14 @@
 
               <div class="flex flex-col w-full md:w-1/2 gap-2">
                 <input type="text" id="facebook" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Facebook" wire:model="facebook" required >
-                <x-jet-input-error for="facebook" />
+                placeholder="Facebook" wire:model.live="facebook" required >
+                <x-input-error for="facebook" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/2 gap-2">
                 <input type="email" id="email" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Correo Electrónico" wire:model="email" required >
-                <x-jet-input-error for="email" />
+                placeholder="Correo Electrónico" wire:model.live="email" required >
+                <x-input-error for="email" />
               </div>
 
             </div>
@@ -106,20 +106,20 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="nameReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Nombre de Referencia" wire:model="nameReference" required >
-                <x-jet-input-error for="nameReference" />
+                placeholder="Nombre de Referencia" wire:model.live="nameReference" required >
+                <x-input-error for="nameReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="lastNameReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Apellido de Referencia" wire:model="lastNameReference" required >
-                <x-jet-input-error for="lastNameReference" />
+                placeholder="Apellido de Referencia" wire:model.live="lastNameReference" required >
+                <x-input-error for="lastNameReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="email" id="emailReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Correo Electrónico de Referencia" wire:model="emailReference" required >
-                <x-jet-input-error for="emailReference" />
+                placeholder="Correo Electrónico de Referencia" wire:model.live="emailReference" required >
+                <x-input-error for="emailReference" />
               </div>
 
             </div>
@@ -128,8 +128,8 @@
 
               <div class="flex flex-col w-full gap-2">
                 <input type="text" id="phoneReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono de Referencia" wire:model="phoneReference" required >
-                <x-jet-input-error for="phoneReference" />
+                placeholder="Teléfono de Referencia" wire:model.live="phoneReference" required >
+                <x-input-error for="phoneReference" />
               </div>
 
             </div>
@@ -141,20 +141,20 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="nameSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Nombre Segunda Referencia" wire:model="nameSecondReference" >
-                <x-jet-input-error for="nameSecondReference" />
+                placeholder="Nombre Segunda Referencia" wire:model.live="nameSecondReference" >
+                <x-input-error for="nameSecondReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="lastNameSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Apellido Segunda Referencia" wire:model="lastNameSecondReference"  >
-                <x-jet-input-error for="lastNameSecondReference" />
+                placeholder="Apellido Segunda Referencia" wire:model.live="lastNameSecondReference"  >
+                <x-input-error for="lastNameSecondReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="emailSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Email Segunda Referencia" wire:model="emailSecondReference"  >
-                <x-jet-input-error for="emailSecondReference" />
+                placeholder="Email Segunda Referencia" wire:model.live="emailSecondReference"  >
+                <x-input-error for="emailSecondReference" />
               </div>
 
             </div>
@@ -163,20 +163,20 @@
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="phoneSecondReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono Segunda Referencia" wire:model="phoneSecondReference"  >
-                <x-jet-input-error for="phoneSecondReference" />
+                placeholder="Teléfono Segunda Referencia" wire:model.live="phoneSecondReference"  >
+                <x-input-error for="phoneSecondReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="nameThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Nombre Tercera Referencia" wire:model="nameThirdReference"  >
-                <x-jet-input-error for="nameThirdReference" />
+                placeholder="Nombre Tercera Referencia" wire:model.live="nameThirdReference"  >
+                <x-input-error for="nameThirdReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/3 gap-2">
                 <input type="text" id="lastNameThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Apellido Tercera Referencia" wire:model="lastNameThirdReference"  >
-                <x-jet-input-error for="lastNameThirdReference" />
+                placeholder="Apellido Tercera Referencia" wire:model.live="lastNameThirdReference"  >
+                <x-input-error for="lastNameThirdReference" />
               </div>
 
             </div>
@@ -185,14 +185,14 @@
 
               <div class="flex flex-col w-full md:w-1/2 gap-2">
                 <input type="text" id="emailThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Email Tercera Referencia" wire:model="emailThirdReference"  >
-                <x-jet-input-error for="emailThirdReference" />
+                placeholder="Email Tercera Referencia" wire:model.live="emailThirdReference"  >
+                <x-input-error for="emailThirdReference" />
               </div>
 
               <div class="flex flex-col w-full md:w-1/2 gap-2">
                 <input type="text" id="phoneThirdReference" class="w-full mr-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-                placeholder="Teléfono Tercera Referencia" wire:model="phoneThirdReference"  >
-                <x-jet-input-error for="phoneThirdReference" />
+                placeholder="Teléfono Tercera Referencia" wire:model.live="phoneThirdReference"  >
+                <x-input-error for="phoneThirdReference" />
               </div>
               
             </div>
@@ -201,12 +201,12 @@
             <div class="flex mb-4 md:flex-row flex-col">
 
               <div class="px-6 my-5">es casado:
-                <input id="default-radio-1" type="checkbox" value="" name="si" wire:model="isMarried" class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <input id="default-radio-1" type="checkbox" value="" name="si" wire:model.live="isMarried" class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
               </div>
 
               <div class="px-6 py-5">alquila:
-                <input id="default-radio-1" type="checkbox" value="" name="rent" wire:model="rent" class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <input id="default-radio-1" type="checkbox" value="" name="rent" wire:model.live="rent" class="w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
               </div>
 
               <div class="flex flex-col w-full">
@@ -238,10 +238,10 @@
                     <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                     <p class="text-md text-amber-700 dark:text-amber-400 mt-2">fotografía de cliente</p>
                   </div>
-                  <input id="dropzone-file" type="file" class="hidden" wire:model="photo">
+                  <input id="dropzone-file" type="file" class="hidden" wire:model.live.live="photo">
                 </label>
               </div>
-              <x-jet-input-error for="dropzone-file"/>
+              <x-input-error for="dropzone-file"/>
 
 
 

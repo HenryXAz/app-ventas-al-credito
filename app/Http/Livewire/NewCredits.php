@@ -28,6 +28,7 @@ class NewCredits extends Component
 
   public $payments;
   public $totalInterest;
+  public $test = null;
 
   protected $rules = [
     "amount" => "required|regex:/^(\d*\.)?\d+$/",
@@ -60,7 +61,7 @@ class NewCredits extends Component
     return view("livewire.credits.new-credits");
   }
 
-  public function customerSelected(int $id)
+  public function customerClicked(int $id)
   {
     $this->customerSelected = Customer::where("id", $id)->get(["id", "name", "last_name", "dpi"]);
     $this->search = "";

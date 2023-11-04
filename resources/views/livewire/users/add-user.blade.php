@@ -20,21 +20,21 @@
       {{-- name --}}
       <div class="flex flex-col w-full gap-2 my-2">
         <input type="text" id="name" class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-          placeholder="nombre" wire:model="name" required >
-        <x-jet-input-error for="name"/>
+          placeholder="nombre" wire:model.live="name" required >
+        <x-input-error for="name"/>
       </div>  
 
       {{-- email --}}
       <div class="flex flex-col w-full gap-2 my-2">
         <input type="email" id="email" class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-          placeholder="correo electrónico" wire:model="email" required >
-        <x-jet-input-error for="email"/>
+          placeholder="correo electrónico" wire:model.live="email" required >
+        <x-input-error for="email"/>
       </div>
 
       <div  class="w-full my-4 flex gap-2">
         Rol
         <select id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          wire:model="role">
+          wire:model.live="role">
           <option value="1" >administrador</option>
           <option value="2" >vendedor</option>
           <option value="3" >secretaria</option>
@@ -45,15 +45,15 @@
       {{-- password --}}
       <div class="flex flex-col w-full gap-2 my-2">
         <input type="password" id="password" class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-          placeholder="contraeña" wire:model="password" required >
-        <x-jet-input-error for="password"/>
+          placeholder="contraeña" wire:model.live="password" required >
+        <x-input-error for="password"/>
       </div>
 
       {{-- confirm parssword --}}
       <div class="flex flex-col w-full gap-2 my-2">
         <input type="password" id="confirm-password" class="w-full mr-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-          placeholder="confirmar contraseña" wire:model="confirmPassword" required >
-        <x-jet-input-error for="confirmPassword"/>
+          placeholder="confirmar contraseña" wire:model.live="confirmPassword" required >
+        <x-input-error for="confirmPassword"/>
       </div>
 
 

@@ -1,33 +1,33 @@
 <div class="w-full mx-auto mt-3 p-2 bg-white dark:bg-dark-eval-1 shadow-md">
     <div class="flex flex-col my-4">
       <input type="text" name="amoun" id="amount" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-        wire:model="amount" placeholder="monto"  required >
-      <x-jet-input-error for="amount"/>
+        wire:model.live="amount" placeholder="monto"  required >
+      <x-input-error for="amount"/>
 
       <input type="text" name="fee" id="fee" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-        wire:model="fee" placeholder="cuota"  required >
-        <x-jet-input-error for="fee"/>
+        wire:model.live="fee" placeholder="cuota"  required >
+        <x-input-error for="fee"/>
     </div>
 
     <div  class="w-full my-4 flex gap-2">
       Interés
       <select id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        wire:model="interestType">
+        wire:model.live="interestType">
         <option value="1" >fijo</option>
         <option value="2" >porcentual</option>
       </select>
   
       <div class="flex flex-col gap-2 w-full">
         <input type="text" id="interest" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-        wire:model="interest" placeholder="cuota interés"  required >
-        <x-jet-input-error for="interest"/>
+        wire:model.live="interest" placeholder="cuota interés"  required >
+        <x-input-error for="interest"/>
       </div>
     </div>
 
     <label for="paymentDate" class="flex gap-2 my-4" > Fecha de primer pago
       <input type="date" id="paymentDate" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-        wire:model="paymentDate" required >
-        <x-jet-input-error for="paymentDate"/>
+        wire:model.live="paymentDate" required >
+        <x-input-error for="paymentDate"/>
     </label>
 
     <label for="paymentFrequency" class="flex gap-2 my-4">
@@ -42,7 +42,7 @@
 
     <div class="flex gap-2 my-4 flex-col">
       <input type="text" id="search" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-      wire:model="search" placeholder="cliente">
+      wire:model.live="search" placeholder="cliente">
 
     </div>
 
@@ -50,7 +50,8 @@
       <ul>
         @foreach($customers as $customer)
         <li 
-          wire:click="customerSelected({{$customer->id}})" 
+          wire:key='{{$customer->id}}'
+          wire:click="customerClicked({{$customer->id}})"
           class="dark:bg-dark-eval-3 dark:text-white bg-gray-100 text-gray-700 p-2 cursor-pointer">
           {{$customer->dpi}} {{$customer->name}} {{$customer->last_name}}
         <li />
@@ -95,12 +96,12 @@
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para subir un archivo de imagen </span></p>
             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
           </div>
-          <input id="dropzone-file" type="file" class="hidden" wire:model="carPhoto" required>
+          <input id="dropzone-file" type="file" class="hidden" wire:model.live="carPhoto" required>
           <span class="dark:text-rose-300 text-rose-500">Imagen de automóvil(requerido)</span>
         </label>
         
       </div> 
-      <x-jet-input-error for="dropzone-file" />  
+      <x-input-error for="dropzone-file" />  
       @endif
     </div>
 

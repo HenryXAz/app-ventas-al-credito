@@ -4,12 +4,12 @@
     <div class="flex flex-col md:flex-row gap-5">
         <div class="flex flex-col md:flex-row gap-4">
             <label  for="start_date">Fecha Inicial:</label>
-            <input class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" type="date" name="start_date" id="start_date" wire:model="start_date">
+            <input class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" type="date" name="start_date" id="start_date" wire:model.live="start_date">
         </div>
 
         <div class="flex flex-col md:flex-row gap-4">
             <label for="end_date">Fecha Final:</label>
-            <input class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" type="date" name="end_date" id="end_date" wire:model="end_date">
+            <input class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" type="date" name="end_date" id="end_date" wire:model.live="end_date">
         </div>
     </div>
 
