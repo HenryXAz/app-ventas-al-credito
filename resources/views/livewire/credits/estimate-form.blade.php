@@ -24,6 +24,22 @@
       </div>
     </div>
 
+    <div  class="w-full my-4 flex gap-2">
+      Mora
+      <select id="financial_default" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        wire:model.live="financialDefaultType">
+        <option value="1" >fijo</option>
+        <option value="2" >porcentual</option>
+      </select>
+
+      <div class="flex flex-col gap-2 w-full">
+        <input type="text" id="financial_default" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+        wire:model.live="financialDefault" placeholder="cuota de mora"  required >
+        <x-input-error for="interest"/>
+      </div>
+    
+    </div>
+
     <label for="paymentDate" class="flex gap-2 my-4" > Fecha de primer pago
       <input type="date" id="paymentDate" class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
         wire:model.live="paymentDate" required >

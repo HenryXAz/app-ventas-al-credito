@@ -59,6 +59,9 @@ class Credit extends Model
       "status",
       "id_customer",
       "name_customer",
-      "dpi_customer"
+      "dpi_customer",
+      "financial_default_type",
+      "financial_default_amount",
+      "next_payment_date"
     ];
 }

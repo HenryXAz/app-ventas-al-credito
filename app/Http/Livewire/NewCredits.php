@@ -22,6 +22,8 @@ class NewCredits extends Component
   public $fee;
   public $interestType = "1";
   public $interest;
+  public $financialDefaultType;
+  public $financialDefault;
   public $paymentFrequency;
   public $paymentDate;
   public $carPhoto;
@@ -167,6 +169,9 @@ class NewCredits extends Component
       "interest_rate" => $this->interest,
       "payment_frequency" => $this->paymentFrequency,
       "car_image" => $carPhotoPath,
+      "financial_default_type" => $this->financialDefaultType,
+      "financial_default_amount" => $this->financialDefault,
+      "next_payment_date" => $this->paymentDate,
       "status" => "1",
     ]);
 
