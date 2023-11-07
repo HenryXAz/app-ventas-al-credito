@@ -27,6 +27,7 @@ return new class extends Migration
           $table->string("name_customer");
           $table->string("dpi_customer");
           $table->string("status");
+          $table->date("next_payment_date")->nullable();
           $table->foreignId("id_customer")
           ->nullable()
           ->constrained('customers')
