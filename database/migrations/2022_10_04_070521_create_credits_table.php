@@ -20,11 +20,14 @@ return new class extends Migration
           $table->string("interest_type");
           $table->float("interest_rate");
           $table->string("payment_frequency");
+          $table->enum("financial_default_type", [1, 2]);
+          $table->decimal("financial_default_amount");
           $table->string("car_image");
           $table->float("fee");
           $table->string("name_customer");
           $table->string("dpi_customer");
           $table->string("status");
+          $table->date("next_payment_date");
           $table->foreignId("id_customer")
           ->nullable()
           ->constrained('customers')

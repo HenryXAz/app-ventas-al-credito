@@ -1,120 +1,37 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire; 
 
 use Livewire\Component;
-use App\Models\Payment;
+use Illuminate\Support\Facades\DB;
 
 class Profits extends Component
 {
-    public $payments;
-    public $year_start = "0";
-    public $month_start = "0";
-    public $year = "0";
-    public $month = "0";
-    public $capital = 0;
-    public $interests = 0;
-    public $financialDefault = 0;
+    public $start_date = null;
+    public $end_date = null;
+    public $statistics = null;
+
+    public function mount()
+    {
+        $this->start_date = \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d');
+        $this->end_date = \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d');
+    }
 
     public function render()
     {
-        if($this->year === "0" || $this->month === "0"||$this->year_start === "0"||$this->month_start === "0") {
-            $this->year = \Carbon\Carbon::today("America/Guatemala")->format('Y');
-            $this->month = \Carbon\Carbon::today("America/Guatemala")->format("m");
-            $this->year_start = \Carbon\Carbon::today("America/Guatemala")->format('Y');
-            $this->month_start = \Carbon\Carbon::today("America/Guatemala")->format("m");
-
-            $this->payments = Payment::where("status", "=", "2")
-            ->whereMonth("payment_day", "=", date("m"))
-            ->whereYear("payment_day", "=", date("Y"))
-            ->get();    
-        } else {
-            $this->payments = Payment::where("status", "=", "2")
-             ->whereMonth("payment_day", ">=", $this->month_start)
-             ->whereMonth("payment_day", "<=", $this->month)
-             ->whereYear("payment_day", ">=", $this->year_start)
-             ->whereYear("payment_day", "<=", $this->year)
-             ->get();
+        if($this->start_date > $this->end_date) {
+            $this->start_date = $this->end_date;
         }
-        
 
-        $payments = $this->payments;
+        DB::select('CALL `SP_GET_RECOVERED_CAPITAL_PROFITS_AND_TEN_PERCENT_OF_PROFITS`
+        (?,?,@profits, @recovered_capital, @ten_percent_of_profits)', [
+            $this->start_date,
+            $this->end_date,
+        ]);
 
-        $this->getCapital();
-        $this->getInterests();
-        $this->getFinancialDefault();
-
-        return view('livewire.profits.profits', ["payments" => $payments]);
+        $this->statistics = DB::select('SELECT @profits AS `profits`, 
+            @recovered_capital AS `recovered_capital`,
+            @ten_percent_of_profits AS `ten_percent_of_profits`');
+        return view('livewire.profits.profits');
     }
-
-    public function getCapital()
-    {
-        $payments = $this->payments->pluck("capital")->toArray();
-        
-        $this->capital = array_reduce($payments, function($previus, $current){
-            return $previus += $current;
-        },0);
-
-        round($this->capital,2);
-    }
-
-    public function getInterests()
-    {
-        $payments = $this->payments->pluck("interest")->toArray();
-
-        $this->interests = array_reduce($payments, function($previus, $current){
-            return $previus += $current;
-        },0);
-
-        round($this->interests,2);
-    }
-
-    public function getFinancialDefault()
-    {
-      $payments = $this->payments->pluck("financial_default")->toArray();
-
-      $this->financialDefault = array_reduce($payments, function($previus, $current) 
-      {
-        return $previus += $current;
-      }, 0);
-
-      round($this->financialDefault, 2);
-    }
-
-    public function getMonth($month)
-    {
-        switch($month) {
-            case "1": return "enero"; break;
-            case "2": return "febrero"; break;
-            case "3": return "marzo"; break;
-            case "4": return "abril"; break;
-            case "5": return "mayo"; break;
-            case "6": return "junio"; break;
-            case "7": return "julio"; break;
-            case "8": return "agosto"; break;
-            case "9": return "septiembre"; break;
-            case "10": return "octubre"; break;
-            case "11": return "noviembre"; break;
-            case "12": return "diciembre"; break;
-        }
-    }
-
-    public function getMonthStart($month_start)
-    {
-        switch($month_start) {
-            case "1": return "enero"; break;
-            case "2": return "febrero"; break;
-            case "3": return "marzo"; break;
-            case "4": return "abril"; break;
-            case "5": return "mayo"; break;
-            case "6": return "junio"; break;
-            case "7": return "julio"; break;
-            case "8": return "agosto"; break;
-            case "9": return "septiembre"; break;
-            case "10": return "octubre"; break;
-            case "11": return "noviembre"; break;
-            case "12": return "diciembre"; break;
-        }
-    }
-
 }

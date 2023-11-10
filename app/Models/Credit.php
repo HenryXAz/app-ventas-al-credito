@@ -15,50 +15,56 @@ class Credit extends Model
 
     public function payments()
     {
-      return $this->hasMany(Payment::class, "id_credit", "id");
+        // Relación uno a muchos con Payment
+        return $this->hasMany(Payment::class, "id_credit", "id");
     }
 
-    public function nextPayment($id)
+    public function nextPayment()
     {
-      return Payment::where([
-        ["status", "=", "1"],
-        ["id_credit", "=", "$id"]
-      ])
-        // ->where("id_credit", "=", $id)
-        ->first();
+        return $this->hasOne(Payment::class, "id_credit")
+                    ->where('status', '1')
+                    ->orderBy('payment_date', 'asc');
+    }
+    
+    
+    public function futurePayments($endDate = null)
+    {
+        $endDate = $endDate ?: now();
+        return $this->hasMany(Payment::class, "id_credit")
+                    ->where('status', '1') 
+                    ->where('payment_date', '>', $endDate) 
+                    ->orderBy('payment_date', 'asc');
     }
 
-    public function currentBalance($id)
-    {
-      $lastPayment = Payment::where("status", "=", "2")
-        ->where("id_credit", "=", $id)
-        ->get()
-        ->last();
+    
 
-      if(!$lastPayment) {
-        return $this->capital;
-      } else {
-        return $lastPayment->balance;
-      }
+    public function currentBalance()
+    {
+        $lastPayment = $this->payments()
+                            ->where("status", "2") 
+                            ->latest('payment_date') 
+                            ->first();
+
+        return $lastPayment ? $lastPayment->balance : $this->capital;
     }
 
     public function customer()
     {
-      return $this->belongsTo(Customer::class, "id_customer");
+        // Relación uno a uno inversa con Customer
+        return $this->belongsTo(Customer::class, "id_customer");
     }
 
     protected $fillable = [
-      "id",
-      "payment_frequency",
-      "capital",
-      "balance",
-      "interest_type",
-      "interest_rate",
-      "car_image",
-      "fee",
-      "status",
-      "id_customer",
-      "name_customer",
-      "dpi_customer"
+        "payment_frequency",
+        "capital",
+        "balance",
+        "interest_type",
+        "interest_rate",
+        "car_image",
+        "fee",
+        "status",
+        "id_customer",
+        "name_customer",
+        "dpi_customer" 
     ];
 }

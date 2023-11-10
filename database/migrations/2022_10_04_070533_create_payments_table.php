@@ -29,7 +29,9 @@ return new class extends Migration
           $table->string("certification_payment")->nullable();
           $table->string("method_payment")->nullable();
           $table->string("received_by")->nullable();
-
+          $table->string("bank_id")->nullable();
+          $table->string("bank_name")->nullable();
+          $table->unique(["bank_id", "bank_name"]);
           $table->foreignId("id_credit")
             ->nullable()
             ->constrained("credits")

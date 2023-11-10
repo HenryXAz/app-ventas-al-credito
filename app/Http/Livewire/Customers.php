@@ -98,7 +98,7 @@ class Customers extends Component
         $customers = Customer::where("name", "like" , $search)
           ->orWhere("last_name", "like", $search)
           ->orWhere("dpi", "like", $search)
-          ->paginate(10);
+          ->paginate(2);
         return view('livewire.customers.customers', ["customers" => $customers]);
     }
 
@@ -211,7 +211,7 @@ class Customers extends Component
         $customer->delete();
       }
 
-      $this->id = 0;
+      $this->id_customer = 0;
       $this->toggleAlertDelete();
 
     }

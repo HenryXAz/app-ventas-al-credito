@@ -44,6 +44,8 @@ class ShowBalances extends Component
     public $creditSelected = false;
     public $idCredit;
 
+    public $customers;
+
     // Listar pagos del credito
     public $payments = [];
     public $pendientePagar = 0;

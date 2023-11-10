@@ -107,11 +107,11 @@
                 @endif
 
                 @if ($showingConfirmation)
-                    <x-jet-confirms-password wire:then="disableTwoFactorAuthentication">
+                    <x-confirms-password wire:then="disableTwoFactorAuthentication">
                         <x-button variant="danger" wire:loading.attr="disabled">
                             {{ __('Cancel') }}
                         </x-button>
-                    </x-jet-confirms-password>
+                    </x-confirms-password>
                 @else
                     <x-confirms-password wire:then="disableTwoFactorAuthentication">
                         <x-button variant="danger" wire:loading.attr="disabled">

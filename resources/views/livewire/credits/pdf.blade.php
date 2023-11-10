@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">  <link rel="stylesheet" href="{{public_path('css/pdf.css')}}" type="text/css">
 
-  
   <title>estimacion</title>
 </head>
 <body>
@@ -14,16 +13,16 @@
   <h1 class="title">Proyección</h1>
 
   <div class="container-data">
-    <h2 class="message"><span class="meta-data">Cliente:</span> {{$nameCustomer}} {{$lastNameCustomer}}</h2>
-    <h2 class="message"><span class="meta-data">DPI: </span> {{$dpiCustomer}} </h2>
+    <h2 class="message"><span class="meta-data">Cliente:</span> {{$customer[0]->name}} {{$customer[0]->last_name}}</h2>
+    <h2 class="message"><span class="meta-data">DPI: </span> {{$customer[0]->dpi}} </h2>
   </div>
 
-  <div class="clear"></div>
+   <div class="clear"></div>
 
   <div class="container-data">
-    <h2 class="message"><span class="meta-data">Crédito: </span>Q.{{$amount}}</h2>
+    <h2 class="message"><span class="meta-data">Crédito: </span>Q.{{number_format($amount, 2, '.', ',')}}</h2>
     <h2 class="message"><span class="meta-data">Tipo de Interés: </span>
-    @if($interestType === "1")
+    @if($interest_type === "1")
       Fijo
     @else 
       Porcentual
@@ -34,12 +33,13 @@
 
   <div class="clear"></div>
 
+  
 
   <div class="container-data">
-    <h2 class="message"><span class="meta-data">No. de Cuotas: </span>{{count($paymentNumber)}}</h2>
+    <h2 class="message"><span class="meta-data">No. de Cuotas: </span>{{count($payments)}}</h2>
     <h2 class="message"><span class="meta-data">Tasa de Interés: </span>
-    @if($interestType === "1")
-      Q. {{$interest}}
+    @if($interest_type === "1")
+      Q. {{number_format($interest, 2, '.', ',')}}
     @else 
       {{$interest}}%
     @endif
@@ -49,8 +49,9 @@
 
   <div class="clear"></div>
 
+  
   <div class="container-data">
-    <h2 class="message"><span class="meta-data">Total Interés a pagar: </span> {{$total_interest}}</h2>
+    <h2 class="message"><span class="meta-data">Total Interés a pagar: </span>Q.{{number_format($total_interest, 2, '.', ',')}}</h2>
   </div>
 
 
@@ -68,17 +69,16 @@
       </tr>
     </thead>
     <tbody class="table__body table__row">
-      @for($i=0;$i<count($balances); $i++)
-        <tr class="table__body-row table__row">
-          <td class="table__body-column table__column">{{$paymentNumber[$i]}}</td>
-          <td class="table__body-column table__column">{{\Carbon\Carbon::parse($dates[$i])->format('d-m-Y')}}</td>
-          <td class="table__body-column table__column">Q.{{$fees[$i]}}</td>
-          <td class="table__body-column table__column">Q.{{$paymentInterests[$i]}}</td>
-          <td class="table__body-column table__column">Q.{{$currentCapital[$i]}}</td>
-          <td class="table__body-column table__column">Q.{{$balances[$i]}}</td>
-        </tr>
-      @endfor
-      
+      @foreach($payments as $payment)
+      <tr class="table__body-row table__row">
+        <td class="table__body-column table__column">{{$payment->payment_id}}</td>
+        <td class="table__body-column table__column">{{\Carbon\Carbon::parse($payment->payment_date)->format('d-m-Y')}}</td>
+        <td class="table__body-column table__column">Q.{{number_format($payment->fee, 2, '.', ',')}}</td>
+        <td class="table__body-column table__column">Q.{{number_format($payment->interest, 2, '.', ',')}}</td>
+        <td class="table__body-column table__column">Q.{{number_format($payment->capital, 2, '.', ',')}}</td>
+        <td class="table__body-column table__column">Q.{{number_format($payment->balance, 2, '.', ',')}}</td>
+      </tr>
+      @endforeach
     </tbody>
   </table>
 

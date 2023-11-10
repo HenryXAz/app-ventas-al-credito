@@ -32,6 +32,8 @@ class Payment extends Model
       "payment_date",
       "certification_payment",
       "method_payment",
+      "bank_name",
+      "bank_id",
       "id_credit"
     ];
  
