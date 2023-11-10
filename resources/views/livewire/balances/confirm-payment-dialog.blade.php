@@ -5,6 +5,16 @@
     <h3 class="text-md">{{ session("message")}}</h3>
   </div>
   @endif
+  @if(session()->has("exonerado"))
+  <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="w-2/4 mx-auto bg-green-300 dark:bg-teal-700 text-center p-4 rounded-md dark:text-white text-gray-700">
+    <h3 class="text-md">{{ session("exonerado")}}</h3>
+  </div>
+  @endif
+  @if(session()->has("mora"))
+  <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="w-2/4 mx-auto bg-green-300 dark:bg-teal-700 text-center p-4 rounded-md dark:text-white text-gray-700">
+    <h3 class="text-md">{{ session("mora")}}</h3>
+  </div>
+  @endif
 
   <div class="w-full my-4 ">
     <div class="w-full my-4 flex justify-between  ">
@@ -64,14 +74,31 @@
   {{-- <x-jet-input-error for="dropzone-file" /> --}}
   @endif
 
-
-  @if($payment->payment_date < \Carbon\Carbon::today("America/Guatemala"))
+  @if($this->exonerate_arrears === "1") 
+    <p><span class="dark:text-gray-400 text-gray-900">Estado de mora</span>Activo</p>
+  @elseif($this->exonerate_arrears === "2")
+    <p><span class="dark:text-gray-400 text-gray-900">Estado de mora</span>Exonerado</p>
+  @endif
+  
+    <p><span class="dark:text-gray-400 text-gray-900">Estado tipo de pago</span>{{$this->financialDefaultMethod}}</p>
+  
+  @if($payment->payment_date < \Carbon\Carbon::today("America/Guatemala") && $this->exonerate_arrears === "1")
   <h2 class="my-4 w-full text-center font-light text-xl">Pago atrasado, se debe de cobrar mora</h2>
-
+  
+  
   <label for="financialDefault" class="w-full flex items-center gap-2">
     Cantidad de mora Q.
-    <input type="text" class="w-3/4 mr-2 mt-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
-    id="financialDefault"  wire:model="financialDefault" >
+    @if($financialDefaultMethod === "1")
+      @if(Auth::user()->role === "1")
+        <input type="text" class="w-3/4 mr-2 mt-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+        id="financialDefault" name="financialDefaul"  placeholder="monto" wire:model="financialDefault" required >
+        <x-jet-input-error for="financialDefault"/>
+      @else
+        <input type="text" class="w-3/4 mr-2 mt-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" 
+        id="financialDefault" name="financialDefaul"  placeholder="monto" wire:model="financialDefault" required >
+        <x-jet-input-error for="financialDefault"/>
+      @endif
+    @endif
   </label>
 
   <div class="w-1/2 my-6 flex justify-start gap-2">
@@ -81,6 +108,13 @@
       <option value="1">efectivo</option>
       <option value="2">banco</option>
     </select>
+  </div>
+
+
+  <div class="w-1/2 my-6 flex justify-start gap-2">
+    @if(Auth::user()->role === "1" && $this->clear_arrears_button === "1")
+    <x-button variant="primary" wire:click="Exonerate_arrears">Exonerar mora</x-button>
+    @endif
   </div>
 
     @if($certificationFinancialDefault)

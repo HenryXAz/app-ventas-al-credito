@@ -17,6 +17,17 @@ class ShowBalances extends Component
     use WithFileUploads;
 
     protected $paginationTheme = "tailwind";
+    protected $rules = [
+      "financialDefault" => "required|regex:/^(\d*\.)?\d+$/|gt:0|min:1",
+
+    ];
+    protected $messages = [
+      "financialDefault.required" => "El monto es obligatorio",
+      "financialDefault.gt" => "El monto debe ser mayor a 0",
+      "financialDefaul.min"=>"Debe de ingresar un cantidad",
+    ];
+
+
     public $search = "";
 
     // Seleccionar cliente
@@ -52,7 +63,13 @@ class ShowBalances extends Component
 
     //modal ver detalles de pagos 
     public $paymentDetails = false;
-
+    
+    //Estado de exonerar mora
+    public $exonerate_arrears = "0";
+    
+    //Eliminar boton de exonerar mora al pagar
+    public $clear_arrears_button = "0";
+    
     public function render()
     {
         if($this->search === "") {
@@ -182,6 +199,8 @@ class ShowBalances extends Component
 
     public function toPay()
     {
+      
+
       $imagePath = "";
       $financialDefaultImagePath = "";
 
@@ -192,7 +211,22 @@ class ShowBalances extends Component
       if($this->certificationFinancialDefault) {
         $financialDefaultImagePath = $this->certificationFinancialDefault->store("financialDefault", "public");
       }
-
+      
+      if($this->payment->payment_date < \Carbon\Carbon::today("America/Guatemala")) 
+      {    
+        if($this->financialDefaultMethod ==="1")
+        {
+          if($this->payment->financial_default ="0.00"||$this->payment->financial_default ="0") 
+          {  
+            if($this->exonerate_arrears != "2")
+            {
+             $this->validate();
+            } 
+          }
+        }
+          
+      }
+    
 
       $this->payment->status = "2";
       $this->payment->certification_payment = $imagePath;
@@ -215,6 +249,7 @@ class ShowBalances extends Component
       $credit->save();
 
       session()->flash("message", "cuota cancelada correctamente");
+      $this->clear_arrears_button = "0";
     }
 
     public function confirmPayment($id)
@@ -224,6 +259,17 @@ class ShowBalances extends Component
       $this->confirmPayment = true;
 
       $this->payment = Payment::findOrFail($id);
+
+      if($this->payment->payment_date  < \Carbon\Carbon::today("America/Guatemala"))
+      {
+        $this->exonerate_arrears = "1";
+        $this->clear_arrears_button = "1";
+      }
+      else
+      {
+        $this->exonerate_arrears = "0";
+      }
+      
     }
 
     public function viewPaymentDetails($id)
@@ -258,4 +304,13 @@ class ShowBalances extends Component
         $this->certificationFinancialDefault = null;
       }
     }
+
+    public function Exonerate_arrears()
+    {
+      session()->flash("exonerado", "Exonerado de mora");
+      $this->payment->payment_date  = \Carbon\Carbon::today("America/Guatemala");
+      $this->exonerate_arrears = "2";
+      $this->clear_arrears_button = "0";
+    }
+
 }

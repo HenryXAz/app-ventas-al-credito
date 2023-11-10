@@ -21,7 +21,15 @@
   </div>
 
   <div class="w-full  my-4 flex justify-between  ">
-    <p><span class="dark:text-gray-400 text-gray-900">Mora </span>Q. {{$payment->financial_default}}</p>
+  
+  @if($payment->payment_date < \Carbon\Carbon::today("America/Guatemala") )
+
+    @if($payment->financial_default != "0"|| $payment->financial_default_method === "2")
+    <p><span class="dark:text-gray-400 text-gray-900">Mora </span>Q.{{$payment->financial_default}}</p>
+    @else
+    <p><span class="dark:text-gray-400 text-gray-900">Mora </span>Exonerada</p>
+    @endif
+  @endif
     <p><span class="dark:text-gray-400 text-gray-900">Recibido por </span>{{$payment->received_by}}</p>
   </div>
 
@@ -43,21 +51,20 @@
     </div>
 
   @endif
-
+  <p><span class="dark:text-gray-400 text-gray-900">estado de tipo de pago mora </span>{{$payment->financial_default_method}}</p>
   
 
-  @if($payment->financial_default_method === "2" && $payment->financial_default > 0)
-
+  
+<!-- && $payment->financial_default > 0-->
   <div class="w-full my-4 flex justify-center gap-2">
-    <p><span class="dark:text-gray-400 text-gray-900">Tipo de Pago Mora </span>
-    @if($payment->method_payment === "1")
-      Efectivo 
-    @else 
-      Banco
+    @if($payment->financial_default_method === "1")
+    <p><span class="dark:text-gray-400 text-gray-900">Tipo de Pago Mora </span> Efectivo </p>
+    @else
+    <p><span class="dark:text-gray-400 text-gray-900">Tipo de Pago Mora </span> Banco </p> 
     @endif
-    </p>
+    
   </div>
-
+  @if($payment->financial_default_method === "2" )
     <div class="w-full my-4 flex justify-center gap-2">
       <p><span class="dark:text-gray-400 text-gray-900">Comprobante de Mora </span>
         <img src="{{asset('storage/' . $payment->certification_financial_default)}}" width="600" alt="comprobante banco">
