@@ -63,8 +63,11 @@ class Credit extends Model
         "car_image",
         "fee",
         "status",
+        "financial_default_type",
+        "financial_default_amount",
         "id_customer",
         "name_customer",
-        "dpi_customer" 
+        "dpi_customer" ,
+        "next_payment_date"
     ];
 }

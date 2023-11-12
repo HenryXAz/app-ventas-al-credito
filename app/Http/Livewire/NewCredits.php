@@ -22,9 +22,9 @@ class NewCredits extends Component
   public $fee;
   public $interestType = "1";
   public $interest;
-  public $financialDefaultType;
+  public $financialDefaultType = "1";
   public $financialDefault;
-  public $paymentFrequency;
+  public $paymentFrequency = "1";
   public $paymentDate;
   public $carPhoto;
 
