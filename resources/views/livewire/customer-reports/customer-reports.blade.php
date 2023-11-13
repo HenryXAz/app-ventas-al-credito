@@ -1,3 +1,4 @@
+
 <div>
     <style>
         .date-selector input[type='date'] {
@@ -16,17 +17,22 @@
         .table {
             width: 100%;
             margin-bottom: 1rem;
-            color: #1b76d1;
+            /* color: #1b76d1; */
         }
         .table th,
         .table td {
             padding: .75rem;
             vertical-align: top;
-            border-top: 1px solid #dee2e6;
+            /* border-top: 1px solid #dee2e6; */
+            background-color: #212F3C ;
+            text-align: center;
+            
         }
         .table thead th {
             vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
+            /* border-bottom: 2px solid #dee2e6; */
+            background-color: #17202A;
+            
         }
         .table tbody + tbody {
             border-top: 2px solid #dee2e6;
@@ -38,19 +44,59 @@
             text-align: center;
             padding: 1rem;
         }
-    </style>
 
+        .title{
+        text-align: center;
+        font-size: 30px;
+        }
+        .sub{
+            text-align: center; 
+            font-size: 20px;
+        }
+    </style>
+    
+<h1 class="title">Reporte clientes</h1>
+    
 <div class="date-selector" x-data="{ startDate: @entangle('startDate'), endDate: @entangle('endDate') }">
-    <input type="text" x-ref="start" x-model="startDate" placeholder="dd/mm/YYYY">
-    <input type="text" x-ref="end" x-model="endDate" placeholder="dd/mm/YYYY">
-    <button wire:click="updateDateRange">Actualizar</button>
-    <button wire:click="exportToPDF" wire:loading.attr="disabled">Exportar a PDF</button>
-</div>
+
+    <!-- <input type="text" x-ref="start" x-model="startDate" placeholder="dd/mm/YYYY">
+    <input type="text" x-ref="end" x-model="endDate" placeholder="dd/mm/YYYY"> -->
+    
+    <div class="flex flex-col md:flex-row gap-5">
+        <div class="flex flex-col md:flex-row gap-4">
+            <label  for="start_date">Fecha Inicial:</label>
+            <input class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" type="date"  x-ref="start" x-model="startDate"  name="start_date" id="start_date" wire:model.live="start_date">
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <label for="end_date">Fecha Final:</label>
+            <input class="w-full mr-2 my-2 bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block  p-2.5 dark:bg-dark-eval-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" type="date" x-ref="end" x-model="endDate"  name="end_date" id="end_date" wire:model.live="end_date">
+        </div>
+    </div>
+
+</div  class="flex flex-col md:flex-row gap-5">
+
+    <div class="flex flex-col md:flex-row gap-5">
+        <div class="flex flex-col md:flex-row gap-4">
+            <x-button variant="primary" wire:click="updateDateRange">Actualizar</x-button>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <x-button variant="warning" wire:click="exportToPDF" wire:loading.attr="disabled">Exportar a PDF</x-button>
+        </div>
+    </div>
+
+
     <div class="loading" wire:loading>
         Cargando los datos...
     </div>
 
-    <h2>Créditos Pagados</h2>
+<div class="flex flex-col md:flex-row gap-5">
+
+
+
+</div>
+<h2 class="sub">Créditos Pagados</h2>
     <table class="table">
         <thead>
             <tr>
@@ -77,7 +123,7 @@
         </tbody>
     </table>
 
-    <h2>Créditos No Pagados</h2>
+    <h2 class="sub">Créditos No Pagados</h2>
     <table class="table">
         <thead>
             <tr>
@@ -99,7 +145,7 @@
         </tbody>
     </table>
 
-    <h2>Próximos Pagos</h2>
+    <h2 class="sub">Próximos Pagos</h2>
     <table class="table">
         <thead>
             <tr>
