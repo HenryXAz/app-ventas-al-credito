@@ -53,8 +53,8 @@ return new class extends Migration
             get_financial_default AS (
                 SELECT 
                     CASE
-                        WHEN days_late >= 0 THEN 0
-                        WHEN _custom_financial_default > 0 THEN _custom_financial_default
+                        WHEN days_late > 0 THEN 0
+                        WHEN _custom_financial_default >= 0 THEN _custom_financial_default
                         WHEN financial_default_type = 1 THEN
                             `GET_FIXED_FINANCIAL_DEFAULT`((days_late * -1), financial_default_amount)
                         WHEN financial_default_type = 2 THEN
@@ -66,6 +66,7 @@ return new class extends Migration
             ),
             get_recovered_capital AS(
                 SELECT CASE
+                    WHEN _fee < (i.interest_amount + f.financial_default_amount) THEN 0	
                     WHEN c.balance <= (_fee - (i.interest_amount + f.financial_default_amount) ) THEN
                         c.balance
                         ELSE
@@ -111,7 +112,7 @@ return new class extends Migration
             JOIN get_recovered_capital ON 1 = 1
             JOIN get_new_balance ON 1 = 1
                JOIN get_fee ON 1 = 1;
-        END        
+        END       
         ');
     }
 

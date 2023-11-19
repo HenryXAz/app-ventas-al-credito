@@ -21,12 +21,12 @@ return new class extends Migration
             next_payment_date = NEW.payment_day,
             `status` = 2 WHERE credits.id = NEW.id_credit;
         ELSE
-            SELECT interest_type INTO @interest_type FROM credits
+            SELECT payment_frequency INTO @payment_frequency FROM credits
                 WHERE id = NEW.id_credit;
             
             SELECT `GET_NEXT_PAYMENT_DATE`(
                 NEW.payment_day,
-                @interest_type
+                @payment_frequency
             )
             INTO @next_payment_date_of_credit
             FROM credits WHERE id = NEW.id_credit;    
@@ -35,7 +35,6 @@ return new class extends Migration
             WHERE credits.id = NEW.id_credit; 
         END IF; 
     END
-    
         ');
     }
 
