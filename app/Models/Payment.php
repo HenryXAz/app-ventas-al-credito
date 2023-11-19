@@ -24,6 +24,7 @@ class Payment extends Model
       "balance",
       "payment_number",
       "payment_date",
+      "payment_day",
       "status",
       "financial_default",
       "financial_default_method",

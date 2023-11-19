@@ -40,6 +40,7 @@ class NewCredits extends Component
     "paymentFrequency" => "required",
     "paymentDate" => "required",
     "carPhoto" => "required",
+    "customerSelected" => "required"
   ];
 
   public function updated($propertyName)
@@ -133,7 +134,7 @@ class NewCredits extends Component
       DB::select('CALL `SP_CALCULATE_CREDIT_FIXED_INTEREST`(?,?,?,?,?)', [
         $this->amount,
         $this->fee,
-        $initialInterest,
+        $this->interest,
         $this->paymentFrequency,
         $this->paymentDate,
       ]),
@@ -141,8 +142,8 @@ class NewCredits extends Component
       DB::select('CALL `SP_CALCULATE_CREDIT_PERCENTAGE_INTEREST`(?,?,?,?,?)', [
         $this->amount,
         $this->fee,
-        $this->paymentFrequency,
         $this->interest,
+        $this->paymentFrequency,
         $this->paymentDate,
       ]),
       default => [],
@@ -156,7 +157,13 @@ class NewCredits extends Component
 
   public function save()
   {
+    $this->validate();
     $carPhotoPath = $this->carPhoto->store("carPhotos", "public");
+
+    if($this->customerSelected == null) 
+    {
+      return;
+    }
 
     $credit = Credit::create([
       "name_customer" => $this->customerSelected[0]->name . " " . $this->customerSelected[0]->last_name,

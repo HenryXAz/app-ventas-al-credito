@@ -2,317 +2,221 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use Livewire\WithPagination;
-use App\Models\Customer;
 use App\Models\Credit;
+use App\Models\Customer;
 use App\Models\Payment;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Rule;
+use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class ShowBalances extends Component
 {
+  use WithFileUploads;
 
-    use WithPagination;
-    use WithFileUploads;
+  public $search = "";
+  public $customers = null;
+  public $customerSelected = null;
+  public $credits = [];
+  public $credit = null;
+  public $creditPaymentInfo = null;
+  public $payments = [];
+  
+  #[Rule('regex:/^(\d*\.)?\d+$/')]
+  #[Rule('required')]
+  public $fee;
 
-    protected $paginationTheme = "tailwind";
-    protected $rules = [
-      "financialDefault" => "required|regex:/^(\d*\.)?\d+$/|gt:0|min:1",
+  #[Rule('regex:/^(\d*\.)?\d+$/')]
+  #[Rule('required')]
+  public $customFinancialDefault;
+ 
+  public $paymentMethod = "1";
 
-    ];
-    protected $messages = [
-      "financialDefault.required" => "El monto es obligatorio",
-      "financialDefault.gt" => "El monto debe ser mayor a 0",
-      "financialDefaul.min"=>"Debe de ingresar un cantidad",
-    ];
+  public $paymentCertification = null;
+  public $bankId = null;
+  public $bankName = "Banrural";
 
+  public function updated($propertyName)
+  {
+    $this->validateOnly($propertyName);
+  }
 
-    public $search = "";
-
-    // Seleccionar cliente
-    public $customerSelected = false;
-    public $dpiCustomer;
-    public $nameCustomer;
-    public $lastNameCustomer;
-    public $idCustomer;
-
-    // Listar creditos del cliente
-    public $credits = [];
-
-    // Seleccionar cliente
-    public $creditSelected = false;
-    public $idCredit;
-
-    public $customers;
-
-    // Listar pagos del credito
-    public $payments = [];
-    public $pendientePagar = 0;
-    public $subBalance = [];
-    public $paymentStatus = "3";
-    public $feesNumber;
-    public $methodPayment = "1";
-    public $certificationPayment;
-    public $payment;
-    public $certificationPaymentSelected = false;
-    public $financialDefault = 0;
-    public $certificationFinancialDefault;
-    public $financialDefaultMethod = "1";
-
-    //modal para confirmar pago
-    public $confirmPayment = false;
-
-    //modal ver detalles de pagos 
-    public $paymentDetails = false;
-    
-    //Estado de exonerar mora
-    public $exonerate_arrears = "0";
-    
-    //Eliminar boton de exonerar mora al pagar
-    public $clear_arrears_button = "0";
-    
-    public function render()
-    {
-        if($this->search === "") {
-            $this->customers = null;
-            
-        } else {
-            $search = "%" . $this->search . "%";
-            $this->customers = Customer::where("name", "like", $search)
-            ->orWhere("last_name", "like", $search)
-            ->orWhere("dpi", "like", $search)
-            ->get();
-            $this->customerSelected = false;
-            $this->creditSelected = false;
-        }
-
-        return view('livewire.balances.show-balances');
+  public function render()
+  {
+    if ($this->search === "") {
+      $this->customers = null;
+    } else {
+      $search = "%" . $this->search . "%";
+      $this->customers = Customer::where("name", "like", $search)
+        ->orWhere("last_name", "like", $search)
+        ->orWhere("dpi", "like", $search)
+        ->get();
     }
 
-    public function customerClicked($name, $lastName, $dpi, $id)
-    {
-      $this->customerSelected = true;
-      $this->creditSelected = false;
-      $this->nameCustomer = $name;
-      $this->lastNameCustomer = $lastName;
-      $this->dpiCustomer = $dpi;
-      $this->idCustomer = $id;
-      $this->search = "";
+    return view('livewire.balances.show-balances');
+  }
 
-      $customer = Customer::findOrFail($id);
+  public function makePayment()
+  {
+    $this->validate();
+    $paymentCertificationPath = "";
 
-      $this->credits = $customer->credits;
-      $this->outstandingBalance();
-      $this->transformCredits();
+    if($this->paymentMethod == '2') {
+      if($this->bankName == null || $this->bankId == null || $this->paymentCertification == null) {
+        session()->flash("error_bank_payment_method", "Asegúrese de ingresar correctamente los datos para pago por banco");
+        return;
+      } 
 
+      $paymentCertificationPath = $this->paymentCertification->store("payments", "public");
     }
 
-    // calcular saldo pendiente
+    try {
+      DB::beginTransaction();
 
-    public function outstandingBalance()
-    { 
+      $paymentInfo = DB::select(
+        '
+        CALL `SP_CALCULATE_NEXT_PAYMENT`(
+          @credit_id := :credit_id,
+          @fee := :fee,
+          @custom_financial_default := :financial_default
+        );',
+        [
+          'credit_id' => $this->credit->id,
+          'fee' => $this->fee,
+          'financial_default' => $this->customFinancialDefault,
+        ]
+      );
 
-      foreach($this->credits as $credit) {
+      Payment::create([
+        'payment_number' => $paymentInfo[0]->payment_number,
+        'payment_date' => \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d'),
+        'payment_day' => \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d'),
+        'interest' => $paymentInfo[0]->interest_amount,
+        'fee' => $this->fee,
+        'capital' => $paymentInfo[0]->recovered_capital,
+        'balance' => $paymentInfo[0]->new_balance,
+        'status' => '2',
+        'financial_default' => $paymentInfo[0]->financial_default_amount,
+        'certification_payment' => $paymentCertificationPath,
+        'method_payment' => $this->paymentMethod,
+        'received_by' => Auth::user()->name,
+        'bank_id' => ($this->paymentMethod == '2') ? $this->bankId : null,
+        'bank_name' => ($this->paymentMethod == '2') ? $this->bankName : null,
+        'id_credit' => $this->credit->id,
+      ]);
+      DB::commit();
 
-        $payments = $credit->payments->where("status", "=", "1")->pluck("capital")->toArray();
+      session()->flash("successful_payment", "Se realizó el pago con éxito");
+      $this->chooseCredit($this->credit->id);
+      $this->removeImage();
+    } catch (\PDOException $e) {
+      DB::rollBack();
+      dd($e->getMessage());
+      session()->flash("error_when_making_payment", "Error, asegúrese de ingresar los campos correctos y tener una buena conexión");
+    }
+  }
 
-        $this->subBalance[$credit->id] = array_reduce($payments, function($previus, $current){
-          return $previus + $current;
-        }, 0);
+  public function chooseCustomer(int $id)
+  {
+    $this->search = "";
+    $this->customerSelected = Customer::find($id)->get(['id', 'name', 'last_name', 'dpi']);
+    $this->credits = Credit::where("id_customer", $this->customerSelected[0]->id)->get();
+  }
 
-      }
+  public function unSelectCustomer()
+  {
+    $this->customerSelected = null;
+    $this->credits = [];
+    $this->credit = null;
+    $this->payments = [];
+  }
+
+  public function chooseCredit(int $creditId)
+  {
+    $this->credits = [];
+    $this->credit = Credit::find($creditId);
+
+    // get info of next_payment
+    $this->calculatePayment();
+
+    // get all payments
+    $this->payments = Payment::where("id_credit", $this->credit->id)
+      ->orderBy('payment_number' , 'desc')
+      ->get();
+  }
+
+  public function unSelectCredit()
+  {
+    $this->credit = null;
+    $this->payments = [];
+    $this->credits = Credit::where("id_customer", $this->customerSelected[0]->id)->get();
+  }
+
+  public function calculatePayment()
+  {
+    $this->creditPaymentInfo = DB::select(
+      '
+      CALL `SP_CALCULATE_NEXT_PAYMENT`(
+        @credit_id := :credit_id,
+        @fee := :fee,
+        @custom_financial_default := :financial_default
+      );',
+      [
+        'credit_id' => $this->credit->id,
+        'fee' => $this->credit->fee,
+        'financial_default' => -1,
+      ]
+    );
+    $this->fee = $this->creditPaymentInfo[0]->fee;
+    $this->customFinancialDefault = $this->creditPaymentInfo[0]->financial_default_amount;
+  }
+
+  public function recalculatePaymentFee()
+  {
+    if(!preg_match('/^(\d*\.)?\d+$/', $this->fee)) {
+      return;
     }
 
-    public function unSelectedCustomer()
-    {
-      $this->customerSelected = false;
-      $this->nameCustomer = "";
-      $this->lastNameCustomer = "";
-      $this->dpiCustomer = "";
-      $this->idCustomer = "";
-      $this->credits = [];
-      $this->creditSelected = false;
-      $this->idCredit = "";
-      $this->payments = [];
+    $this->creditPaymentInfo = DB::select(
+      '
+      CALL `SP_CALCULATE_NEXT_PAYMENT`(
+        @credit_id := :credit_id,
+        @fee := :fee,
+        @custom_financial_default := :financial_default
+      );',
+      [
+        'credit_id' => $this->credit->id,
+        'fee' => $this->fee,
+        'financial_default' => -1,
+      ]
+    );
+    $this->fee = $this->creditPaymentInfo[0]->fee;
+  }
+
+  public function recalculateFinancialDefault()
+  {
+    if(!preg_match('/^(\d*\.)?\d+$/', $this->customFinancialDefault)) {
+      return;
     }
 
-    function transformCredits()
-    {
-        foreach ($this->credits as $credit)
-        {
-           if($credit->interest_type == 1) {
-              $credit->interest_type = 'Fijo';
-           } else {
-              $credit->interest_type = 'Porcentual';
-           }
-           switch($credit->payment_frequency){
-              case (1);
-                  $credit->payment_frequency = 'Mensual';
-              break;
-              case (2);
-                  $credit->payment_frequency = 'Semanal';
-              break;
-              case (3);
-                  $credit->payment_frequency = 'Quincenal';
-              break;
-          }
-        }
-    }
+    $this->creditPaymentInfo = DB::select(
+      '
+      CALL `SP_CALCULATE_NEXT_PAYMENT`(
+        @credit_id := :credit_id,
+        @fee := :fee,
+        @custom_financial_default := :financial_default
+      );',
+      [
+        'credit_id' => $this->credit->id,
+        'fee' => $this->fee,
+        'financial_default' => $this->customFinancialDefault,
+      ]
+    );
+  }
 
-    public function creditClicked($id)
-    {
-        $this->creditSelected = true;
-        $this->idCredit = $id;
-        $this->pendientePagar = 0;
-
-        // Filter payments of credit
-        $this->credits = Credit::where("id", "=", $id)->get();
-
-        $paymentStatus = $this->paymentStatus;
-
-        if($paymentStatus === "3") {
-          $this->payments = Payment::where("id_credit", "=", $id)
-          ->get();
-        } else {
-          $this->payments = Payment::where("id_credit", "=", $id)
-            ->where("status", "=", $paymentStatus)
-            ->get();
-        }
-
-        $this->feesNumber = $this->payments;
-
-        // dd($paymentStatus);
-        $this->transformCredits();
-        $this->outstandingBalance();
-
-        // Sumar totos los pagos que aun estan pendientes por pagar
-        // payment status: 1: Pendiente Pago  2: Pagado
-        foreach ($this->payments as $payment)
-        {
-           if($payment->status == 1 /* Pendiente Pago*/)
-           {
-             $this->pendientePagar = $this->pendientePagar + $payment->capital;
-           }
-        }
-    }
-
-
-
-    public function toPay()
-    {
-      
-
-      $imagePath = "";
-      $financialDefaultImagePath = "";
-
-      if($this->certificationPayment) {
-        $imagePath = $this->certificationPayment->store("payments", "public");
-      }
-
-      if($this->certificationFinancialDefault) {
-        $financialDefaultImagePath = $this->certificationFinancialDefault->store("financialDefault", "public");
-      }
-      
-      if($this->payment->payment_date < \Carbon\Carbon::today("America/Guatemala")) 
-      {    
-        if($this->financialDefaultMethod ==="1")
-        {
-          if($this->payment->financial_default ="0.00"||$this->payment->financial_default ="0") 
-          {  
-            if($this->exonerate_arrears != "2")
-            {
-             $this->validate();
-            } 
-          }
-        }
-          
-      }
-    
-
-      $this->payment->status = "2";
-      $this->payment->certification_payment = $imagePath;
-      $this->payment->method_payment = ($this->methodPayment === "1")? "1" : "2";
-      $this->payment->certification_financial_default = $financialDefaultImagePath;
-      $this->payment->financial_default = $this->financialDefault;
-      $this->payment->financial_default_method = ($this->financialDefaultMethod === "1")? "1" : "2";
-      $this->payment->payment_day = \Carbon\Carbon::today("America/Guatemala")->format("Y-m-d");
-      $this->payment->received_by = Auth::user()->name;
-
-      $this->payment->save();
-
-      $credit = Credit::findOrFail($this->payment->id_credit);
-
-      if($this->payment->balance === 0.0) {
-        $credit->status = '2';
-      }
-
-      $credit->balance = $this->payment->balance;
-      $credit->save();
-
-      session()->flash("message", "cuota cancelada correctamente");
-      $this->clear_arrears_button = "0";
-    }
-
-    public function confirmPayment($id)
-    {
-      $this->customerSelected = false;
-      $this->creditSelected = false;
-      $this->confirmPayment = true;
-
-      $this->payment = Payment::findOrFail($id);
-
-      if($this->payment->payment_date  < \Carbon\Carbon::today("America/Guatemala"))
-      {
-        $this->exonerate_arrears = "1";
-        $this->clear_arrears_button = "1";
-      }
-      else
-      {
-        $this->exonerate_arrears = "0";
-      }
-      
-    }
-
-    public function viewPaymentDetails($id)
-    {
-      $this->customerSelected = false;
-      $this->creditSelected = false;
-      $this->paymentDetails = true;
-
-      $this->payment = Payment::findOrFail($id);
-    }
-
-    public function cancelPayment()
-    {
-      $this->confirmPayment = false;
-      $this->customerSelected = true;
-      $this->creditSelected = true;
-      $this->paymentDetails = false;
-      $this->certificationFinancialDefault = null;
-      $this->certificationPayment = null;
-
-      $this->creditClicked($this->payment->credits->id);
-    }
-
-    public function removeImage($removePhoto)
-    {
-      if($removePhoto === "1") {
-        $this->certificationPayment = null;
-        
-      }
-
-      if($removePhoto === "2") {
-        $this->certificationFinancialDefault = null;
-      }
-    }
-
-    public function Exonerate_arrears()
-    {
-      session()->flash("exonerado", "Exonerado de mora");
-      $this->payment->payment_date  = \Carbon\Carbon::today("America/Guatemala");
-      $this->exonerate_arrears = "2";
-      $this->clear_arrears_button = "0";
-    }
-
+  public function removeImage()
+  {
+    $this->paymentCertification = null;
+  }
 }

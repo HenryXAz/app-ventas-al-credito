@@ -37,7 +37,7 @@
           @foreach($payments as $payment)
           <tr class="bg-white dark:bg-dark-eval-2 even:bg-purple-100 dark:even:bg-dark-eval-1 ">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-              Q. {{$payment->payment_id}}
+              Q. {{$payment->payment_number}}
             </td>
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
               {{\Carbon\Carbon::parse($payment->payment_date)->format('d-m-Y')}}
@@ -49,7 +49,7 @@
               Q. {{number_format($payment->interest, 2, '.', ',')}}
             </td>
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
-              Q. {{number_format($payment->capital, 2, '.', ',')}}
+              Q. {{number_format($payment->recovered_capital, 2, '.', ',')}}
             </td>
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
               Q. {{number_format($payment->balance, 2, '.', ',')}}

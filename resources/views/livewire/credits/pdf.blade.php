@@ -71,11 +71,11 @@
     <tbody class="table__body table__row">
       @foreach($payments as $payment)
       <tr class="table__body-row table__row">
-        <td class="table__body-column table__column">{{$payment->payment_id}}</td>
+        <td class="table__body-column table__column">{{$payment->payment_number}}</td>
         <td class="table__body-column table__column">{{\Carbon\Carbon::parse($payment->payment_date)->format('d-m-Y')}}</td>
         <td class="table__body-column table__column">Q.{{number_format($payment->fee, 2, '.', ',')}}</td>
         <td class="table__body-column table__column">Q.{{number_format($payment->interest, 2, '.', ',')}}</td>
-        <td class="table__body-column table__column">Q.{{number_format($payment->capital, 2, '.', ',')}}</td>
+        <td class="table__body-column table__column">Q.{{number_format($payment->recovered_capital, 2, '.', ',')}}</td>
         <td class="table__body-column table__column">Q.{{number_format($payment->balance, 2, '.', ',')}}</td>
       </tr>
       @endforeach
