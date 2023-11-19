@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -15,76 +13,66 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS `SP_CALCULATE_CREDIT_PERCENTAGE_INTEREST`;');
 
         DB::unprepared('
-        CREATE PROCEDURE `SP_CALCULATE_CREDIT_PERCENTAGE_INTEREST`(
-            IN a_amount DECIMAL(11, 2),
-            IN a_fee DECIMAL(11,2),
-            IN a_interest_type INT,
-            IN a_interest_percentage INT,
-            IN a_initial_date DATE
+        CREATE  PROCEDURE `SP_CALCULATE_CREDIT_PERCENTAGE_INTEREST`(
+            IN _capital DECIMAL(10,2),
+            IN _fee DECIMAL(10,2),
+            IN _interest DECIMAL(10,2),
+            IN _payment_frequency INT,
+            IN _initial_date DATE
         )
-        BEGIN
-            DECLARE `current_date` DATE;
-            SET `current_date` = a_initial_date;
+        BEGIN	
+            SET @default_fee = _fee;
+            SET @balance = _capital;
+            SET @current_date = _initial_date;
         
-        
-            SET @interest = a_amount * (a_interest_percentage / 100);
-        
-            SET @default_interest_type = a_interest_type;
-            SET @default_interest_percentage = a_interest_percentage;
-            SET @default_fee = a_fee;
-        
-            CREATE TEMPORARY TABLE temp_payments_percentage(
-                payment_id INT PRIMARY KEY AUTO_INCREMENT,
-                balance DECIMAL(11,2),
-                capital DECIMAL(11,2),
-                fee DECIMAL(11,2) DEFAULT @default_fee,
-                interest_type INT DEFAULT @default_interest_type,
-                interest_percentage INT DEFAULT @default_interest_percentage,
-                interest DECIMAL(11,2) DEFAULT @interest,
-                payment_date DATE
+            CREATE  TEMPORARY TABLE payments_percentage_interest_temp(
+                payment_number INT PRIMARY KEY AUTO_INCREMENT,
+                balance DECIMAL(10,2),
+                fee DECIMAL(10,2) DEFAULT @default_fee,
+                interest DECIMAL(10,2),
+                recovered_capital DECIMAL(10,2),
+                payment_date DATE,
+                financial_default DECIMAL(10,2) DEFAULT 0
             );
         
-            CALCULATE_PAYMENTS: WHILE a_amount > 0 DO
-                IF @balance < @capital THEN 
-                    SET @capital = @balance;
+            CALCULATE_PAYMENTS: WHILE @balance > 0 DO
+            
+                IF @balance < @recovered_capital THEN
+                    SET @recovered_capital = @balance;
+                    SET @interest_amount = (@recovered_capital * (_interest / 100));
                     SET @balance = 0;
-                    SET @fee = @capital + @interest;
-                    INSERT INTO temp_payments_percentage(balance, capital, fee, payment_date) VALUES(
-                    @balance,
-                    @capital,
-                    @fee,
-                    `current_date`
-                );
+                    SET @default_fee = @recovered_capital + @interest_amount;
+                
+                    INSERT INTO payments_percentage_interest_temp(balance, recovered_capital, interest, fee, payment_date)
+                    VALUES(
+                        @balance,
+                        @recovered_capital,
+                        @interest_amount,
+                        @default_fee,
+                        @current_date
+                    );
+                
                     LEAVE CALCULATE_PAYMENTS;
                 END IF;
-        
             
-                SET @capital = a_fee - @interest;
-                SET @balance = a_amount - (a_fee - @interest);
-        
-                INSERT INTO temp_payments_percentage(balance, capital, payment_date) VALUES(
+                SET @interest_amount = (@balance * (_interest / 100));
+                SET @recovered_capital = @default_fee - @interest_amount;
+                SET @balance = @balance - @recovered_capital;
+                    
+                INSERT INTO payments_percentage_interest_temp(balance, recovered_capital, interest, payment_date)
+                VALUES(
                     @balance,
-                    @capital,
-                    `current_date`
+                    @recovered_capital,
+                    @interest_amount,
+                    @current_date
                 );
-        
-                  IF a_interest_type = 1 THEN
-                SET `current_date` = DATE_ADD(a_initial_date, INTERVAL 1 WEEK);
-            ELSEIF a_interest_type = 2 THEN
-                SET `current_date` = DATE_ADD(a_initial_date, INTERVAL 2 WEEK);
-            ELSEIF a_interest_type = 3 THEN
-                SET `current_date` = DATE_ADD(a_initial_date, INTERVAL 1 MONTH);
-            END IF;
-        
-                SET a_amount = @balance;
-                SET a_initial_date = `current_date`;
+            
+                SELECT `GET_NEXT_PAYMENT_DATE`(@current_date, _payment_frequency) INTO @current_date;
             END WHILE;
-        
-            SELECT * FROM temp_payments_percentage;
-        
-            DROP TABLE temp_payments_percentage ;
-        
-        END
+            
+            SELECT * FROM payments_percentage_interest_temp;
+            DROP  TABLE payments_percentage_interest_temp;
+        END        
         ');
     }
 

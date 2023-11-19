@@ -14,70 +14,84 @@ return new class extends Migration
 
         DB::unprepared('
         CREATE PROCEDURE `SP_CALCULATE_CREDIT_FIXED_INTEREST`(
-            IN a_amount DECIMAL(11,2),
-            IN a_fee DECIMAL(11,2),
-            IN a_interest DECIMAL(11, 2),
-            IN a_payment_frequency INT,
-            IN a_initial_date DATE
+            IN _capital DECIMAL(10,2),
+            IN _fee DECIMAL(10,2),
+            IN _interest DECIMAL(10,2),
+            IN _payment_frequency INT,
+            IN _initial_date DATE
         )
         BEGIN
-            SET @current_date = a_initial_date;
+            SET @balance = _capital;
+            SET @default_fee = _fee;
+            SET @current_date = _initial_date;
+            SET @interest_amount = 0.00;
         
-            SET @default_interest = a_interest;
-            SET @default_fee = a_fee;
-            SET @default_payment_frequency = a_payment_frequency;
+            SELECT `GET_NEXT_PAYMENT_DATE`(@current_date, _payment_frequency) INTO @next_payment_date;
         
-            CREATE TEMPORARY TABLE temp_payments_fixed_interest(
-                payment_id INT PRIMARY KEY AUTO_INCREMENT,
-                fee DECIMAL(11,2) DEFAULT @default_fee,
-                balance DECIMAL(11,2),
-                capital DECIMAL(11,2),
-                interest DECIMAL(11,2) DEFAULT @default_interest,
-                payment_date DATE,
-                payment_frequency INT DEFAULT @default_payment_frequency
-            );
+            SELECT `GET_FIXED_INTEREST`(
+                @current_date,
+                @next_payment_date,
+                _interest,
+                @interest_amount,
+                _payment_frequency
+            ) INTO @interest_amount;
         
+            SET @recovered_capital = @default_fee - @interest_amount;
         
-            CALCULATE_PAYMENTS:WHILE a_amount > 0 DO
-                IF @balance < @capital THEN
-                    SET @capital = @balance;
+            CREATE TEMPORARY TABLE payments_fixed_interest(
+                payment_number INT PRIMARY KEY AUTO_INCREMENT,
+                balance DECIMAL(10,2),
+                fee DECIMAL(10,2) DEFAULT @default_fee,
+                interest DECIMAL(10,2),
+                recovered_capital DECIMAL(10,2),
+                payment_date DATE
+            );  
+        
+            CALCULATE_PAYMENTS: WHILE @balance > 0 DO
+                IF @balance < @recovered_capital THEN
+                    SET @recovered_capital = @balance;
                     SET @balance = 0;
-                    SET @fee = @capital + @default_interest;
+                   
+                    SET @default_fee = @recovered_capital + @interest_amount;
         
-                    INSERT INTO temp_payments_fixed_interest(balance, capital, fee, payment_date) VALUES(
-                        @balance,
-                        @capital,
-                        @fee,
-                        @current_date
-                    );
+                    INSERT INTO payments_fixed_interest(balance, fee, recovered_capital, interest, payment_date)
+                        VALUES(
+                            @balance,
+                            @default_fee,
+                            @recovered_capital,
+                            @interest_amount,
+                            @current_date
+                        );
         
                     LEAVE CALCULATE_PAYMENTS;
-                END IF; 
-                SET @capital = a_fee - a_interest;
-                SET @balance = a_amount - @capital;
-        
-                INSERT INTO temp_payments_fixed_interest(balance, capital, payment_date) VALUES(
-                    @balance, 
-                    @capital,
-                    @current_date
-                );
-        
-                IF a_payment_frequency = 1 THEN
-                    SET @current_date = DATE_ADD(a_initial_date, INTERVAL 1 WEEK);
-                ELSEIF a_payment_frequency = 2 THEN
-                    SET @current_date = DATE_ADD(a_initial_date, INTERVAL 2 WEEK);
-                ELSEIF a_payment_frequency = 3 THEN
-                    SET @current_date = DATE_ADD(a_initial_date, INTERVAL 1 MONTH);
                 END IF;
         
-                SET a_initial_date = @current_date;
-                set a_amount = @balance;
+                IF _payment_frequency = 3 THEN
+                    SET @recovered_capital = @default_fee - @interest_amount;
+                END IF; 
+                SET @balance = @balance - @recovered_capital;
+        
+                INSERT INTO payments_fixed_interest(balance, recovered_capital, interest, payment_date)
+                VALUES(
+                    @balance,
+                    @recovered_capital,
+                    @interest_amount,
+                    @current_date
+                );
+            
+                SET @current_date = @next_payment_date;
+                SELECT `GET_NEXT_PAYMENT_DATE`(@current_date, _payment_frequency) INTO @next_payment_date;
+                SELECT `GET_FIXED_INTEREST`(
+                    @current_date,
+                    @next_payment_date,
+                    _interest,
+                    @interest_amount,
+                    _payment_frequency
+                ) INTO @interest_amount;
             END WHILE;
         
-        
-            SELECT * FROM temp_payments_fixed_interest;
-        
-            DROP TABLE temp_payments_fixed_interest;
+            SELECT * FROM payments_fixed_interest;
+            DROP TEMPORARY TABLE payments_fixed_interest;
         END        
         ');
     }   
