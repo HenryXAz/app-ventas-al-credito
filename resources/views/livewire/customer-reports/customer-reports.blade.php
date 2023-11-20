@@ -116,12 +116,12 @@
                     @php
                         $payment = $credit->payments->where('status', '2')->first();
                     @endphp
-                    {{ $payment ? \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') : 'N/A' }}
+                    {{ $payment ? \Carbon\Carbon::parse($payment->payment_day)->format('d/m/Y') : 'N/A' }}
                 </td>
             </tr>
             
         @empty
-                <tr><td colspan="3">No hay créditos pagados en este rango de fechas.</td></tr>
+               
             @endforelse
         </tbody>
     </table>
@@ -145,7 +145,7 @@
                 </tr>
             @endif
             @empty
-                <tr><td colspan="3">No hay créditos no pagados en este rango de fechas.</td></tr>
+               
             @endforelse
         </tbody>
     </table>
@@ -160,16 +160,15 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($upcomingPayments as $payment)
-            @if($startDate<= (\Carbon\Carbon::parse($payment->payment_date)->format('Y-m-d')) && $endDate>= (\Carbon\Carbon::parse($payment->payment_date)->format('Y-m-d')))
-            <tr>
-                <td>{{ $payment->customer->name ?? 'N/A' }}</td>
-                <td>{{ number_format($payment->fee ?? 0, 2, ',', '.') }}</td>
-                <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</td>
+            @forelse ($unpaidCredits as $credit)
+            @if($startDate<= (\Carbon\Carbon::parse($credit->next_payment_date)->format('Y-m-d')) && $endDate>= (\Carbon\Carbon::parse($credit->next_payment_date)->format('Y-m-d')))
+                <td>{{ $credit->name_customer ?? 'N/A'  }}</td>
+                <td>{{ number_format($credit->fee ?? 0, 2, ',', '.')  }}</td>
+                <td>{{  \Carbon\Carbon::parse($credit->next_payment_date)->format('d/m/Y')}}</td>
             </tr>
-            @endif
+        @endif
         @empty
-            <tr><td colspan="3">No hay pagos próximos en este rango de fechas.</td></tr>
+          
         @endforelse
         </tbody>
     </table>
