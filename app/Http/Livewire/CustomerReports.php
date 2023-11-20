@@ -89,8 +89,8 @@ class CustomerReports extends Component
     {
         // La validación para la exportación debe ser en el formato d/m/Y porque es el formato que se mostrará en el PDF
         $this->validate([
-            'startDate' => 'required|date_format:d/m/Y',
-            'endDate' => 'required|date_format:d/m/Y',
+            'startDate' => 'required|date_format:Y-m-d',
+            'endDate' => 'required|date_format:Y-m-d',
         ]);
 
         $data = [

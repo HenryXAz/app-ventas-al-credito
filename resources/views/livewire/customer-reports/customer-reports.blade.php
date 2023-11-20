@@ -93,7 +93,8 @@
 
 <div class="flex flex-col md:flex-row gap-5">
 
-
+<h2 class="w-full text-sm md:text-2xl my-3 font-light">
+        Reporte del {{\Carbon\Carbon::parse($startDate)->format('d-m-Y')}} hasta {{\Carbon\Carbon::parse($endDate)->format('d-m-Y')}} </h2>
 
 </div>
 <h2 class="sub">Créditos Pagados</h2>
@@ -107,6 +108,7 @@
         </thead>
         <tbody>
             @forelse ($paidCredits as $credit)
+  
             <tr>
                 <td>{{ $credit->customer->name ?? 'N/A' }}</td>
                 <td>{{ number_format($credit->fee ?? 0, 2, ',', '.') }}</td>
@@ -117,6 +119,7 @@
                     {{ $payment ? \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') : 'N/A' }}
                 </td>
             </tr>
+            
         @empty
                 <tr><td colspan="3">No hay créditos pagados en este rango de fechas.</td></tr>
             @endforelse
@@ -134,11 +137,13 @@
         </thead>
         <tbody>
             @forelse ($unpaidCredits as $credit)
+            @if($startDate<= (\Carbon\Carbon::parse($credit->due_date)->format('Y-m-d')) && $endDate>= (\Carbon\Carbon::parse($credit->due_date)->format('Y-m-d')))
                 <tr>
                     <td>{{ $credit->customer->name ?? 'N/A' }}</td>
                     <td>{{ number_format($credit->fee ?? 0, 2, ',', '.') }}</td>
                     <td>{{ \Carbon\Carbon::parse($credit->due_date)->format('d/m/Y') }}</td>
                 </tr>
+            @endif
             @empty
                 <tr><td colspan="3">No hay créditos no pagados en este rango de fechas.</td></tr>
             @endforelse
@@ -156,11 +161,13 @@
         </thead>
         <tbody>
             @forelse ($upcomingPayments as $payment)
+            @if($startDate<= (\Carbon\Carbon::parse($payment->payment_date)->format('Y-m-d')) && $endDate>= (\Carbon\Carbon::parse($payment->payment_date)->format('Y-m-d')))
             <tr>
                 <td>{{ $payment->customer->name ?? 'N/A' }}</td>
                 <td>{{ number_format($payment->fee ?? 0, 2, ',', '.') }}</td>
                 <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</td>
             </tr>
+            @endif
         @empty
             <tr><td colspan="3">No hay pagos próximos en este rango de fechas.</td></tr>
         @endforelse
