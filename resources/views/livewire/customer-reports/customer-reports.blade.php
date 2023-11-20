@@ -94,7 +94,6 @@
 <div class="flex flex-col md:flex-row gap-5">
 
 <h2 class="w-full text-sm md:text-2xl my-3 font-light">
-        Reporte del {{\Carbon\Carbon::parse($startDate)->format('d-m-Y')}} hasta {{\Carbon\Carbon::parse($endDate)->format('d-m-Y')}} </h2>
 
 </div>
 <h2 class="sub">Créditos Pagados</h2>

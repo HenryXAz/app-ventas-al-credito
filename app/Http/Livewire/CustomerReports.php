@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Credit;
 use Carbon\Carbon;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Log;
 
 class CustomerReports extends Component
@@ -103,8 +103,8 @@ class CustomerReports extends Component
 
         $pdf = PDF::loadView('livewire.customer-reports.pdf-customers', $data);
 
-        $startDateForFilename = Carbon::createFromFormat('d/m/Y', $this->startDate)->format('Y-m-d');
-        $endDateForFilename = Carbon::createFromFormat('d/m/Y', $this->endDate)->format('Y-m-d');
+        $startDateForFilename = Carbon::createFromFormat('Y-m-d', $this->startDate)->format('Y-m-d');
+        $endDateForFilename = Carbon::createFromFormat('Y-m-d', $this->endDate)->format('Y-m-d');
 
         return response()->streamDownload(
             fn () => print($pdf->output()),
