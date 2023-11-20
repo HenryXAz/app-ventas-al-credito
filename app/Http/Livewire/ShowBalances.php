@@ -120,7 +120,7 @@ class ShowBalances extends Component
   public function chooseCustomer(int $id)
   {
     $this->search = "";
-    $this->customerSelected = Customer::find($id)->get(['id', 'name', 'last_name', 'dpi']);
+    $this->customerSelected = Customer::where("id", $id)->get(['id', 'name', 'last_name', 'dpi']);
     $this->credits = Credit::where("id_customer", $this->customerSelected[0]->id)->get();
   }
 
