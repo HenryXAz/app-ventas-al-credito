@@ -1,13 +1,7 @@
 <main class="flex flex-col items-center flex-1 px-4 pt-6 sm:justify-center">
     <div>
-        {{-- <a href="/"> --}}
-            {{-- <x-application-logo class="w-20 h-20" /> --}}
-        {{-- </a> --}}
-
-        {{-- <h2 class="text-3xl text-purple-600 dark:text-purple-500">Iniciar Sesión</h2> --}}
-
         <a href="/">
-          <img src="{{asset('images/logo-business.png')}}" alt="logo" width="200">
+          <img src="{{asset('images/logo-business.jpeg')}}" alt="logo" width="200">
         </a>
 
     </div>

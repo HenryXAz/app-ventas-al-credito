@@ -8,7 +8,7 @@
   <title>listado clientes</title>
 </head>
 <body>
-  <img src="{{public_path('images/logo-business.png')}}" alt="logo bussiness" width="50">
+  <img src="{{public_path('images/logo-business.jpeg')}}" alt="logo bussiness" width="50">
 
   <h1 class="title">Listado de clientes registrados</h1>
 

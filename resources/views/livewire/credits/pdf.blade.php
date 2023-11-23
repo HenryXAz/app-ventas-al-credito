@@ -8,7 +8,7 @@
   <title>estimacion</title>
 </head>
 <body>
-  <img src="{{public_path('images/logo-business.png')}}" alt="bussiness logo" width="50">
+  <img src="{{public_path('images/logo-business.jpeg')}}" alt="bussiness logo" width="50">
   <div class="container" style="page-break-after: auto">
   <h1 class="title">Proyección</h1>
 

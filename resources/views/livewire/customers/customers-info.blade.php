@@ -15,7 +15,7 @@
   </style>
 
   <div class="container-data">
-    <h2 class="message"><img src="{{public_path('images/logo-business.png')}}" alt="logo bussiness" width="50"></h2>
+    <h2 class="message"><img src="{{public_path('images/logo-business.jpeg')}}" alt="logo bussiness" width="50"></h2>
     <h1 class="messge">Información Cliente</h1>
   </div>
 

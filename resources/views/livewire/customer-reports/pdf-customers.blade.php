@@ -65,11 +65,26 @@
   <title>reporte clientes</title>
 </head>
 <body>
+<<<<<<< Updated upstream
   <img src="{{public_path('images/logo-business.png')}}" alt="logo bussiness" width="50">
   <h1 class="title">Listado reporte clientes</h1>
     
   <h2 class="w-full text-sm md:text-2xl my-3 font-light">
         Reporte del {{\Carbon\Carbon::parse($startDate)->format('d-m-Y')}} hasta {{\Carbon\Carbon::parse($endDate)->format('d-m-Y')}} </h2>
+=======
+  <img src="{{public_path('images/logo-business.jpeg')}}" alt="logo bussiness" width="50">
+  @if($report === "1")
+    <h1 class="title">Clientes que pagan esta semana</h1>
+
+    <p class="center">(Correspondiente a la semana {{\Carbon\Carbon::parse($startWeek)->format('d-m-Y')}} al {{\Carbon\Carbon::parse($endWeek)->format('d-m-Y')}}) </p>
+  @elseif($report === "2")
+    <h1 class="title">Clientes que no pagan esta semana</h1>
+    <p class="center">(Correspondiente a la semana {{\Carbon\Carbon::parse($startWeek)->format('d-m-Y')}} al {{\Carbon\Carbon::parse($endWeek)->format('d-m-Y')}}) </p>
+  @elseif($report === "3")
+    <h1 class="title">Clientes con pagos atrasados</h1>
+    <p class="center">Registro de pagos atrasados emitido el {{\Carbon\Carbon::today('America/Guatemala')->format('d-m-Y')}}</p>
+  @endif
+>>>>>>> Stashed changes
 
 </div>
 <h2 class="sub">Créditos Pagados</h2>
