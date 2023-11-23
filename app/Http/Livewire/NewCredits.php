@@ -56,7 +56,7 @@ class NewCredits extends Component
       $search = $this->search . "%";
       $this->customers = Customer::where("name", "like", $search)
         ->orWhere("last_name", "like", $search)
-        ->orWhere("dpi", "like", $search) 
+        ->orWhere("dpi", "like", $search)
         ->limit(10)
         ->get();
     }
@@ -126,33 +126,37 @@ class NewCredits extends Component
       return;
     }
 
-    $this->estimate = !$this->estimate;
+    try {
+      $this->payments = match (true) {
+        $this->interestType === "1" =>
+        DB::select('CALL `SP_CALCULATE_CREDIT_FIXED_INTEREST`(?,?,?,?,?)', [
+          $this->amount,
+          $this->fee,
+          $this->interest,
+          $this->paymentFrequency,
+          $this->paymentDate,
+        ]),
+        $this->interestType === "2" =>
+        DB::select('CALL `SP_CALCULATE_CREDIT_PERCENTAGE_INTEREST`(?,?,?,?,?)', [
+          $this->amount,
+          $this->fee,
+          $this->interest,
+          $this->paymentFrequency,
+          $this->paymentDate,
+        ]),
+        default => [],
+      };
 
-    $this->payments = match(true)
-    {
-      $this->interestType === "1" => 
-      DB::select('CALL `SP_CALCULATE_CREDIT_FIXED_INTEREST`(?,?,?,?,?)', [
-        $this->amount,
-        $this->fee,
-        $this->interest,
-        $this->paymentFrequency,
-        $this->paymentDate,
-      ]),
-      $this->interestType === "2" => 
-      DB::select('CALL `SP_CALCULATE_CREDIT_PERCENTAGE_INTEREST`(?,?,?,?,?)', [
-        $this->amount,
-        $this->fee,
-        $this->interest,
-        $this->paymentFrequency,
-        $this->paymentDate,
-      ]),
-      default => [],
-    };
+      $this->payments = collect($this->payments);
+      $this->totalInterest = $this->payments->reduce(function ($carry, $current) {
+        return $carry + $current->interest;
+      }, 0.00);
 
-    $this->payments = collect($this->payments);
-    $this->totalInterest = $this->payments->reduce(function ($carry, $current) {
-      return $carry + $current->interest;
-    }, 0.00);
+      $this->estimate = !$this->estimate;
+    } catch (\Throwable $th) {
+      session()->flash('error-credit', 'Error en el cálculo, asegúrese de ingresar datos correctos');
+      return;
+    }
   }
 
   public function save()
@@ -160,8 +164,7 @@ class NewCredits extends Component
     $this->validate();
     $carPhotoPath = $this->carPhoto->store("carPhotos", "public");
 
-    if($this->customerSelected == null) 
-    {
+    if ($this->customerSelected == null) {
       return;
     }
 
