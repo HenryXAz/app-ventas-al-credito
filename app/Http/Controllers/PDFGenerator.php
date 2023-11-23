@@ -26,25 +26,6 @@ class PDFGenerator extends Controller
     ]);
 
     return $pdf->stream();
-
-    // $pdf = PDF::loadView("livewire.credits.pdf", [
-    //   "nameCustomer" => json_decode($req->nameCustomer),
-    //   "lastNameCustomer" => json_decode($req->lastNameCustomer),
-    //   "dpiCustomer" => json_decode($req->dpiCustomer),
-    //   "amount" => json_decode($req->amount),
-    //   "interest" => json_decode($req->interest),
-    //   "interestType" => json_decode($req->interestType),
-    //   "total_interest" => json_decode($req->total_interest),
-
-    //   "balances" => json_decode($req->balances),
-    //   "currentCapital" => json_decode($req->currentCapital),
-    //   "paymentInterests" => json_decode($req->paymentInterests),
-    //   "fees" => json_decode($req->fees),
-    //   "dates" => json_decode($req->dates),
-    //   "paymentNumber" => json_decode($req->paymentNumber),
-    // ]);
-
-    // return $pdf->stream();
   }
 
   public function pdfInvoice(Request $req)
