@@ -29,7 +29,7 @@
                     {{$credit->payment_frequency}}
                     @endif
                 </span></p>
-            <img src="{{asset(" storage/" . $credit->car_image)}}" alt="foto vehículo" width="100">
+            <img src="{{asset("storage/" . $credit->car_image)}}" alt="foto vehículo" width="100">
 
         </div>
 
