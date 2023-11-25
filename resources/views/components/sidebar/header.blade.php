@@ -1,7 +1,7 @@
 <div class="flex items-center justify-between flex-shrink-0 px-3">
     <!-- Logo -->
     <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2">
-        <img src="{{asset('images/logo-business.jpeg')}}" width="50" alt="logo">
+        <img src="{{asset('images/logo-business.jpeg')}}" width="100" alt="logo">
     </a>
 
     <!-- Toggle button -->
