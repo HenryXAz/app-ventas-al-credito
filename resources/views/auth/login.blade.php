@@ -18,7 +18,7 @@
                             <x-heroicon-o-mail aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
                         <x-input withicon id="email" class="block w-full" type="email" name="email"
-                            :value="'admin@gmail.com'" placeholder="{{ __('Email') }}" required autofocus />
+                        placeholder="{{ __('Email') }}" required autofocus />
                     </x-input-with-icon-wrapper>
                 </div>
 
@@ -31,9 +31,7 @@
                             <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
                         <x-input withicon id="password" class="block w-full" type="password" name="password" required
-                            autocomplete="current-password" placeholder="{{ __('Password') }}" 
-                          :value="'admin1234'"    
-                        />
+                            autocomplete="current-password" placeholder="{{ __('Password') }}"/>
                     </x-input-with-icon-wrapper>
                 </div>
 
@@ -45,12 +43,7 @@
                             name="remember">
                         <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('mantener sesión') }}</span>
                     </label>
-{{-- 
-                    @if (Route::has('password.request'))
-                    <a class="text-sm text-blue-500 hover:underline" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                    @endif --}}
+
                 </div>
 
                 <div>
@@ -60,14 +53,6 @@
                     </x-button>
                 </div>
 
-                {{-- @if (Route::has('register'))
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('Don’t have an account?') }}
-                    <a href="{{ route('register') }}" class="text-blue-500 hover:underline">
-                        {{ __('Register') }}
-                    </a>
-                </p>
-                @endif --}}
             </div>
         </form>
     </x-auth-card>
