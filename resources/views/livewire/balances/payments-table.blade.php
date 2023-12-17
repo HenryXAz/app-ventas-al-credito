@@ -6,6 +6,7 @@
                 <th class="py-3 px-6">Fecha</th>
                 <th class="py-3 px-6">Cuota</th>
                 <th class="py-3 px-6">Capital</th>
+                <th class="py-3 px-6">Interés</th>
                 <th class="py-3 px-6">Mora</th>
                 <th class="py-3 px-6">Saldo</th>
                 <th class="py-3 px-6"></th>
@@ -28,6 +29,9 @@
                     <span class="text-blue-400">Q. {{ number_format($payment->capital, 2, '.', ',') }}</span>
                 </td>
                 <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                    <span class="text-blue-400">Q. {{ number_format($payment->interest, 2, '.', ',') }}</span>
+                </td>
+                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
                     <span class="text-blue-400">Q. {{ number_format($payment->financial_default, 2, '.', ',') }}</span>
                 </td>
                 <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
@@ -41,26 +45,15 @@
                     </x-button>
                     @endif
 
-                    <form action='{{ route("pdfInvoice") }}' method="POST" target="_blank">
-                        @csrf
-
-                        <input type="hidden" name="nameCustomer" value="{{json_encode($customerSelected[0]->name)}}" />
-                        <input type="hidden" name="lastNameCustomer"
-                            value="{{json_encode($customerSelected[0]->last_name)}}" />
-                        <input type="hidden" name="dpiCustomer" value="{{json_encode($customerSelected[0]->dpi)}}" />
-                        <input type="hidden" name="paymentNumber" value="{{json_encode($payment->payment_number)}}" />
-                        <input type="hidden" name="paymentDate" value="{{json_encode($payment->payment_date)}}" />
-                        <input type="hidden" name="fee" value="{{json_encode($payment->fee)}}" />
-                        <input type="hidden" name="method_payment" value="{{json_encode($payment->method_payment)}}" />
-                        <input type="hidden" name="paymentDay" value="{{json_encode($payment->payment_day)}}" />
-                        <input type="hidden" name="financialDefault"
-                            value="{{json_encode($payment->financial_default)}}">
-                        <input type="hidden" name="balance" value="{{json_encode($payment->balance)}}">
-                        <input type="hidden" name="receivedBy" value="{{json_encode(Auth::user()->name)}}">
-                        <x-button variant="info" type="submit" wire:submit.prevent="submit">
-                            recibo
-                        </x-button>
-                    </form>
+                    <x-button variant="info" 
+                        href="{{route('pdfInvoice', [
+                            $customerSelected[0]->id,
+                            $payment->id
+                        ])}}"
+                        target="_blank"
+                        >
+                        Recibo
+                    </x-button>
                 </td>
             </tr>
 

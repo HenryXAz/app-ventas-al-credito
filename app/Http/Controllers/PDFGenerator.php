@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Credit;
 use App\Models\Customer;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use App\Models\Payment;
 use Carbon\Carbon;
-use PDF;
+use \Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 use Illuminate\Support\Facades\DB;
 
@@ -28,21 +28,15 @@ class PDFGenerator extends Controller
     return $pdf->stream();
   }
 
-  public function pdfInvoice(Request $req)
+  public function pdfInvoice($customer_id, $payment_id)
   {
+    $payment = Payment::where('id', $payment_id)->get();
+    $customer = Customer::where('id', $customer_id)->get();
+
     $pdf = PDF::loadView("livewire.balances.invoice", [
-      "nameCustomer" => json_decode($req->nameCustomer),
-      "lastNameCustomer" => json_decode($req->lastNameCustomer),
-      "dpiCustomer" => json_decode($req->dpiCustomer),
-      "paymentNumber" => json_decode($req->paymentNumber),
-      "fee" => json_decode($req->fee),
-      "paymentDate" => json_decode($req->paymentDate),
-      "paymentDay" => json_decode($req->paymentDay),
-      "methodPayment" => json_decode($req->method_payment),
-      "financialDefault" => json_decode($req->financialDefault),
-      "balance" => json_decode($req->balance),
-      "receivedBy" => json_decode($req->receivedBy),
-    ]);
+      'customer' => $customer[0], 
+      'payment' => $payment[0]]);
+      
     $pdf->set_paper("21.59 27.94", "landscape");
     return $pdf->stream();
   }
@@ -117,12 +111,6 @@ class PDFGenerator extends Controller
 
   public function customersInfo(Request $req)
   { 
-    $conyuge = null;
-    $married = json_decode($req->married);
-    
-    // if($married) {
-    //   $conyuge = DB::table("conyuges")->where("id_customer", "=", json_decode($req->id))->get()->first();
-    // }
     $pdf = PDF::loadView("livewire.customers.customers-info", [
       "name" => json_decode($req->name),
       "last_name" => json_decode($req->last_name),
@@ -150,7 +138,6 @@ class PDFGenerator extends Controller
       "emailThirdReference" => json_decode($req->emailThirdReference),
       "married" => json_decode($req->married),
       "rent" => json_decode($req->rent),
-      // "conyuge" => $conyuge,
     ]);
 
     return $pdf->stream();

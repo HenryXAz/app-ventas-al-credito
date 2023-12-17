@@ -90,7 +90,7 @@ class ShowBalances extends Component
 
       Payment::create([
         'payment_number' => $paymentInfo[0]->payment_number,
-        'payment_date' => \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d'),
+        'payment_date' => \Carbon\Carbon::parse($paymentInfo[0]->current_payment_date)->format('Y-m-d'),
         'payment_day' => \Carbon\Carbon::today('America/Guatemala')->format('Y-m-d'),
         'interest' => $paymentInfo[0]->interest_amount,
         'fee' => $this->fee,
@@ -144,7 +144,7 @@ class ShowBalances extends Component
     $this->payments = Payment::where("id_credit", $this->credit->id)
       ->orderBy('payment_number' , 'desc')
       ->get();
-  }
+    }
 
   public function unSelectCredit()
   {

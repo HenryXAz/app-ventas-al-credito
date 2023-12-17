@@ -11,23 +11,20 @@
   
   <div class="container-data">
     <h2 class="message"><img src="{{public_path('images/logo-business.jpeg')}}" alt="logo bussiness" width="50"></h2>
-    <h2 class="message"><span class="meta-data">No de Boleta</span> {{$paymentNumber}} </h2>
-    <!-- <h2 class="message"><span class="meta-data">Comprobante de Pago</span></h2> -->
+    <h2 class="message"><span class="meta-data">No de Boleta</span> {{$payment->payment_number}} </h2>
   </div>
 
   <div class="clear"></div>
 
-  {{-- <h1 class="title">comprobante de Pago</h1> --}}
-
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Fecha límite de pago</span> 
-      {{\Carbon\Carbon::parse($paymentDate)->format('d-m-Y')}} 
+      {{\Carbon\Carbon::parse($payment->payment_date)->format('d-m-Y')}} 
     </h2>
     <h2 class="message">
       <span class="meta-data">
         Fecha de pago
       </span>
-        {{\Carbon\Carbon::parse($paymentDay)->format('d-m-Y')}}
+        {{\Carbon\Carbon::parse($payment->payment_day)->format('d-m-Y')}}
     </h2>
   </div>
 
@@ -36,13 +33,13 @@
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Cliente 
     </span> 
-        {{$nameCustomer}} {{$lastNameCustomer}} 
+        {{$customer->name}} {{$customer->last_name}} 
     </h2>
     <h2 class="message">
       <span class="meta-data">
         DPI
       </span>
-      {{$dpiCustomer}}
+      {{$customer->dpi}}
     </h2>
   </div>
 
@@ -50,13 +47,13 @@
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Cuota </span> 
-      Q. {{$fee}} 
+      Q. {{number_format($payment->fee, 2, '.', ',')}} 
     </h2>
     <h2 class="message">
       <span class="meta-data">
         método de pago 
       </span>
-        @if($methodPayment === "1")
+        @if($payment->method_payment === "1")
           efectivo
         @else 
           banco
@@ -68,10 +65,18 @@
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">mora </span> 
-      Q. {{$financialDefault}} 
+      Q. {{number_format($payment->financial_default, 2, '.', ',')}} 
     </h2>
     <h2 class="message"><span class="meta-data">saldo </span> 
-      Q. {{$balance}} 
+      Q. {{number_format($payment->balance, 2, '.', ',')}} 
+    </h2>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="container-data">
+    <h2 class="message"><span class="meta-data">Interés </span> 
+      Q. {{number_format($payment->interest, 2, '.', ',')}} 
     </h2>
   </div>
 
@@ -81,7 +86,7 @@
 
   <div class="container-data">
     <h2 class="message"><span class="meta-data">Fue atendido por </span> 
-      {{$receivedBy}}
+      {{$payment->received_by}}
     </h2>
   </div>
 
