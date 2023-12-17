@@ -101,7 +101,7 @@ class CustomerReports extends Component
             'upcomingPayments' => $this->upcomingPayments,
         ];
 
-        $pdf = PDF::loadView('livewire.customer-reports.pdf-customers', $data);
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('livewire.customer-reports.pdf-customers', $data);
 
         $startDateForFilename = Carbon::createFromFormat('Y-m-d', $this->startDate)->format('Y-m-d');
         $endDateForFilename = Carbon::createFromFormat('Y-m-d', $this->endDate)->format('Y-m-d');
